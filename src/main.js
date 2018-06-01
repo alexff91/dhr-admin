@@ -21,7 +21,7 @@ import './assets/styles/main.scss'
 
 Vue.use(element)
 Vue.use(plugins)
-sync(store, router, { moduleName: 'route' })
+sync(store, router, {moduleName: 'route'})
 
 /**
  * Config
