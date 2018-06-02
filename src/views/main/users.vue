@@ -19,12 +19,12 @@
                   @selection-change="handleSelectionChange" @filter-change="handleFilterChange"
                   @sort-change="handleSortChange">
             <el-table-column type="selection"></el-table-column>
-            <el-table-column prop="username" label="Username" min-width="180" sortable="custom">
+            <el-table-column prop="name" label="Username" min-width="180" sortable="custom">
                 <template slot-scope="scope">
                     <div class="user-info">
-                        <img :src="scope.row.meta.avatar" alt="scope.row.name">
+                        <!--<img :src="scope.row.meta.avatar" alt="scope.row.name">-->
                         <div class="names">
-                            <router-link to="/">{{ scope.row.username }}</router-link>
+                            <router-link to="/">{{ scope.row.name }}</router-link>
                             <span>{{ scope.row.name }}</span>
                         </div>
                     </div>
@@ -71,11 +71,9 @@ export default {
         {text: '已禁用', value: 'forbidden'}
       ],
       roles: [
-        {text: '管理员', value: 'administrator'},
-        {text: '作者', value: 'author'},
-        {text: '编辑', value: 'editor'},
-        {text: '协同者', value: 'contributor'},
-        {text: '订阅者', value: 'subscriber'}
+        {text: '管理员', value: 'admin'},
+        {text: '作者', value: 'hr'},
+        {text: '编辑', value: 'reviewer'}
       ]
     }
     return {
