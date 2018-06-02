@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div class="heading">
-      <h1 class="title">Permissions</h1>
+    <div>
+        <div class="heading">
+            <h1 class="title">Permissions</h1>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>

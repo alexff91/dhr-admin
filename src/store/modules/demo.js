@@ -31,11 +31,11 @@ const mutations = {
  * @type {Object}
  */
 const actions = {
-  changeMessage ({ commit }, message) {
+  changeMessage ({commit}, message) {
     console.log(message)
     commit('CHANGE_MESSAGE', message)
   }
 }
 
 // Export module
-export default { state, getters, mutations, actions }
+export default {state, getters, mutations, actions}

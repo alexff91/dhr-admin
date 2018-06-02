@@ -1,51 +1,60 @@
 <template>
-  <div>
-    <div class="heading">
-      <h1 class="title" v-if="!selections.length">{{ total }}个用户</h1>
-      <h1 class="title" v-else>{{ selections.length }}个被选中</h1>
-      <transition name="fade">
-        <ul class="action" v-show="selections.length">
-          <li><a href="#" class="icon-before icon-checkmark" @click="handleToggleSelection(true)"></a></li>
-          <li><a href="#" class="icon-before icon-blocked" @click="handleToggleSelection(false)"></a></li>
-          <li><a href="#" class="icon-before icon-bin" @click="handleDeleteSelection"></a></li>
-        </ul>
-      </transition>
-      <form class="search icon-before icon-search" @submit.prevent="handleSearch">
-        <input type="text" placeholder="Search" v-model="search">
-      </form>
-      <el-button type="primary" size="small" icon="el-icon-plus">Add</el-button>
+    <div>
+        <div class="heading">
+            <h1 class="title" v-if="!selections.length">{{ total }}个用户</h1>
+            <h1 class="title" v-else>{{ selections.length }}个被选中</h1>
+            <transition name="fade">
+                <ul class="action" v-show="selections.length">
+                    <li><a href="#" class="icon-before icon-checkmark" @click="handleToggleSelection(true)"></a></li>
+                    <li><a href="#" class="icon-before icon-blocked" @click="handleToggleSelection(false)"></a></li>
+                    <li><a href="#" class="icon-before icon-bin" @click="handleDeleteSelection"></a></li>
+                </ul>
+            </transition>
+            <form class="search icon-before icon-search" @submit.prevent="handleSearch">
+                <input type="text" placeholder="Search" v-model="search">
+            </form>
+            <el-button type="primary" size="small" icon="el-icon-plus">Add</el-button>
+        </div>
+        <el-table :data="users" v-loading="loading" element-loading-text="Loading..."
+                  @selection-change="handleSelectionChange" @filter-change="handleFilterChange"
+                  @sort-change="handleSortChange">
+            <el-table-column type="selection"></el-table-column>
+            <el-table-column prop="username" label="Username" min-width="180" sortable="custom">
+                <template slot-scope="scope">
+                    <div class="user-info">
+                        <img :src="scope.row.meta.avatar" alt="scope.row.name">
+                        <div class="names">
+                            <router-link to="/">{{ scope.row.username }}</router-link>
+                            <span>{{ scope.row.name }}</span>
+                        </div>
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column prop="status" label="Status" width="120" align="center" :filters="filters.status"
+                             column-key="status">
+                <template slot-scope="scope">
+                    <i class="status status-primary" title="Activated" v-if="scope.row.status === 'activated'"
+                       @click="handleToggleStatus(scope.row)"></i>
+                    <i class="status status-warning" title="Email Unactivated"
+                       v-else-if="scope.row.status === 'email-unactivated'"></i>
+                    <i class="status status-warning" title="Phone Unactivated"
+                       v-else-if="scope.row.status === 'phone-unactivated'"></i>
+                    <i class="status status-danger" title="Forbidden" v-else-if="scope.row.status === 'forbidden'"
+                       @click="handleToggleStatus(scope.row)"></i>
+                </template>
+            </el-table-column>
+            <el-table-column prop="email" label="Email" width="200" sortable="custom"></el-table-column>
+            <el-table-column prop="phone" label="Mobile" width="140" sortable="custom"></el-table-column>
+            <el-table-column prop="roles" label="Role" width="240" :filters="filters.roles" column-key="roles">
+                <template slot-scope="scope">
+                    <el-tag type="success" v-for="item in scope.row.roles" :key="item">{{ item }}</el-tag>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination :total="total" :page-size="size" :current-page="page" :page-sizes="[20, 30, 50]"
+                       layout="total, sizes, prev, pager, next" @size-change="handlePageSizeChange"
+                       @current-change="handleCurrentPageChange"></el-pagination>
     </div>
-    <el-table :data="users" v-loading="loading" element-loading-text="Loading..." @selection-change="handleSelectionChange" @filter-change="handleFilterChange" @sort-change="handleSortChange">
-      <el-table-column type="selection"></el-table-column>
-      <el-table-column prop="username" label="Username" min-width="180" sortable="custom">
-        <template slot-scope="scope">
-          <div class="user-info">
-            <img :src="scope.row.meta.avatar" alt="scope.row.name">
-            <div class="names">
-              <router-link to="/">{{ scope.row.username }}</router-link>
-              <span>{{ scope.row.name }}</span>
-            </div>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column prop="status" label="Status" width="120" align="center" :filters="filters.status" column-key="status">
-        <template slot-scope="scope">
-          <i class="status status-primary" title="Activated" v-if="scope.row.status === 'activated'" @click="handleToggleStatus(scope.row)"></i>
-          <i class="status status-warning" title="Email Unactivated" v-else-if="scope.row.status === 'email-unactivated'"></i>
-          <i class="status status-warning" title="Phone Unactivated" v-else-if="scope.row.status === 'phone-unactivated'"></i>
-          <i class="status status-danger" title="Forbidden" v-else-if="scope.row.status === 'forbidden'" @click="handleToggleStatus(scope.row)"></i>
-        </template>
-      </el-table-column>
-      <el-table-column prop="email" label="Email" width="200" sortable="custom"></el-table-column>
-      <el-table-column prop="phone" label="Mobile" width="140" sortable="custom"></el-table-column>
-      <el-table-column prop="roles" label="Role" width="240" :filters="filters.roles" column-key="roles">
-        <template slot-scope="scope">
-          <el-tag type="success" v-for="item in scope.row.roles" :key="item">{{ item }}</el-tag>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination :total="total" :page-size="size" :current-page="page" :page-sizes="[20, 30, 50]" layout="total, sizes, prev, pager, next" @size-change="handlePageSizeChange" @current-change="handleCurrentPageChange"></el-pagination>
-  </div>
 </template>
 
 <script>
@@ -56,17 +65,17 @@ export default {
     // column filters
     const filters = {
       status: [
-        { text: '已激活', value: 'activated' },
-        { text: '邮箱未激活', value: 'email-unactivated' },
-        { text: '手机未激活', value: 'phone-unactivated' },
-        { text: '已禁用', value: 'forbidden' }
+        {text: '已激活', value: 'activated'},
+        {text: '邮箱未激活', value: 'email-unactivated'},
+        {text: '手机未激活', value: 'phone-unactivated'},
+        {text: '已禁用', value: 'forbidden'}
       ],
       roles: [
-        { text: '管理员', value: 'administrator' },
-        { text: '作者', value: 'author' },
-        { text: '编辑', value: 'editor' },
-        { text: '协同者', value: 'contributor' },
-        { text: '订阅者', value: 'subscriber' }
+        {text: '管理员', value: 'administrator'},
+        {text: '作者', value: 'author'},
+        {text: '编辑', value: 'editor'},
+        {text: '协同者', value: 'contributor'},
+        {text: '订阅者', value: 'subscriber'}
       ]
     }
     return {
@@ -94,16 +103,22 @@ export default {
       // toggle loading
       this.loading = true
       // paginate
-      const params = { _page: this.page, _limit: this.size }
+      const params = {_page: this.page, _limit: this.size}
       // sort
-      if (this.sort) params._sort = this.sort
-      if (this.order) params._order = this.order
+      if (this.sort) {
+        params._sort = this.sort
+      }
+      if (this.order) {
+        params._order = this.order
+      }
       // search
-      if (this.search) params.q = this.search
+      if (this.search) {
+        params.q = this.search
+      }
       // filter
       Object.assign(params, this.filter)
       // request
-      return this.$services.user.get({ params })
+      return this.$services.user.get({params})
         .then(res => {
           // response
           this.users = res.data
@@ -130,7 +145,9 @@ export default {
 
     handleSortChange (e) {
       this.sort = e.prop
-      if (e.order) this.order = e.order === 'ascending' ? 'ASC' : 'DESC'
+      if (e.order) {
+        this.order = e.order === 'ascending' ? 'ASC' : 'DESC'
+      }
       this.loadUsers()
     },
 
@@ -146,7 +163,7 @@ export default {
     handleToggleStatus (item) {
       const targetStatus = item.status === 'forbidden' ? 'activated' : 'forbidden'
       this.$services.user
-        .patch(item.id, { status: targetStatus })
+        .patch(item.id, {status: targetStatus})
         .then(res => Object.assign(item, res.data))
     },
 
@@ -160,7 +177,7 @@ export default {
     handleToggleSelection (enable) {
       const targetStatus = enable ? 'activated' : 'forbidden'
       this.selections.forEach(item => this.$services.user
-        .patch(item.id, { status: targetStatus })
+        .patch(item.id, {status: targetStatus})
         .then(res => Object.assign(item, res.data)))
     },
 
@@ -173,33 +190,33 @@ export default {
 </script>
 
 <style lang="scss">
-  .el-pagination {
-    margin: 1rem 0 2rem;
-    text-align: right;
-  }
-
-  .el-tag {
-    margin: 0 .0625rem;
-  }
-
-  .user-info {
-    display: flex;
-    align-items: center;
-
-    img {
-      width: 2rem;
-      margin: 1rem 1rem 1rem 0;
-      border: .0625rem solid #c0c0c0;
-      border-radius: 50%;
-      background: #cfd2d7;
+    .el-pagination {
+        margin: 1rem 0 2rem;
+        text-align: right;
     }
 
-    .names {
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      font-size: .8125rem;
-      line-height: 1.4;
+    .el-tag {
+        margin: 0 .0625rem;
     }
-  }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 2rem;
+            margin: 1rem 1rem 1rem 0;
+            border: .0625rem solid #c0c0c0;
+            border-radius: 50%;
+            background: #cfd2d7;
+        }
+
+        .names {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            font-size: .8125rem;
+            line-height: 1.4;
+        }
+    }
 </style>

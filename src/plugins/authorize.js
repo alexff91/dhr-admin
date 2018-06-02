@@ -13,15 +13,19 @@ export default Vue => {
   // Make sure that is the first hook.
   router.beforeHooks.unshift((to, from, next) => {
     // don't need authorize
-    if (!to.meta.requiresAuth) return next()
+    if (!to.meta.requiresAuth) {
+      return next()
+    }
     // check login state
     store.dispatch('checkToken')
       .then(valid => {
         // authorized
-        if (valid) return next()
+        if (valid) {
+          return next()
+        }
         // unauthorized
         console.log('Unauthorized')
-        next({ name: 'login', query: { redirect: to.fullPath } })
+        next({name: 'login', query: {redirect: to.fullPath}})
       })
   })
 

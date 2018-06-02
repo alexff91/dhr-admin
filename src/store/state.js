@@ -17,7 +17,7 @@ const state = {
      * 站点名称
      * @type {String}
      */
-    name: 'WEDN.NET',
+    name: 'VI HR',
 
     /**
      * 顶部菜单
@@ -81,7 +81,7 @@ const state = {
      * 版权所属
      * @type {String}
      */
-    copyright: 'WEDN.NET',
+    copyright: 'vi-hr.com',
 
     /**
      * 是否收起边栏

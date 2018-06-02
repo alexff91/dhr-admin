@@ -2,11 +2,12 @@
     <section class="login">
         <header class="login-header">
             <h1 class="brand">
-                <router-link to="/" tabindex="-1">WEDN.NET</router-link>
+                <router-link to="/" tabindex="-1">VI HR</router-link>
             </h1>
             <el-alert v-if="error" :title="error.title" type="warning" :description="error.message" show-icon />
         </header>
-        <el-form class="login-form" auto-complete="off" :model="model" :rules="rules" ref="login-form" label-position="top">
+        <el-form class="login-form" auto-complete="off" :model="model" :rules="rules" ref="login-form"
+                 label-position="top">
             <h2 class="heading">Sign-in</h2>
             <el-form-item label="Login" prop="username">
                 <el-input type="text" v-model="model.username" placeholder="Please enter username" />
@@ -14,10 +15,12 @@
             <el-form-item label="Password" prop="password">
                 <el-input type="password" v-model="model.password" placeholder="Please enter password" />
             </el-form-item>
-            <el-button type="primary" :loading="loading" @click="submit('login-form')">{{ loading ? 'Loading...' : 'Login' }}</el-button>
+            <el-button type="primary" :loading="loading" @click="submit('login-form')">{{ loading ? 'Loading...' :
+                'Login' }}
+            </el-button>
         </el-form>
         <footer class="login-footer">
-            ← Back to <a href="/">WEDN.NET</a>
+            ← Back to <a href="/">VI HR</a>
         </footer>
     </section>
 </template>
@@ -26,7 +29,7 @@
 export default {
   name: 'login',
 
-  title: 'Login « WEDN.NET | make IT better',
+  title: 'Login « VI HR | make IT better',
 
   data () {
     // form model
@@ -39,8 +42,8 @@ export default {
     // form validate rules
     const rules = {
       username: [
-        {required: true, message: '请输入用户名'},
-        {min: 2, max: 16, message: '长度在 2 到 16 个字符'}
+        {required: true, message: 'Необходимо ввести имя пользователя'},
+        {min: 2, max: 16, message: 'Минимальное количество символов 2, максимальное 16'}
       ],
       password: [
         {required: true, message: '请输入密码'},

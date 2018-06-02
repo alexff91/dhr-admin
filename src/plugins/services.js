@@ -20,11 +20,11 @@ export default Vue => {
 
   // mount the services to Vue
   Object.defineProperties(Vue, {
-    services: { get: () => services }
+    services: {get: () => services}
   })
 
   // mount the services to Vue component instance
   Object.defineProperties(Vue.prototype, {
-    $services: { get: () => services }
+    $services: {get: () => services}
   })
 }

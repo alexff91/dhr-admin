@@ -1,4 +1,4 @@
-import mainRoutes from './main-routes'
+import mainRoutes from './main-routes';
 
 /**
  * 路由表配置
@@ -8,13 +8,13 @@ export default [
   {
     name: 'login',
     path: '/login',
-    meta: { requiresAuth: false },
+    meta: {requiresAuth: false},
     component: () => import(/* webpackChunkName: 'login' */ '../views/login')
   },
   // ## main page
   {
     path: '/',
-    meta: { requiresAuth: true },
+    meta: {requiresAuth: true},
     component: () => import(/* webpackChunkName: 'common' */ '../views/layout'),
     children: mainRoutes
   },
@@ -22,7 +22,7 @@ export default [
   {
     name: 'not-found',
     path: '*',
-    meta: { requiresAuth: false },
+    meta: {requiresAuth: false},
     component: () => import(/* webpackChunkName: 'common' */ '../views/error')
   }
-]
+];

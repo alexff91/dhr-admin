@@ -21,7 +21,7 @@ const strict = process.env.NODE_ENV !== 'production'
 
 const plugins = []
 
-const store = new Vuex.Store({ state, getters, mutations, actions, modules, strict, plugins })
+const store = new Vuex.Store({state, getters, mutations, actions, modules, strict, plugins})
 
 // ## Initial
 // store.dispatch('initToken')

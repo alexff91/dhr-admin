@@ -31,6 +31,6 @@ export default Vue => {
 
   // mount the nprogress to Vue component instance
   Object.defineProperties(Vue.prototype, {
-    $nprogress: { get: () => nprogress }
+    $nprogress: {get: () => nprogress}
   })
 }
