@@ -33,10 +33,9 @@ if (module.hot) {
     './getters',
     './mutations',
     './actions',
-    './modules/comments',
-    './modules/options',
+    './modules/responds',
+    './modules/settings',
     './modules/vacancies',
-    './modules/terms',
     './modules/users',
     './modules/demo'
   ], () => {
@@ -45,10 +44,9 @@ if (module.hot) {
       mutations: require('./mutations'),
       actions: require('./actions'),
       modules: {
-        comments: require('./modules/comments'),
-        options: require('./modules/options'),
+        responds: require('./modules/responds'),
+        settings: require('./modules/settings'),
         vacancies: require('./modules/vacancies'),
-        terms: require('./modules/terms'),
         users: require('./modules/users'),
         demo: require('./modules/demo')
       }

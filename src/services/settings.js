@@ -4,4 +4,4 @@
 
 import Resource from './resource';
 
-export default new Resource('options');
+export default new Resource('settings');

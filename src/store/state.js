@@ -1,17 +1,8 @@
 import { axios, storage } from '../utils';
 
 const state = {
-  /**
-   * 客户端会话信息
-   * @type {Object}
-   * TODO: storage - local or session
-   */
   session: storage.get('wedn_net_session_info') || {},
 
-  /**
-   * 顶部工具栏
-   * @type {Object}
-   */
   header: {
     /**
      * 站点名称
@@ -27,7 +18,7 @@ const state = {
       {
         text: '0',
         icon: 'bubble',
-        name: 'comments'
+        name: 'responds'
       },
       {
         text: 'Создать',
@@ -107,17 +98,12 @@ const state = {
       {
         text: 'Пользователи',
         icon: 'users',
-        name: 'users',
-        children: [
-          {text: 'Все пользователи', name: 'users'},
-          {text: 'Роли', name: 'roles'},
-          {text: 'Права', name: 'permissions'}
-        ]
+        name: 'users'
       },
       {
         text: 'Ревью',
         icon: 'bubbles',
-        name: 'comments'
+        name: 'responds'
       },
       {
         divider: true
@@ -125,11 +111,8 @@ const state = {
       {
         text: 'Настройки',
         icon: 'equalizer',
-        name: 'options',
-        params: {type: 'general'},
-        children: [
-          {text: 'Главные', name: 'options', params: {type: 'general'}}
-        ]
+        name: 'settings',
+        params: {type: 'general'}
       }
     ]
   },

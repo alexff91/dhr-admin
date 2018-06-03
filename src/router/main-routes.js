@@ -33,13 +33,6 @@ export default [
     meta: {requiresAuth: true},
     component: () => import(/* webpackChunkName: 'posts' */ '../views/main/new')
   },
-  // - Terms
-  {
-    name: 'terms',
-    path: 'terms/:type',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'terms' */ '../views/main/terms')
-  },
   // - Users
   {
     name: 'users',
@@ -61,24 +54,16 @@ export default [
   },
   // - Comments
   {
-    name: 'comments',
-    path: 'comments',
+    name: 'responds',
+    path: 'responds',
     meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'comments' */ '../views/main/comments')
+    component: () => import(/* webpackChunkName: 'comments' */ '../views/main/responds')
   },
   // - Options
   {
-    name: 'options',
-    path: 'options/:type',
+    name: 'settings',
+    path: 'settings/:type',
     meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'options' */ '../views/main/options')
+    component: () => import(/* webpackChunkName: 'options' */ '../views/main/settings')
   }
 ].concat(demo);
-
-// // - Default
-// {
-//   name: 'default',
-//   path: '',
-//   meta: { requiresAuth: true },
-//   redirect: { name: 'dashboard' }
-// },

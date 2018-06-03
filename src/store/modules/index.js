@@ -1,9 +1,8 @@
-import comments from './comments';
-import options from './options';
+import responds from './responds';
+import settings from './settings';
 import vacancies from './vacancies';
-import terms from './terms';
 import users from './users';
 
 import demo from './demo';
 
-export { comments, options, vacancies, terms, users, demo };
+export { responds, settings, vacancies, users, demo };

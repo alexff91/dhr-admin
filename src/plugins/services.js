@@ -1,7 +1,7 @@
 import {
-  CommentService,
-  OptionService,
-  TermService,
+  CompanyService,
+  RespondService,
+  SettingsService,
   TokenService,
   UserService,
   VacancyService
@@ -10,10 +10,10 @@ import {
 export default Vue => {
   // alias
   const services = {
-    comment: CommentService,
-    option: OptionService,
+    respond: RespondService,
+    company: CompanyService,
+    settings: SettingsService,
     vacancies: VacancyService,
-    term: TermService,
     token: TokenService,
     user: UserService
   };
