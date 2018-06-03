@@ -46,8 +46,8 @@ export default {
         {min: 2, max: 16, message: 'Минимальное количество символов 2, максимальное 16'}
       ],
       password: [
-        {required: true, message: '请输入密码'},
-        {min: 6, max: 16, message: '长度在 6 到 16 个字符'}
+        {required: true, message: 'Необходимо ввести пароль'},
+        {min: 6, max: 16, message: 'Минимальное количество символов 6, максимальное 16'}
       ]
     }
 

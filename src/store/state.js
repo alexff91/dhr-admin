@@ -30,15 +30,13 @@ const state = {
         name: 'comments'
       },
       {
-        text: 'New',
+        text: 'Создать',
         icon: 'plus',
         name: 'new',
-        params: { type: 'blog' },
+        params: {type: 'blog'},
         children: [
-          { text: 'Post', name: 'new', params: { type: 'blog' } },
-          { text: 'Media', name: 'upload' },
-          { text: 'Page', name: 'new', params: { type: 'page' } },
-          { text: 'User', name: 'users' }
+          {text: 'Вакансию', name: 'new', params: {type: 'blog'}},
+          {text: 'Пользователя', name: 'users'}
         ]
       },
       // Component Pages
@@ -47,26 +45,18 @@ const state = {
         icon: 'lab',
         name: 'components',
         children: [
-          { text: 'Icons', name: 'components-icons' },
-          { text: 'Button', name: 'components-button' },
-          { text: 'Table', name: 'components-table' }
+          {text: 'Icons', name: 'components-icons'},
+          {text: 'Button', name: 'components-button'},
+          {text: 'Table', name: 'components-table'}
         ]
       },
       // Demo Pages
       {
-        text: 'Demo',
+        text: 'Демо',
         icon: 'magic-wand',
         name: 'demo',
         children: [
-          { text: 'Data', name: 'demo-data' },
-          { text: 'Params', name: 'demo-params', params: { name: '汪磊' } },
-          { text: 'Vuex', name: 'demo-vuex' },
-          { text: 'I18n', name: 'demo-i18n' },
-          { divider: true },
-          { text: 'Proxy', name: 'demo-proxy' },
-          { text: 'CORS', name: 'demo-cors' },
-          { divider: true },
-          { text: 'NotFound', path: '/hello-world' }
+          {text: 'Video Interview', name: 'demo-data'}
         ]
       }
     ]
@@ -95,66 +85,43 @@ const state = {
      */
     menus: [
       {
-        title: 'Actions'
+        title: ''
       },
       {
-        text: 'Dashboard',
+        text: 'Обзор',
         icon: 'meter',
         name: 'dashboard',
         children: [
-          { text: 'Home', name: 'dashboard' },
-          { text: 'Update', name: 'update' }
+          {text: 'Домой', name: 'dashboard'}
         ]
       },
       {
         divider: true
       },
       {
-        text: 'Posts',
+        text: 'Вакансии',
         icon: 'pushpin',
-        name: 'posts',
-        params: { type: 'blog' },
+        name: 'vacancies',
+        params: {type: 'blog'},
         children: [
-          { text: 'All', name: 'posts', params: { type: 'blog' } },
-          { text: 'New', name: 'new', params: { type: 'blog' } },
-          { text: 'Categories', name: 'terms', params: { type: 'blog-category' } },
-          { text: 'Tags', name: 'terms', params: { type: 'blog-tag' } }
-        ]
-      },
-      {
-        text: 'Pages',
-        icon: 'newspaper',
-        name: 'posts',
-        params: { type: 'page' },
-        children: [
-          { text: 'All pages', name: 'posts', params: { type: 'page' } },
-          { text: 'New page', name: 'new', params: { type: 'page' } }
-        ]
-      },
-      {
-        text: 'Media',
-        icon: 'images',
-        name: 'media',
-        children: [
-          { text: 'Media library', name: 'media' },
-          { text: 'Upload', name: 'upload' }
+          {text: 'All', name: 'vacancies', params: {type: 'blog'}}
         ]
       },
       {
         divider: true
       },
       {
-        text: 'Users',
+        text: 'Пользователи',
         icon: 'users',
         name: 'users',
         children: [
-          { text: 'All users', name: 'users' },
-          { text: 'Roles', name: 'roles' },
-          { text: 'Permissions', name: 'permissions' }
+          {text: 'All users', name: 'users'},
+          {text: 'Roles', name: 'roles'},
+          {text: 'Permissions', name: 'permissions'}
         ]
       },
       {
-        text: 'Comments',
+        text: 'Ревью',
         icon: 'bubbles',
         name: 'comments'
       },
@@ -162,48 +129,12 @@ const state = {
         divider: true
       },
       {
-        text: 'Themes',
-        icon: 'paint-format',
-        name: 'themes',
-        children: [
-          { text: 'Themes', name: 'themes' },
-          { text: 'Customization', name: 'customize' },
-          { text: 'Widgets', name: 'widgets' },
-          { text: 'Navigation', name: 'navigation' }
-        ]
-      },
-      {
-        text: 'Plugins',
-        icon: 'power-cord',
-        name: 'plugins',
-        children: [
-          { text: 'Installed plugins', name: 'plugins' },
-          { text: 'Install plugin', name: 'install', params: { type: 'plugin' } }
-        ]
-      },
-      {
-        text: 'Tools',
-        icon: 'wrench',
-        name: 'tools',
-        children: [
-          { text: 'Available tools', name: 'tools' },
-          { text: 'Import', name: 'import' },
-          { text: 'Export', name: 'export' }
-        ]
-      },
-      {
-        text: 'Settings',
+        text: 'Настройки',
         icon: 'equalizer',
         name: 'options',
-        params: { type: 'general' },
+        params: {type: 'general'},
         children: [
-          { text: 'General', name: 'options', params: { type: 'general' } },
-          { divider: true },
-          { text: 'Write', name: 'options', params: { type: 'writing' } },
-          { text: 'Read', name: 'options', params: { type: 'reading' } },
-          { text: 'Discuss', name: 'options', params: { type: 'discussion' } },
-          { text: 'Media', name: 'options', params: { type: 'media' } },
-          { text: 'Permalink', name: 'options', params: { type: 'permalink' } }
+          {text: 'Главные', name: 'options', params: {type: 'general'}}
         ]
       }
     ]

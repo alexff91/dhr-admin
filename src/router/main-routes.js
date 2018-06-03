@@ -9,12 +9,6 @@ export default [
     component: () => import(/* webpackChunkName: 'dashboard' */ '../views/main/index')
   },
   {
-    name: 'update',
-    path: 'update',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'update' */ '../views/main/update')
-  },
-  {
     name: 'about',
     path: 'about',
     meta: {requiresAuth: true},
@@ -28,35 +22,16 @@ export default [
   },
   // - Posts
   {
-    name: 'posts',
-    path: 'posts/:type',
+    name: 'vacancies',
+    path: 'vacancies/:type',
     meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'posts' */ '../views/main/posts')
+    component: () => import(/* webpackChunkName: 'posts' */ '../views/main/vacancies')
   },
   {
     name: 'new',
     path: 'new/:type',
     meta: {requiresAuth: true},
     component: () => import(/* webpackChunkName: 'posts' */ '../views/main/new')
-  },
-  {
-    name: 'edit',
-    path: 'edit/:type/:slug?',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'posts' */ '../views/main/edit')
-  },
-  // - Media
-  {
-    name: 'media',
-    path: 'media',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'media' */ '../views/main/media')
-  },
-  {
-    name: 'upload',
-    path: 'upload',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'upload' */ '../views/main/upload')
   },
   // - Terms
   {
@@ -90,63 +65,6 @@ export default [
     path: 'comments',
     meta: {requiresAuth: true},
     component: () => import(/* webpackChunkName: 'comments' */ '../views/main/comments')
-  },
-  // - Appearances
-  {
-    name: 'themes',
-    path: 'themes',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'appearances' */ '../views/main/themes')
-  },
-  {
-    name: 'customize',
-    path: 'customize',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'appearances' */ '../views/main/customize')
-  },
-  {
-    name: 'widgets',
-    path: 'widgets',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'appearances' */ '../views/main/widgets')
-  },
-  {
-    name: 'navigation',
-    path: 'navigation',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'appearances' */ '../views/main/navigation')
-  },
-  // - Plugins
-  {
-    name: 'plugins',
-    path: 'plugins',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'plugins' */ '../views/main/plugins')
-  },
-  // - Tools
-  {
-    name: 'install',
-    path: 'install/:type',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'plugins' */ '../views/main/install')
-  },
-  {
-    name: 'tools',
-    path: 'tools',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'tools' */ '../views/main/tools')
-  },
-  {
-    name: 'import',
-    path: 'import',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'tools' */ '../views/main/import')
-  },
-  {
-    name: 'export',
-    path: 'export',
-    meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'tools' */ '../views/main/export')
   },
   // - Options
   {

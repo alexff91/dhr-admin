@@ -36,7 +36,7 @@ if (module.hot) {
     './actions',
     './modules/comments',
     './modules/options',
-    './modules/posts',
+    './modules/vacancies',
     './modules/terms',
     './modules/users',
     './modules/demo'
@@ -48,7 +48,7 @@ if (module.hot) {
       modules: {
         comments: require('./modules/comments'),
         options: require('./modules/options'),
-        posts: require('./modules/posts'),
+        vacancies: require('./modules/vacancies'),
         terms: require('./modules/terms'),
         users: require('./modules/users'),
         demo: require('./modules/demo')

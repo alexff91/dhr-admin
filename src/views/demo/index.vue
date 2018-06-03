@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="heading">
-            <h1 class="title">演示</h1>
+            <h1 class="title">Hello</h1>
         </div>
         <ul class="demos-links">
             <li v-for="item in demos" :key="item">

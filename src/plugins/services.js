@@ -1,7 +1,7 @@
 import {
   CommentService,
   OptionService,
-  PostService,
+  VacancyService,
   TermService,
   TokenService,
   UserService
@@ -12,7 +12,7 @@ export default Vue => {
   const services = {
     comment: CommentService,
     option: OptionService,
-    post: PostService,
+    vacancy: VacancyService,
     term: TermService,
     token: TokenService,
     user: UserService

@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="heading">
-            <h1 class="title" v-if="!selections.length">{{ total }}个用户</h1>
-            <h1 class="title" v-else>{{ selections.length }}个被选中</h1>
+            <h1 class="title" v-if="!selections.length">{{ total }} пользователей</h1>
+            <h1 class="title" v-else>{{ selections.length }}Число пользователей</h1>
             <transition name="fade">
                 <ul class="action" v-show="selections.length">
                     <li><a href="#" class="icon-before icon-checkmark" @click="handleToggleSelection(true)"></a></li>
@@ -18,7 +18,7 @@
         <el-table :data="users" v-loading="loading" element-loading-text="Loading..."
                   @selection-change="handleSelectionChange" @filter-change="handleFilterChange"
                   @sort-change="handleSortChange">
-            <el-table-column type="selection"></el-table-column>
+            <el-table-column type="selection" />
             <el-table-column prop="name" label="Username" min-width="180" sortable="custom">
                 <template slot-scope="scope">
                     <div class="user-info">
@@ -35,16 +35,10 @@
                 <template slot-scope="scope">
                     <i class="status status-primary" title="Activated" v-if="scope.row.status === 'activated'"
                        @click="handleToggleStatus(scope.row)"></i>
-                    <i class="status status-warning" title="Email Unactivated"
-                       v-else-if="scope.row.status === 'email-unactivated'"></i>
-                    <i class="status status-warning" title="Phone Unactivated"
-                       v-else-if="scope.row.status === 'phone-unactivated'"></i>
-                    <i class="status status-danger" title="Forbidden" v-else-if="scope.row.status === 'forbidden'"
-                       @click="handleToggleStatus(scope.row)"></i>
                 </template>
             </el-table-column>
-            <el-table-column prop="email" label="Email" width="200" sortable="custom"></el-table-column>
-            <el-table-column prop="phone" label="Mobile" width="140" sortable="custom"></el-table-column>
+            <el-table-column prop="email" label="Email" width="200" sortable="custom" />
+            <el-table-column prop="phone" label="Mobile" width="140" sortable="custom" />
             <el-table-column prop="roles" label="Role" width="240" :filters="filters.roles" column-key="roles">
                 <template slot-scope="scope">
                     <el-tag type="success" v-for="item in scope.row.roles" :key="item">{{ item }}</el-tag>
@@ -53,7 +47,7 @@
         </el-table>
         <el-pagination :total="total" :page-size="size" :current-page="page" :page-sizes="[20, 30, 50]"
                        layout="total, sizes, prev, pager, next" @size-change="handlePageSizeChange"
-                       @current-change="handleCurrentPageChange"></el-pagination>
+                       @current-change="handleCurrentPageChange" />
     </div>
 </template>
 
@@ -65,15 +59,12 @@ export default {
     // column filters
     const filters = {
       status: [
-        {text: '已激活', value: 'activated'},
-        {text: '邮箱未激活', value: 'email-unactivated'},
-        {text: '手机未激活', value: 'phone-unactivated'},
-        {text: '已禁用', value: 'forbidden'}
+        {text: 'Activated', value: 'activated'}
       ],
       roles: [
-        {text: '管理员', value: 'admin'},
-        {text: '作者', value: 'hr'},
-        {text: '编辑', value: 'reviewer'}
+        {text: 'ADMIN', value: 'admin'},
+        {text: 'HR', value: 'hr'},
+        {text: 'REVIEWER', value: 'reviewer'}
       ]
     }
     return {
@@ -166,7 +157,7 @@ export default {
     },
 
     handleDeleteSelection () {
-      this.$confirm('此操作将永久删除选中用户, 是否继续?')
+      this.$confirm('Вы действительно желаете удалить выбранных пользователей?')
         .then(() => this.selections.map(item => this.$services.user.delete(item.id)))
         .then(() => this.loadUsers())
         .catch(e => console.info(e))

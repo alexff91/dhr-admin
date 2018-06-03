@@ -4,4 +4,4 @@
 
 import Resource from './resource'
 
-export default new Resource('posts')
+export default new Resource('vacancies')
