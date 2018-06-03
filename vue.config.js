@@ -14,7 +14,7 @@ module.exports = {
   baseUrl: '/dashboard/',
 
   // where to output built files
-  outputDir: 'distr',
+  outputDir: 'dist',
 
   // whether to use eslint-loader for lint on save.
   // valid values: true | false | 'error'
