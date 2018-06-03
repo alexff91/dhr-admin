@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <div class="heading">
-      <h1 class="title">评论</h1>
+    <div>
+        <div class="heading">
+            <h1 class="title">Здесь ревьюхи крч, которые у нас даже в апи пока не прописаны ;)</h1>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-export default {
-  name: 'comments'
-}
+  export default {
+    name: 'comments'
+  };
 </script>

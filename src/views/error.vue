@@ -9,11 +9,11 @@
 </template>
 
 <script>
-export default {
-  name: 'not-fount',
+  export default {
+    name: 'not-fount',
 
-  title: 'Not Found « vi-hr.com | make IT better'
-}
+    title: 'Not Found « vi-hr.com | make IT better'
+  };
 </script>
 
 <style lang="scss">

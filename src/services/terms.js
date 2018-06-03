@@ -2,6 +2,6 @@
  * Terms service
  */
 
-import Resource from './resource'
+import Resource from './resource';
 
-export default new Resource('terms')
+export default new Resource('terms');

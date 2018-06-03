@@ -68,14 +68,14 @@
 </template>
 
 <script>
-export default {
-  name: 'components',
-  methods: {
-    hello () {
-      alert('你点击了关闭')
+  export default {
+    name: 'components',
+    methods: {
+      hello() {
+        alert('你点击了关闭');
+      }
     }
-  }
-}
+  };
 </script>
 
 <style scoped>

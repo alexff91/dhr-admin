@@ -8,7 +8,7 @@
 </template>
 
 <script>
-export default {
-  name: 'tools'
-}
+  export default {
+    name: 'tools'
+  };
 </script>

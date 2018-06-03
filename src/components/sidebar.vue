@@ -13,17 +13,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import MenuList from './menu'
+  import { mapActions, mapGetters } from 'vuex';
+  import MenuList from './menu';
 
-export default {
-  name: 'app-sidebar',
-  components: {MenuList},
-  computed: mapGetters({
-    sidebar: 'sidebar'
-  }),
-  methods: mapActions({
-    toggleCollapse: 'toggleSidebarCollapse'
-  })
-}
+  export default {
+    name: 'app-sidebar',
+    components: {MenuList},
+    computed: mapGetters({
+      sidebar: 'sidebar'
+    }),
+    methods: mapActions({
+      toggleCollapse: 'toggleSidebarCollapse'
+    })
+  };
 </script>

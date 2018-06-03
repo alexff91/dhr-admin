@@ -17,26 +17,26 @@
 </template>
 
 <script>
-export default {
-  name: 'heading',
-  props: {
-    title: String,
-    showAction: Boolean,
-    showSearch: Boolean,
-    btnText: String,
-    btnType: {
-      type: String,
-      default: 'primary'
+  export default {
+    name: 'heading',
+    props: {
+      title: String,
+      showAction: Boolean,
+      showSearch: Boolean,
+      btnText: String,
+      btnType: {
+        type: String,
+        default: 'primary'
+      },
+      btnSize: {
+        type: String,
+        default: 'small'
+      },
+      btnIcon: {
+        type: String,
+        default: 'plus'
+      }
     },
-    btnSize: {
-      type: String,
-      default: 'small'
-    },
-    btnIcon: {
-      type: String,
-      default: 'plus'
-    }
-  },
-  methods: {}
-}
+    methods: {}
+  };
 </script>

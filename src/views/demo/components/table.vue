@@ -16,31 +16,31 @@
 </template>
 
 <script>
-export default {
-  name: 'components-table',
+  export default {
+    name: 'components-table',
 
-  data () {
-    const temp = []
-    for (let i = 0; i < 100; i++) {
-      temp.push({
-        date: new Date().toLocaleDateString(),
-        name: i % 2 ? 'Ololosho' : 'Ololosho',
-        address: `Ololosho ${i} Ololosho`
-      })
-    }
-    return {
-      temp: temp,
-      multipleSelection: []
-    }
-  },
-
-  methods: {
-    handleSelectionChange (value) {
-      this.multipleSelection = value
+    data() {
+      const temp = [];
+      for (let i = 0; i < 100; i++) {
+        temp.push({
+          date: new Date().toLocaleDateString(),
+          name: i % 2 ? 'Ololosho' : 'Ololosho',
+          address: `Ololosho ${i} Ololosho`
+        });
+      }
+      return {
+        temp: temp,
+        multipleSelection: []
+      };
     },
-    handleFilterChange (value) {
-      console.log(value)
+
+    methods: {
+      handleSelectionChange(value) {
+        this.multipleSelection = value;
+      },
+      handleFilterChange(value) {
+        console.log(value);
+      }
     }
-  }
-}
+  };
 </script>

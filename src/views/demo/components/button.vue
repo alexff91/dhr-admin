@@ -62,9 +62,9 @@
 </template>
 
 <script>
-export default {
-  name: 'component-button'
-}
+  export default {
+    name: 'component-button'
+  };
 </script>
 
 <style lang="scss">

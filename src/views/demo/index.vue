@@ -12,14 +12,14 @@
 </template>
 
 <script>
-export default {
-  name: 'demo',
-  computed: {
-    demos () {
-      return this.$store.getters.header.menus
-        .find(m => m.name === 'demo').children
-        .filter(m => m.name)
+  export default {
+    name: 'demo',
+    computed: {
+      demos() {
+        return this.$store.getters.header.menus
+          .find(m => m.name === 'demo').children
+          .filter(m => m.name);
+      }
     }
-  }
-}
+  };
 </script>

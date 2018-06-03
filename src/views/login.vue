@@ -26,69 +26,69 @@
 </template>
 
 <script>
-export default {
-  name: 'login',
+  export default {
+    name: 'login',
 
-  title: 'Login « VI HR | make IT better',
+    title: 'Login « VI HR | make IT better',
 
-  data () {
-    // form model
-    // TODO: remove default values
-    const model = {
-      username: 'zce',
-      password: 'wanglei'
-    }
+    data() {
+      // form model
+      // TODO: remove default values
+      const model = {
+        username: 'ololo',
+        password: 'olololo'
+      };
 
-    // form validate rules
-    const rules = {
-      username: [
-        {required: true, message: 'Необходимо ввести имя пользователя'},
-        {min: 2, max: 16, message: 'Минимальное количество символов 2, максимальное 16'}
-      ],
-      password: [
-        {required: true, message: 'Необходимо ввести пароль'},
-        {min: 6, max: 16, message: 'Минимальное количество символов 6, максимальное 16'}
-      ]
-    }
+      // form validate rules
+      const rules = {
+        username: [
+          {required: true, message: 'Необходимо ввести имя пользователя'},
+          {min: 2, max: 16, message: 'Минимальное количество символов 2, максимальное 16'}
+        ],
+        password: [
+          {required: true, message: 'Необходимо ввести пароль'},
+          {min: 6, max: 16, message: 'Минимальное количество символов 6, максимальное 16'}
+        ]
+      };
 
-    return {model: model, rules: rules, error: null, loading: false}
-  },
+      return {model: model, rules: rules, error: null, loading: false};
+    },
 
-  methods: {
-    submit (ref) {
-      // form validate
-      this.$refs[ref].validate(valid => {
-        if (!valid) {
-          return false
-        }
+    methods: {
+      submit(ref) {
+        // form validate
+        this.$refs[ref].validate(valid => {
+          if (!valid) {
+            return false;
+          }
 
-        // validated
-        this.error = null
-        this.loading = true
+          // validated
+          this.error = null;
+          this.loading = true;
 
-        // create token from remote
-        this.$store.dispatch('createToken', this.model)
-          .then(token => {
-            this.$router.replace({path: this.$route.query.redirect || '/'})
-            this.loading = false
-          })
-          .catch(err => {
-            console.error(err)
-            this.error = {title: '发生错误', message: '出现异常，请稍后再试！'}
-            switch (err.response && err.response.status) {
+          // create token from remote
+          this.$store.dispatch('createToken', this.model)
+            .then(token => {
+              this.$router.replace({path: this.$route.query.redirect || '/'});
+              this.loading = false;
+            })
+            .catch(err => {
+              console.error(err);
+              this.error = {title: '发生错误', message: '出现异常，请稍后再试！'};
+              switch (err.response && err.response.status) {
               case 401:
-                this.error.message = '用户名或密码错误！'
-                break
+                this.error.message = '用户名或密码错误！';
+                break;
               case 500:
-                this.error.message = '服务器内部异常，请稍后再试！'
-                break
-            }
-            this.loading = false
-          })
-      })
+                this.error.message = '服务器内部异常，请稍后再试！';
+                break;
+              }
+              this.loading = false;
+            });
+        });
+      }
     }
-  }
-}
+  };
 </script>
 
 <style lang="scss">

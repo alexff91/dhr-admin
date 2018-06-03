@@ -1,4 +1,4 @@
-import { axios, storage } from '../utils'
+import { axios, storage } from '../utils';
 
 const state = {
   /**
@@ -33,9 +33,9 @@ const state = {
         text: 'Создать',
         icon: 'plus',
         name: 'new',
-        params: {type: 'blog'},
+        params: {type: 'vacancy'},
         children: [
-          {text: 'Вакансию', name: 'new', params: {type: 'blog'}},
+          {text: 'Вакансию', name: 'new', params: {type: 'vacancy'}},
           {text: 'Пользователя', name: 'users'}
         ]
       },
@@ -88,12 +88,9 @@ const state = {
         title: ''
       },
       {
-        text: 'Обзор',
+        text: 'Статистика',
         icon: 'meter',
-        name: 'dashboard',
-        children: [
-          {text: 'Домой', name: 'dashboard'}
-        ]
+        name: 'dashboard'
       },
       {
         divider: true
@@ -102,10 +99,7 @@ const state = {
         text: 'Вакансии',
         icon: 'pushpin',
         name: 'vacancies',
-        params: {type: 'blog'},
-        children: [
-          {text: 'All', name: 'vacancies', params: {type: 'blog'}}
-        ]
+        params: {type: 'vacancy'}
       },
       {
         divider: true
@@ -115,9 +109,9 @@ const state = {
         icon: 'users',
         name: 'users',
         children: [
-          {text: 'All users', name: 'users'},
-          {text: 'Roles', name: 'roles'},
-          {text: 'Permissions', name: 'permissions'}
+          {text: 'Все пользователи', name: 'users'},
+          {text: 'Роли', name: 'roles'},
+          {text: 'Права', name: 'permissions'}
         ]
       },
       {
@@ -147,11 +141,11 @@ const state = {
    * @type {Number}
    */
   count: storage.get('wedn_net_demo_count') || 0
-}
+};
 
 if (state.session && state.session.token) {
   // init axios headers
-  axios.defaults.headers.Authorization = `Bearer ${state.session.token}`
+  axios.defaults.headers.Authorization = `Bearer ${state.session.token}`;
 }
 
-export default state
+export default state;

@@ -190,15 +190,15 @@
 </template>
 
 <script>
-export default {
-  name: 'components-icons',
-  mounted () {
-    const icons = document.querySelectorAll('.icons > i')
-    icons.forEach(i => {
-      i.addEventListener('click', e => {
-        prompt('class', i.className.replace('icon icon-', ''))
-      })
-    })
-  }
-}
+  export default {
+    name: 'components-icons',
+    mounted() {
+      const icons = document.querySelectorAll('.icons > i');
+      icons.forEach(i => {
+        i.addEventListener('click', e => {
+          prompt('class', i.className.replace('icon icon-', ''));
+        });
+      });
+    }
+  };
 </script>

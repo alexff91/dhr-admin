@@ -7,7 +7,7 @@
 </template>
 
 <script>
-export default {
-  name: 'roles'
-}
+  export default {
+    name: 'roles'
+  };
 </script>

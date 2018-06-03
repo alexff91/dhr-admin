@@ -2,7 +2,7 @@
     <div>
         <div class="heading">
             <h1 class="title" v-if="selections.length">{{ selections.length }} items selected</h1>
-            <h1 class="title" v-else>{{ vacancies.length }} 条{{ type }}</h1>
+            <h1 class="title" v-else>{{ vacancies.length }} {{ type }}</h1>
             <transition name="fade">
                 <ul class="action" v-show="selections.length">
                     <li><a href="#" class="icon-before icon-checkmark"></a></li>
@@ -19,34 +19,12 @@
             </router-link>
         </div>
         <el-table :data="vacancies" @selection-change="handleSelectionChange">
-            <el-table-column type="selection"></el-table-column>
-            <el-table-column prop="title" label="Title" show-overflow-tooltip></el-table-column>
-            <el-table-column label="Status" width="100">
-                <template slot-scope="scope">
-                    {{ scope.row.status }}
-                </template>
+            <el-table-column type="selection" />
+            <el-table-column prop="position" label="Позиция" show-overflow-tooltip />
+            <el-table-column prop="description" label="Описание" show-overflow-tooltip />
+            <el-table-column prop="userId" label="Автор" width="100">
             </el-table-column>
-            <el-table-column label="Categories" width="200">
-                <template slot-scope="scope">
-                    <a v-for="item in scope.row.categories" :key="item.slug" href="#">{{ item.name }}, </a>
-                </template>
-            </el-table-column>
-            <el-table-column label="Tags" width="240">
-                <template slot-scope="scope">
-                    <a v-for="item in scope.row.tags" :key="item.slug" href="#">{{ item.name }}, </a>
-                </template>
-            </el-table-column>
-            <el-table-column label="Author" width="100">
-                <template slot-scope="scope">
-                    <a href="#">{{ scope.row.author.name }}</a>
-                </template>
-            </el-table-column>
-            <el-table-column label="Comments" width="120">
-                <template slot-scope="scope">
-                    <i class="icon-before icon-bubble">{{ scope.row.comment }}</i>
-                </template>
-            </el-table-column>
-            <el-table-column prop="date" label="Date" width="120"></el-table-column>
+            <el-table-column prop="creationDate" label="Дата создания" width="120" />
         </el-table>
         <el-pagination
                 @size-change="handleSizeChange"
@@ -61,77 +39,82 @@
 </template>
 
 <script>
-export default {
-  name: 'vacancies',
+  export default {
+    name: 'vacancies',
 
-  data () {
-    return {
-      type: '',
-      size: 50,
-      vacancies: [],
-      selections: []
-    }
-  },
+    data() {
+      return {
+        type: '',
+        size: 50,
+        vacancies: [],
+        selections: []
+      };
+    },
 
-  created () {
-    this.$title(this.$route.params.type)
-    this.initData()
-  },
+    created() {
+      this.$title(this.$route.params.type);
+      this.loadVacancies();
+    },
 
-  methods: {
-    initData () {
-      this.vacancies = []
-      for (let i = 0; i < this.size; i++) {
-        this.vacancies.push({
-          title: `Hello world ${i}`,
-          status: 'pub',
-          categories: [
-            {name: 'None', slug: 'uncategoried'},
-            {name: 'Test', slug: 'test-category'}
-          ],
-          tags: [
-            {name: 'demo', slug: 'demo'},
-            {name: 'tag', slug: 'test-tag'},
-            {name: 'tag2', slug: 'test-tag2'},
-            {name: 'tag3', slug: 'test-tag3'}
-          ],
-          author: {name: '汪磊', slug: 'zce'},
-          comment: 10,
-          date: new Date().toLocaleDateString()
-        })
+    methods: {
+      loadVacancies() {
+        // toggle loading
+        this.loading = true;
+        // paginate
+        const params = {_page: this.page, _limit: this.size};
+        // sort
+        if (this.sort) {
+          params._sort = this.sort;
+        }
+        if (this.order) {
+          params._order = this.order;
+        }
+        // search
+        if (this.search) {
+          params.q = this.search;
+        }
+        // filter
+        Object.assign(params, this.filter);
+        // request
+        return this.$services.vacancies.get({params})
+          .then(res => {
+            // response
+            this.vacancies = res.data;
+            this.total = res.headers['x-total-count'] - 0;
+            // toggle loading
+            this.loading = false;
+          })
+          .catch(err => {
+            // handle error
+            console.error(err);
+            this.loading = false;
+          });
+        switch (this.$route.params.type) {
+        case 'vacancy':
+          this.type = 'Вакансий';
+          break;
+        }
+      },
+      handleSelectionChange(value) {
+        this.selections = value;
+      },
+      handleSizeChange(value) {
+        this.size = value;
+        this.initData();
+      },
+      handleCurrentChange(value) {
+        this.currentPage = value;
       }
+    },
 
-      switch (this.$route.params.type) {
-        case 'blog':
-          this.type = '博客'
-          break
-        case 'page':
-          this.type = '页面'
-          break
+    // https://router.vuejs.org/zh-cn/essentials/dynamic-matching.html#响应路由参数的变化
+    // https://router.vuejs.org/zh-cn/advanced/data-fetching.html
+    watch: {
+      $route() {
+        this.initData();
       }
-    },
-    handleSelectionChange (value) {
-      this.selections = value
-    },
-    handleSizeChange (value) {
-      console.log(`每页 ${value} 条`)
-      this.size = value
-      this.initData()
-    },
-    handleCurrentChange (value) {
-      this.currentPage = value
-      console.log(`当前页: ${value}`)
     }
-  },
-
-  // https://router.vuejs.org/zh-cn/essentials/dynamic-matching.html#响应路由参数的变化
-  // https://router.vuejs.org/zh-cn/advanced/data-fetching.html
-  watch: {
-    $route () {
-      this.initData()
-    }
-  }
-}
+  };
 </script>
 
 <style>

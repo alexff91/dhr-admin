@@ -5,7 +5,7 @@
             <app-sidebar />
             <main class="content">
                 <transition name="content">
-                    <router-view class="inner"></router-view>
+                    <router-view class="inner" />
                 </transition>
             </main>
         </section>
@@ -13,15 +13,15 @@
 </template>
 
 <script>
-import Header from '../components/header'
-import Sidebar from '../components/sidebar'
+  import Header from '../components/header';
+  import Sidebar from '../components/sidebar';
 
-export default {
-  name: 'layout',
-  title: 'VI HR | make IT better',
-  components: {
-    'app-header': Header,
-    'app-sidebar': Sidebar
-  }
-}
+  export default {
+    name: 'layout',
+    title: 'VI HR',
+    components: {
+      'app-header': Header,
+      'app-sidebar': Sidebar
+    }
+  };
 </script>

@@ -8,7 +8,7 @@
  * > - [Vue.js REST API Consumption with Axios](https://alligator.io/vuejs/rest-api-axios/)
  */
 
-import axios from 'axios'
+import axios from 'axios';
 // import storage from './storage'
 
 const instance = axios.create({
@@ -21,7 +21,7 @@ const instance = axios.create({
     // 'Authorization': true,
     // 'X-Requested-With': 'XMLHttpRequest'
   }
-})
+});
 
 // instance.interceptors.request.use(config => {
 //   // Add authorization in the header
@@ -33,4 +33,4 @@ const instance = axios.create({
 //   return config
 // })
 
-export default instance
+export default instance;

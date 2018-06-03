@@ -7,8 +7,8 @@
             <menu-list :items="header.menus" />
             <ul class="list">
                 <li class="item">
-                    <a href="#" v-if="session.user">Hi, {{ session.user.name }}! <img class="avatar"
-                                                                                      :src="session.user.meta.avatar"
+                    <a href="#" v-if="session.user">Привет, {{ session.user.name }}! <img class="avatar"
+                                                                                      src="../assets/images/avatar.svg"
                                                                                       :alt="session.user.name"></a>
                     <ul class="list">
                         <li class="item">
@@ -27,28 +27,28 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import MenuList from './menu'
+  import { mapGetters } from 'vuex';
+  import MenuList from './menu';
 
-export default {
-  name: 'app-header',
+  export default {
+    name: 'app-header',
 
-  components: {MenuList},
+    components: {MenuList},
 
-  computed: mapGetters({
-    header: 'header',
-    session: 'session'
-  }),
+    computed: mapGetters({
+      header: 'header',
+      session: 'session'
+    }),
 
-  created () {
-    this.$store.dispatch('getCurrentUser')
-  },
+    created() {
+      this.$store.dispatch('getCurrentUser');
+    },
 
-  methods: {
-    logout () {
-      this.$store.dispatch('deleteToken')
-      this.$router.replace({path: '/login'})
+    methods: {
+      logout() {
+        this.$store.dispatch('deleteToken');
+        this.$router.replace({path: '/login'});
+      }
     }
-  }
-}
+  };
 </script>

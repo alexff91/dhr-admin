@@ -5,8 +5,8 @@
  * https://jsfiddle.net/yezr0jjt/
  */
 
-import store from '../store'
-import router from '../router'
+import store from '../store';
+import router from '../router';
 
 export default Vue => {
   // Authorize
@@ -14,20 +14,20 @@ export default Vue => {
   router.beforeHooks.unshift((to, from, next) => {
     // don't need authorize
     if (!to.meta.requiresAuth) {
-      return next()
+      return next();
     }
     // check login state
     store.dispatch('checkToken')
       .then(valid => {
         // authorized
         if (valid) {
-          return next()
+          return next();
         }
         // unauthorized
-        console.log('Unauthorized')
-        next({name: 'login', query: {redirect: to.fullPath}})
-      })
-  })
+        console.log('Unauthorized');
+        next({name: 'login', query: {redirect: to.fullPath}});
+      });
+  });
 
   // // login page visiable
   // router.beforeEach((to, from, next) => {

@@ -3,11 +3,11 @@
 
 .header {
   display: flex;
-  padding: 0 .5rem;
+  padding: 0 1rem;
 
   > .brand {
     margin: 0 1rem 0 0;
-    font: italic ($header-height * .625) sans-serif;
+    font: ($header-height * .625) sans-serif;
     line-height: $header-height;
 
     > a {
@@ -18,7 +18,7 @@
       }
     }
 
-    &:hover  {
+    &:hover {
       color: $brand-hover-color;
     }
   }
@@ -75,10 +75,10 @@
             content: '';
           }
 
-          > .item  {
+          > .item {
             > a {
               display: block;
-              padding: .125rem;
+              padding: .3rem;
               color: $menu-item-color;
               font-size: $header-height * .375 + .0625rem;
               white-space: nowrap;

@@ -8,7 +8,7 @@ const state = {
    * @type {Object}
    */
   options: {}
-}
+};
 
 /**
  * Getters
@@ -21,7 +21,7 @@ const getters = {
    * @return {Object}       配置选项
    */
   options: state => state.options
-}
+};
 
 /**
  * Mutations
@@ -34,9 +34,9 @@ const mutations = {
    * @param  {Object} options 新的配置选项
    */
   CHANGE_OPTIONS: (state, options) => {
-    Object.assign(state.options, options)
+    Object.assign(state.options, options);
   }
-}
+};
 
 /**
  * Actions
@@ -46,10 +46,10 @@ const actions = {
   /**
    * 设置配置选项
    */
-  changeOptions: async ({commit}, options) => {
-    commit('CHANGE_OPTIONS', {})
+  changeOptions: async({commit}, options) => {
+    commit('CHANGE_OPTIONS', {});
   }
-}
+};
 
 // Export module
-export default {state, getters, mutations, actions}
+export default {state, getters, mutations, actions};

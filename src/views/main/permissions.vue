@@ -7,7 +7,7 @@
 </template>
 
 <script>
-export default {
-  name: 'permissions'
-}
+  export default {
+    name: 'permissions'
+  };
 </script>

@@ -1,8 +1,7 @@
 <template>
     <div>
         <div class="heading">
-            <h1 class="title" v-if="!selections.length">{{ total }} пользователей</h1>
-            <h1 class="title" v-else>{{ selections.length }}Число пользователей</h1>
+            <h1 class="title" >{{ users.length }} пользователей</h1>
             <transition name="fade">
                 <ul class="action" v-show="selections.length">
                     <li><a href="#" class="icon-before icon-checkmark" @click="handleToggleSelection(true)"></a></li>
@@ -19,27 +18,21 @@
                   @selection-change="handleSelectionChange" @filter-change="handleFilterChange"
                   @sort-change="handleSortChange">
             <el-table-column type="selection" />
-            <el-table-column prop="name" label="Username" min-width="180" sortable="custom">
+            <el-table-column prop="name" label="ФИО" min-width="180" sortable="custom">
                 <template slot-scope="scope">
                     <div class="user-info">
                         <!--<img :src="scope.row.meta.avatar" alt="scope.row.name">-->
                         <div class="names">
                             <router-link to="/">{{ scope.row.name }}</router-link>
                             <span>{{ scope.row.name }}</span>
+                            <span>{{ scope.row.lastName }}</span>
                         </div>
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column prop="status" label="Status" width="120" align="center" :filters="filters.status"
-                             column-key="status">
-                <template slot-scope="scope">
-                    <i class="status status-primary" title="Activated" v-if="scope.row.status === 'activated'"
-                       @click="handleToggleStatus(scope.row)"></i>
-                </template>
-            </el-table-column>
             <el-table-column prop="email" label="Email" width="200" sortable="custom" />
-            <el-table-column prop="phone" label="Mobile" width="140" sortable="custom" />
-            <el-table-column prop="roles" label="Role" width="240" :filters="filters.roles" column-key="roles">
+            <el-table-column prop="phone" label="Телефон" width="140" sortable="custom" />
+            <el-table-column prop="roles" label="Роли" width="240" :filters="filters.roles" column-key="roles">
                 <template slot-scope="scope">
                     <el-tag type="success" v-for="item in scope.row.roles" :key="item">{{ item }}</el-tag>
                 </template>
@@ -52,130 +45,130 @@
 </template>
 
 <script>
-export default {
-  name: 'users',
+  export default {
+    name: 'users',
 
-  data () {
-    // column filters
-    const filters = {
-      status: [
-        {text: 'Activated', value: 'activated'}
-      ],
-      roles: [
-        {text: 'ADMIN', value: 'admin'},
-        {text: 'HR', value: 'hr'},
-        {text: 'REVIEWER', value: 'reviewer'}
-      ]
+    data() {
+      // column filters
+      const filters = {
+        status: [
+          {text: 'Activated', value: 'activated'}
+        ],
+        roles: [
+          {text: 'ADMIN', value: 'admin'},
+          {text: 'HR', value: 'hr'},
+          {text: 'REVIEWER', value: 'reviewer'}
+        ]
+      };
+      return {
+        users: [],
+        selections: [],
+        total: 0,
+        size: 20,
+        page: 1,
+        search: '',
+        sort: '',
+        order: '',
+        filter: {},
+        filters: filters,
+        loading: false
+      };
+    },
+
+    created() {
+      // initial data
+      this.loadUsers();
+    },
+
+    methods: {
+      loadUsers() {
+        // toggle loading
+        this.loading = true;
+        // paginate
+        const params = {_page: this.page, _limit: this.size};
+        // sort
+        if (this.sort) {
+          params._sort = this.sort;
+        }
+        if (this.order) {
+          params._order = this.order;
+        }
+        // search
+        if (this.search) {
+          params.q = this.search;
+        }
+        // filter
+        Object.assign(params, this.filter);
+        // request
+        return this.$services.user.get({params})
+          .then(res => {
+            // response
+            this.users = res.data;
+            this.total = res.headers['x-total-count'] - 0;
+            // toggle loading
+            this.loading = false;
+          })
+          .catch(err => {
+            // handle error
+            console.error(err);
+            this.loading = false;
+          });
+      },
+
+      handleCurrentPageChange(page) {
+        this.page = page;
+        this.loadUsers();
+      },
+
+      handlePageSizeChange(size) {
+        this.size = size;
+        this.loadUsers();
+      },
+
+      handleSortChange(e) {
+        this.sort = e.prop;
+        if (e.order) {
+          this.order = e.order === 'ascending' ? 'ASC' : 'DESC';
+        }
+        this.loadUsers();
+      },
+
+      handleFilterChange(filter) {
+        Object.assign(this.filter, filter);
+        this.loadUsers();
+      },
+
+      handleSearch() {
+        this.loadUsers();
+      },
+
+      handleToggleStatus(item) {
+        const targetStatus = item.status === 'forbidden' ? 'activated' : 'forbidden';
+        this.$services.user
+          .patch(item.id, {status: targetStatus})
+          .then(res => Object.assign(item, res.data));
+      },
+
+      handleDeleteSelection() {
+        this.$confirm('Вы действительно желаете удалить выбранных пользователей?')
+          .then(() => this.selections.map(item => this.$services.user.delete(item.id)))
+          .then(() => this.loadUsers())
+          .catch(e => console.info(e));
+      },
+
+      handleToggleSelection(enable) {
+        const targetStatus = enable ? 'activated' : 'forbidden';
+        this.selections.forEach(item => this.$services.user
+          .patch(item.id, {status: targetStatus})
+          .then(res => Object.assign(item, res.data)));
+      },
+
+      // TODO
+      handleSelectionChange(value) {
+        this.selections = value;
+      }
     }
-    return {
-      users: [],
-      selections: [],
-      total: 0,
-      size: 20,
-      page: 1,
-      search: '',
-      sort: '',
-      order: '',
-      filter: {},
-      filters: filters,
-      loading: false
-    }
-  },
-
-  created () {
-    // initial data
-    this.loadUsers()
-  },
-
-  methods: {
-    loadUsers () {
-      // toggle loading
-      this.loading = true
-      // paginate
-      const params = {_page: this.page, _limit: this.size}
-      // sort
-      if (this.sort) {
-        params._sort = this.sort
-      }
-      if (this.order) {
-        params._order = this.order
-      }
-      // search
-      if (this.search) {
-        params.q = this.search
-      }
-      // filter
-      Object.assign(params, this.filter)
-      // request
-      return this.$services.user.get({params})
-        .then(res => {
-          // response
-          this.users = res.data
-          this.total = res.headers['x-total-count'] - 0
-          // toggle loading
-          this.loading = false
-        })
-        .catch(err => {
-          // handle error
-          console.error(err)
-          this.loading = false
-        })
-    },
-
-    handleCurrentPageChange (page) {
-      this.page = page
-      this.loadUsers()
-    },
-
-    handlePageSizeChange (size) {
-      this.size = size
-      this.loadUsers()
-    },
-
-    handleSortChange (e) {
-      this.sort = e.prop
-      if (e.order) {
-        this.order = e.order === 'ascending' ? 'ASC' : 'DESC'
-      }
-      this.loadUsers()
-    },
-
-    handleFilterChange (filter) {
-      Object.assign(this.filter, filter)
-      this.loadUsers()
-    },
-
-    handleSearch () {
-      this.loadUsers()
-    },
-
-    handleToggleStatus (item) {
-      const targetStatus = item.status === 'forbidden' ? 'activated' : 'forbidden'
-      this.$services.user
-        .patch(item.id, {status: targetStatus})
-        .then(res => Object.assign(item, res.data))
-    },
-
-    handleDeleteSelection () {
-      this.$confirm('Вы действительно желаете удалить выбранных пользователей?')
-        .then(() => this.selections.map(item => this.$services.user.delete(item.id)))
-        .then(() => this.loadUsers())
-        .catch(e => console.info(e))
-    },
-
-    handleToggleSelection (enable) {
-      const targetStatus = enable ? 'activated' : 'forbidden'
-      this.selections.forEach(item => this.$services.user
-        .patch(item.id, {status: targetStatus})
-        .then(res => Object.assign(item, res.data)))
-    },
-
-    // TODO
-    handleSelectionChange (value) {
-      this.selections = value
-    }
-  }
-}
+  };
 </script>
 
 <style lang="scss">
