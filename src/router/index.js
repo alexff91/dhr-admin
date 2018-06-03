@@ -8,7 +8,7 @@ Vue.use(Router);
 // https://github.com/vuejs/vue-router/blob/next/examples/scroll-behavior/app.js
 
 export default new Router({
-  mode: process.env.BASE_URL ? 'history' : 'hash',
-  base: process.env.BASE_URL,
+  mode: 'history',
+  base: '/dashboard/',
   routes: routes
 });
