@@ -14,8 +14,8 @@
             <div class="search icon-before icon-search">
                 <input type="text" placeholder="Search">
             </div>
-            <router-link :to="{ name: 'new', params: { type: $route.params.type } }">
-                <el-button type="primary" size="small" icon="el-icon-edit">写{{ type }}</el-button>
+            <router-link :to="{ name: 'newVacancy'}">
+                <el-button type="primary" size="small" icon="el-icon-edit">Создать вакансию</el-button>
             </router-link>
         </div>
         <el-table :data="vacancies" @selection-change="handleSelectionChange">
@@ -24,7 +24,7 @@
             <el-table-column prop="description" label="Описание" show-overflow-tooltip />
             <el-table-column prop="userId" label="Автор" width="100">
             </el-table-column>
-            <el-table-column prop="creationDate" label="Дата создания" width="120" />
+            <el-table-column prop="creationDate" type="date" label="Дата создания" width="120" />
         </el-table>
         <el-pagination
                 @size-change="handleSizeChange"

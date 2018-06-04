@@ -4,6 +4,7 @@ import { sync } from 'vuex-router-sync';
 import ECharts from 'vue-echarts';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/tooltip';
+import VueEditor from 'vue2-editor';
 
 import App from './app';
 import i18n from './i18n';
@@ -23,6 +24,7 @@ import './assets/styles/main.scss';
 
 
 Vue.component('chart', ECharts);
+Vue.component('vue-editor', VueEditor);
 Vue.use(element);
 Vue.use(plugins);
 sync(store, router, {moduleName: 'route'});

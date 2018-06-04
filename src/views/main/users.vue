@@ -10,9 +10,9 @@
                 </ul>
             </transition>
             <form class="search icon-before icon-search" @submit.prevent="handleSearch">
-                <input type="text" placeholder="Search" v-model="search">
+                <input type="text" placeholder="Поиск" v-model="search">
             </form>
-            <el-button type="primary" size="small" icon="el-icon-plus">Add</el-button>
+            <el-button type="primary" size="small" icon="el-icon-plus">Добавить</el-button>
         </div>
         <el-table :data="users" v-loading="loading" element-loading-text="Loading..."
                   @selection-change="handleSelectionChange" @filter-change="handleFilterChange"
@@ -51,9 +51,6 @@
     data() {
       // column filters
       const filters = {
-        status: [
-          {text: 'Activated', value: 'activated'}
-        ],
         roles: [
           {text: 'ADMIN', value: 'admin'},
           {text: 'HR', value: 'hr'},

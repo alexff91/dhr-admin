@@ -28,10 +28,10 @@ export default [
     component: () => import(/* webpackChunkName: 'posts' */ '../views/main/vacancies')
   },
   {
-    name: 'new',
-    path: 'new/:type',
+    name: 'newVacancy',
+    path: 'newVacancy',
     meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'posts' */ '../views/main/new')
+    component: () => import(/* webpackChunkName: 'posts' */ '../views/main/newVacancy')
   },
   // - Users
   {

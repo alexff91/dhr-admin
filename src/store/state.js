@@ -20,16 +20,6 @@ const state = {
         icon: 'bubble',
         name: 'responds'
       },
-      {
-        text: 'Создать',
-        icon: 'plus',
-        name: 'new',
-        params: {type: 'vacancy'},
-        children: [
-          {text: 'Вакансию', name: 'new', params: {type: 'vacancy'}},
-          {text: 'Пользователя', name: 'users'}
-        ]
-      },
       // Component Pages
       {
         text: 'Components',
