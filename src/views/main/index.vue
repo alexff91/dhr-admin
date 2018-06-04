@@ -138,7 +138,7 @@
         justify-content: center;
         height: 90%;
         margin: 1rem 1.5rem;
-        background-color: #475669;
+        background-color: #fff;
         border-radius: .5rem;
         color: #fff;
         text-align: center;
