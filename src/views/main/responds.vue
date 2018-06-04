@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="heading">
+        <div class="headinSg">
             <h1 class="title" v-if="selections.length">{{ selections.length }} выбрано</h1>
-            <h1 class="title" v-else>{{ responds.length }} {{ type }}</h1>
+            <h1 class="title" v-else>{{ responds.length }} откликов на вакансию</h1>
             <transition name="fade">
                 <ul class="action" v-show="selections.length">
                     <li><a href="#" class="icon-before icon-checkmark"></a></li>
@@ -11,14 +11,13 @@
                 </ul>
             </transition>
             <div class="search icon-before icon-search">
-                <input type="text" placeholder="Search">
+                <input type="text" placeholder="Поиск">
             </div>
         </div>
         <el-table :data="responds" @selection-change="handleSelectionChange">
             <el-table-column type="selection" />
             <el-table-column prop="name" label="Позиция" show-overflow-tooltip />
             <el-table-column prop="lastName" label="Описание" show-overflow-tooltip />
-            <el-table-column prop="respondQuestions" label="Вопросы" show-overflow-tooltip />
             <el-table-column prop="startDate" type="date" label="Дата создания" width="120" />
             <el-table-column prop="status" label="Статус" width="120" />
         </el-table>
@@ -48,7 +47,6 @@
     },
 
     created() {
-      this.$title(this.$route.params.type);
       this.loadResponds();
     },
 
@@ -82,10 +80,10 @@
         // filter
         Object.assign(params, this.filter);
         // request
-        return this.$services.vacancies.get("/1/responds/")
+        return this.$services.vacancies.get('/1/responds/')
           .then(res => {
             // response
-            this.model.responds = res.data;
+            this.responds = res.data;
             this.total = res.headers['x-total-count'] - 0;
             // toggle loading
             this.loading = false;
@@ -96,8 +94,13 @@
             this.loading = false;
           });
       }
-    }
 
+    },
+    watch: {
+      $route() {
+        this.initData();
+      }
+    }
   }
   ;
 </script>
