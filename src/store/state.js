@@ -48,11 +48,6 @@ const state = {
    * @type {Object}
    */
   sidebar: {
-    /**
-     * 版权所属
-     * @type {String}
-     */
-    copyright: 'vi-hr.com',
 
     /**
      * 是否收起边栏

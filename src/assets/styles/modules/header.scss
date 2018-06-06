@@ -11,7 +11,7 @@
     line-height: $header-height;
 
     > a {
-      color: #ccd6ea;
+      color: $brand-color;
 
       &:hover {
         color: $brand-hover-color;

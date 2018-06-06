@@ -157,11 +157,11 @@
     width: $sidebar-width;
     border-top: .0625rem solid $menu-border-background;
     line-height: 2rem;
+    text-align: right;
 
     > .toggle {
       display: inline-block;
       padding: 0 (($sidebar-min-width - 1rem) / 2);
-      border-right: .0625rem solid $menu-border-background;
       color: darken($menu-item-color, 40%);
       font-size: 1rem;
       transition: transform .3s;
