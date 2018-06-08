@@ -22,11 +22,9 @@
             <el-table-column type="selection" />
             <el-table-column prop="position" label="Позиция" show-overflow-tooltip />
             <!--<el-table-column prop="description" label="Описание" show-overflow-tooltip />-->
-            <el-table-column prop="userId" label="Автор" width="100"></el-table-column>
+            <el-table-column prop="userId" label="Автор" width="100" />
             <el-table-column prop="creationDate" type="date" label="Дата создания" width="160" />
             <el-table-column prop="description" label="Описание" show-overflow-tooltip />
-            <el-table-column prop="userId" label="Автор" width="100">
-            </el-table-column>
             <el-table-column prop="creationDate" type="date" label="Дата создания" width="120" />
             <el-table-column
                     label="Команды">
@@ -88,7 +86,7 @@
         // filter
         Object.assign(params, this.filter);
         // request
-        return axios.get("https://vi-hr.com:8082/api/v1/companies/1/vacancies")
+        return axios.get('https://vi-hr.com:8082/api/v1/companies/1/vacancies')
           .then(res => {
             // response
             this.vacancies = res.data;
