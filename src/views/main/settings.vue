@@ -60,7 +60,7 @@
       loadCompany() {
         // toggle loading
         this.loading = true;
-        return this.$services.company.get("/1")
+        return this.$services.company.get('/1')
           .then(res => {
             // response
             this.model = res.data;
@@ -84,7 +84,7 @@
           this.error = null;
           this.loading = true;
 
-          return this.$services.company.get("/1")
+          return this.$services.company.get('/1')
             .then(res => {
               // response
               res.data.companyDescription = this.model.companyDescription;
@@ -98,14 +98,12 @@
                   console.error(err);
                   this.loading = false;
                 });
-
             })
             .catch(err => {
               // handle error
               console.error(err);
               this.loading = false;
             });
-
         });
       }
     }

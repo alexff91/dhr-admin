@@ -101,8 +101,8 @@
         this.initData();
       }
     }
-  }
-  ;
+  };
+
 </script>
 
 <style>

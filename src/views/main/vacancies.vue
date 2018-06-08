@@ -18,23 +18,13 @@
                 <el-button type="primary" size="small" icon="el-icon-edit">Создать вакансию</el-button>
             </router-link>
         </div>
-        <el-table :data="vacancies" @selection-change="handleSelectionChange">
+        <el-table v-if="vacancies.length" :data="vacancies" @selection-change="handleSelectionChange">
             <el-table-column type="selection" />
             <el-table-column prop="position" label="Позиция" show-overflow-tooltip />
-            <el-table-column prop="description" label="Описание" show-overflow-tooltip />
-            <el-table-column prop="userId" label="Автор" width="100">
-            </el-table-column>
-            <el-table-column prop="creationDate" type="date" label="Дата создания" width="120" />
+            <!--<el-table-column prop="description" label="Описание" show-overflow-tooltip />-->
+            <el-table-column prop="userId" label="Автор" width="100"></el-table-column>
+            <el-table-column prop="creationDate" type="date" label="Дата создания" width="160" />
         </el-table>
-        <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                layout="total, sizes, prev, pager, next, jumper"
-                :current-page="4"
-                :page-sizes="[50, 100, 150, 200]"
-                :page-size="50"
-                :total="400">
-        </el-pagination>
     </div>
 </template>
 
@@ -80,6 +70,11 @@
           .then(res => {
             // response
             this.vacancies = res.data;
+
+            this.vacancies.forEach(vacancy => {
+              vacancy.creationDate = new Date(vacancy.creationDate).toLocaleString();
+            });
+
             this.total = res.headers['x-total-count'] - 0;
             // toggle loading
             this.loading = false;

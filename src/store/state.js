@@ -4,16 +4,8 @@ const state = {
   session: storage.get('wedn_net_session_info') || {},
 
   header: {
-    /**
-     * 站点名称
-     * @type {String}
-     */
     name: 'VI HR',
 
-    /**
-     * 顶部菜单
-     * @type {Array}
-     */
     menus: [
       {
         text: '0',
@@ -43,22 +35,10 @@ const state = {
     ]
   },
 
-  /**
-   * 侧边导航栏
-   * @type {Object}
-   */
   sidebar: {
 
-    /**
-     * 是否收起边栏
-     * @type {Boolean}
-     */
     collapse: storage.get('wedn_net_sidebar_collapse'),
 
-    /**
-     * 侧边菜单
-     * @type {Array}
-     */
     menus: [
       {
         title: ''
@@ -103,11 +83,6 @@ const state = {
   },
 
   // ==================== DEMO ====================
-
-  /**
-   * 计数器
-   * @type {Number}
-   */
   count: storage.get('wedn_net_demo_count') || 0
 };
 

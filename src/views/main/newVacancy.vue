@@ -12,9 +12,8 @@
             <el-form-item label="Описание вакансии" prop="description">
                 <vue-editor v-model="model.description"></vue-editor>
             </el-form-item>
-            <el-button :plain="true" type="success" :loading="loading" @click="submit('edit-form')">{{ loading ?
-                'Loading...' :
-                'Сохранить' }}
+            <el-button :plain="true" type="success" :loading="loading" @click="submit('edit-form')">
+                {{ loading ? 'Loading...' : 'Сохранить' }}
             </el-button>
         </el-form>
     </div>
@@ -90,14 +89,12 @@
                   console.error(err);
                   this.loading = false;
                 });
-
             })
             .catch(err => {
               // handle error
               console.error(err);
               this.loading = false;
             });
-
         });
       }
     }

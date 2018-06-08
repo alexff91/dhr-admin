@@ -2,6 +2,6 @@
  * Options service
  */
 
-import Resource from './resource';
+import Resource from './resource'
 
-export default new Resource('settings');
+export default new Resource('settings')

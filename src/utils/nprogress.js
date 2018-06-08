@@ -2,8 +2,8 @@
  * Wrapper NProgress with style
  */
 
-import 'nprogress/nprogress.css';
-import nprogress from 'nprogress';
+import 'nprogress/nprogress.css'
+import nprogress from 'nprogress'
 
 // // config
 // nprogress.configure({
@@ -17,4 +17,4 @@ import nprogress from 'nprogress';
 //   parent: '#content'
 // })
 
-export default nprogress;
+export default nprogress
