@@ -74,13 +74,13 @@
             })
             .catch(err => {
               console.error(err);
-              this.error = {title: '发生错误', message: '出现异常，请稍后再试！'};
+              this.error = {title: 'Ошибка', message: 'Не верный логин или пароль！'};
               switch (err.response && err.response.status) {
               case 401:
-                this.error.message = '用户名或密码错误！';
+                this.error.message = 'Не удалось авторизироваться！';
                 break;
               case 500:
-                this.error.message = '服务器内部异常，请稍后再试！';
+                this.error.message = 'Ошибка сервера！';
                 break;
               }
               this.loading = false;
