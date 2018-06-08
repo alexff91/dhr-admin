@@ -56,7 +56,7 @@
   import scatter from './data/scatter';
   // built-in theme
   import 'echarts/theme/dark';
-  import ECharts from 'vue-echarts'
+  import ECharts from 'vue-echarts';
   // custom theme
   import theme from './data/theme.json';
   // registering custom theme

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="heading">
-            <h1 class="title" >{{ users.length }} пользователей</h1>
+            <h1 class="title">{{ users.length }} пользователей</h1>
             <transition name="fade">
                 <ul class="action" v-show="selections.length">
                     <li><a href="#" class="icon-before icon-checkmark" @click="handleToggleSelection(true)"></a></li>

@@ -22,7 +22,6 @@ import './assets/styles/main.scss';
  * Use plugins
  */
 
-
 Vue.component('chart', ECharts);
 Vue.component('vue-editor', VueEditor);
 Vue.use(element);

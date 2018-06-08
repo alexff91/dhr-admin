@@ -224,6 +224,10 @@
 
 .sidebar.collapse {
   @include collapse;
+
+  .footer {
+    width: $sidebar-min-width;
+  }
 }
 
 @media screen and (max-width: 768px) {
