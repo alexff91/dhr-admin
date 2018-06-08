@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="heading">
-            <h1 class="title">Новая вакансия</h1>
+            <h1 class="title">Редактировать</h1>
         </div>
         <el-form class="edit-form" auto-complete="on" :model="model" :rules="rules" ref="edit-form"
                  label-position="top">
@@ -12,9 +12,10 @@
             <el-form-item label="Описание вакансии" prop="description">
                 <vue-editor v-model="model.description"></vue-editor>
             </el-form-item>
+
             <el-button :plain="true" type="success" :loading="loading" @click="submit('edit-form')">{{ loading ?
                 'Loading...' :
-                'Сохранить' }}
+                'Обновить' }}
             </el-button>
         </el-form>
     </div>
@@ -26,9 +27,14 @@
   import axios from 'axios';
 
   export default {
-    name: 'newVacancy',
+    name: 'updateVacancy',
     components: {
       VueEditor
+    },
+    computed: {
+      vacancyId() {
+        return this.$route.params.vacancyId;
+      }
     },
     data() {
       const model = {
@@ -47,9 +53,26 @@
       return {model: model, rules: rules, error: null, loading: false};
     },
     created() {
-
+      // initial data
+      this.loadVacancy();
     },
     methods: {
+      loadVacancy() {
+        // toggle loading
+        this.loading = true;
+        return axios.get('https://vi-hr.com:8082/api/v1/vacancies/' + this.vacancyId)
+          .then(res => {
+            // response
+            this.model = res.data;
+            // toggle loading
+            this.loading = false;
+          })
+          .catch(err => {
+            // handle error
+            console.error(err);
+            this.loading = false;
+          });
+      },
       submit(ref) {
         // form validate
         this.$refs[ref].validate(valid => {
@@ -67,7 +90,7 @@
             'description': description,
             'position': position
           };
-          return axios.post('https://vi-hr.com:8082/api/v1/companies/1/vacancies',data)
+          return axios.put('https://vi-hr.com:8082/api/v1/vacancies/' + this.vacancyId, data)
             .then(res => {
               this.loading = false;
             }).catch(err => {

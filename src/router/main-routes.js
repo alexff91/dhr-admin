@@ -33,6 +33,12 @@ export default [
     meta: {requiresAuth: true},
     component: () => import(/* webpackChunkName: 'posts' */ '../views/main/newVacancy')
   },
+  {
+    name: 'updateVacancy',
+    path: 'updateVacancy/:vacancyId',
+    meta: {requiresAuth: true},
+    component: () => import(/* webpackChunkName: 'posts' */ '../views/main/updateVacancy')
+  },
   // - Users
   {
     name: 'users',

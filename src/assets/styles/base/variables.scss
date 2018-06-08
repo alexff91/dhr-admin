@@ -54,11 +54,17 @@ $white-darker: #F0F1F3;
 // - Main color
 //   + #2f4050;
 //   + #373a3c;
-$main-lighter: #515e6a;
-$main-light: #3e4c59;
-$main: #2b3b49;
-$main-dark: #283643;
-$main-darker: #24313c;
+$main-lighter: #80efca;
+$main-light: #91e2d3;
+$main: #7addc7;
+$main-dark: #60b4a7;
+$main-darker: #5ca79b;
+
+//$main-lighter: #515e6a;
+//$main-light: #3e4c59;
+//$main: #2b3b49;
+//$main-dark: #283643;
+//$main-darker: #24313c;
 
 // - Brand color
 $primary: #20A0FF;
@@ -72,7 +78,7 @@ $info: #50BFFF;
 
 // - Selection
 $selection-color: $white; // inherit;
-$selection-background: $blue-lighter;
+$selection-background: $main-darker;
 
 // - Link
 $link-color: $blue-dark; // inherit;
@@ -81,16 +87,16 @@ $link-hover-color: $blue-darker; // inherit;
 $link-hover-decoration: none;
 
 // - Brand
-$brand-color: #68ffd8;
-$brand-hover-color: $white;
+$brand-color: #1b303f;
+$brand-hover-color: $black;
 
 // - Menu
-$menu-item-color: $gray;
+$menu-item-color: $black-lighter;
 $menu-item-background: transparent;
-$menu-item-hover-color: $blue-lighter;
+$menu-item-hover-color: $main-lighter;
 $menu-item-hover-background: $main-darker;
 $menu-item-active-color: $white;
-$menu-item-active-background: $blue-darker;
+$menu-item-active-background: $main-darker;
 $menu-title-color: darken($menu-item-color, 30%);
 $menu-title-background: $menu-item-hover-background;
 $menu-border-background: $main-dark;
@@ -120,7 +126,7 @@ $sidebar-enable-radius: false;
 
 // - Content
 $content-margin: .3125rem;
-$content-color: $main-darker;
+$content-color: $main;
 $content-background: $white-dark;
 
 // - Login

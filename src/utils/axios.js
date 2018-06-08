@@ -13,7 +13,7 @@ import axios from 'axios';
 
 const instance = axios.create({
   // baseURL: 'http://localhost:2080/',
-  baseURL: 'https://vi-hr.com:8080/api/v1/',
+  baseURL: 'https://vi-hr.com:8082/api/v1/',
   timeout: 5000,
   headers: {
     // 'X-Custom-Header': 'foobar',

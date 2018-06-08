@@ -25,6 +25,19 @@
             <el-table-column prop="userId" label="Автор" width="100">
             </el-table-column>
             <el-table-column prop="creationDate" type="date" label="Дата создания" width="120" />
+            <el-table-column
+                    label="Команды">
+                <template slot-scope="scope">
+                    <router-link :to="{ path: '/updateVacancy/'+scope.row.id }">
+                        <el-button type="warning" size="mini" icon="el-icon-edit">Изменить</el-button>
+                    </router-link>
+                    <el-button
+                            size="mini"
+                            type="danger" icon="el-icon-delete"
+                            @click="handleDelete(scope.$index, scope.row)">Удалить
+                    </el-button>
+                </template>
+            </el-table-column>
         </el-table>
         <el-pagination
                 @size-change="handleSizeChange"
@@ -39,6 +52,8 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     name: 'vacancies',
 
@@ -57,6 +72,9 @@
     },
 
     methods: {
+      handleDelete(index, row) {
+        console.log(index, row);
+      },
       loadVacancies() {
         // toggle loading
         this.loading = true;
@@ -76,7 +94,7 @@
         // filter
         Object.assign(params, this.filter);
         // request
-        return this.$services.vacancies.get({params})
+        return axios.get("https://vi-hr.com:8082/api/v1/companies/1/vacancies")
           .then(res => {
             // response
             this.vacancies = res.data;
