@@ -83,18 +83,20 @@
           // validated
           this.error = null;
           this.loading = true;
-
-          let description = this.model.description;
-          let position = this.model.position;
-          let data = {
-            'description': description,
-            'position': position
-          };
-          return axios.put('https://vi-hr.com:8082/api/v1/vacancies/' + this.vacancyId, data)
+          return axios.get('https://vi-hr.com:8082/api/v1/vacancies/' + this.vacancyId)
             .then(res => {
-              this.loading = false;
-            }).catch(err => {
-              // handle error
+              let data = res.data;
+              res.data.description = this.model.description;
+              res.data.position = this.model.position;
+              axios.put('https://vi-hr.com:8082/api/v1/vacancies/' + this.vacancyId, data)
+                .then(resp => {
+                  this.loading = false;
+                }).catch(err => {
+                console.error(err);
+                this.loading = false;
+              });
+            })
+            .catch(err => {
               console.error(err);
               this.loading = false;
             });
