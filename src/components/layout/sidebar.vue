@@ -77,7 +77,11 @@
         font-weight: bold;
         text-decoration: none;
         cursor: pointer;
-        transition: background-color .1s linear;
+        transition: all .1s linear;
+
+        width: 100%;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
 
         .icon {
             vertical-align: middle;
@@ -88,13 +92,13 @@
     .sidebar-item {
         background-color: transparent;
         text-align: left;
-        width: 100%;
-        padding: 1rem 1rem;
         color: #B5BBCE;
+        border-left: 3px solid transparent;
 
         &.is-active {
             color: #fff;
             background-color: #52576B;
+            border-left: 3px solid $brand-color;
 
             .icon * {
                 stroke: #fff;
@@ -115,7 +119,7 @@
     }
 
     .sidebar-button {
-        width: 70%;
+        width: 80%;
         background-color: #24bb64;
         padding: .75rem 1.2rem;
         margin: 1rem auto;

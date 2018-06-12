@@ -115,7 +115,6 @@
             durationToRead: question.durationToRead * 1000,
             durationMax: question.durationMax * 1000
           };
-
         });
 
         Companies.createVacancy(this.company.id, {
@@ -163,8 +162,8 @@
         border-radius: 3px;
         background-color: #fff;
         color: #211A1E;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-top: 5px;
+        padding-bottom: 5px;
         margin-bottom: 4px;
         border: 3px solid transparent;
 
