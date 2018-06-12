@@ -1,44 +1,24 @@
-/**
- * Suggested order:
- * display
- * list-style
- * position
- * float
- * clear
- * width
- * height
- * margin
- * padding
- * border
- * background
- * color
- * font
- * text-decoration
- * text-align
- * vertical-align
- * white-space
- * other text
- * content
- */
-@import 'base/variables';
-@import 'base/mixins';
-@import 'base/icons';
-@import 'base/transitions';
-@import 'base/components';
-@import 'modules/global';
-@import 'modules/header';
-@import 'modules/sidebar';
+@import "variables";
 
-// # Demo styles
-// ====================
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  font-size: 16px;
+}
 
-.icons {
-  width: 100%;
-  word-wrap: break-word;
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
 
-  i {
-    display: inline-block;
-    margin: 1rem;
-    font-size: 2.25rem;
-  }
+body {
+  font-family: $primary-font-family;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  background-color: #eee;
+  color: #262626;
 }

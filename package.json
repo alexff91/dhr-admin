@@ -1,49 +1,52 @@
 {
-  "name": "dashboard",
+  "name": "dhr-admin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "predeploy": "yarn lint && yarn build",
-    "deploy": "gh-pages -d dist",
-    "lint": "vue-cli-service lint",
-    "serve": "vue-cli-service serve --open"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "vue2-editor": "2.4.4",
     "axios": "^0.18.0",
-    "chart.js": "^2.7.2",
-    "element-ui": "^2.3.7",
-    "nprogress": "^0.2.0",
+    "element-ui": "^2.4.1",
     "store": "^2.0.12",
     "vue": "^2.5.16",
-    "vue-chartjs": "^3.3.1",
-    "vue-echarts": "^3.0.7",
-    "vue-i18n": "^7.6.0",
+    "vue-analytics": "^5.12.2",
     "vue-router": "^3.0.1",
-    "vuetrend": "^0.3.2",
     "vuex": "^3.0.1",
-    "vuex-router-sync": "^5.0.0",
-    "qs": "latest"
+    "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-beta.9",
-    "@vue/cli-plugin-eslint": "^3.0.0-beta.9",
-    "@vue/cli-service": "^3.0.0-beta.9",
-    "@vue/eslint-config-standard": "^3.0.0-beta.9",
-    "gh-pages": "^1.1.0",
-    "lint-staged": "^7.0.5",
+    "@vue/cli-plugin-babel": "^3.0.0-beta.15",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
+    "@vue/cli-service": "^3.0.0-beta.15",
+    "vue-template-compiler": "^2.5.16",
     "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.1",
-    "vue-template-compiler": "^2.5.16"
+    "sass-loader": "^7.0.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ],
-  "*.vue": [
-    "vue-cli-service lint",
-    "git add"
   ]
 }

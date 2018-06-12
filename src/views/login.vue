@@ -28,18 +28,13 @@
 <script>
   export default {
     name: 'login',
-
-    title: 'Login « VI HR | make IT better',
-
     data() {
-      // form model
       // TODO: remove default values
       const model = {
         username: 'ololo',
         password: 'olololo'
       };
 
-      // form validate rules
       const rules = {
         username: [
           {required: true, message: 'Необходимо ввести имя пользователя'},
@@ -52,6 +47,10 @@
       };
 
       return {model: model, rules: rules, error: null, loading: false};
+    },
+
+    created() {
+      this.$title('Вход');
     },
 
     methods: {
@@ -68,12 +67,11 @@
 
           // create token from remote
           this.$store.dispatch('createToken', this.model)
-            .then(token => {
+            .then(() => {
               this.$router.replace({path: this.$route.query.redirect || '/'});
               this.loading = false;
             })
             .catch(err => {
-              console.error(err);
               this.error = {title: 'Ошибка', message: 'Не верный логин или пароль！'};
               switch (err.response && err.response.status) {
               case 401:
@@ -92,7 +90,6 @@
 </script>
 
 <style lang="scss">
-    @import '../assets/styles/base/variables';
 
     .login {
         flex: 1;
@@ -111,12 +108,12 @@
 
                 a {
                     margin: 0;
-                    color: $brand-color;
+                    color: red;
                     font: 300 3rem sans-serif;
 
                     &:hover {
-                        color: $brand-hover-color;
-                        text-shadow: 0 0 1rem $brand-hover-color;
+                        color: darkred;
+                        text-shadow: 0 0 1rem rebeccapurple;
                     }
                 }
             }
@@ -125,8 +122,8 @@
         &-form {
             margin-bottom: 2.5rem;
             padding: 1.875rem 1.25rem;
-            background: $login-form-background;
-            color: $login-form-color;
+            background: #f1f1f1;
+            color: red;
 
             .heading {
                 margin: 0 0 1rem;
@@ -143,12 +140,12 @@
         &-footer {
             margin-bottom: 1rem;
             padding: .625rem;
-            border: .0625rem solid $brand-color;
+            border: .0625rem solid red;
             font-size: .75rem;
             text-align: center;
 
             a {
-                color: $brand-color;
+                color: rebeccapurple;
             }
         }
     }

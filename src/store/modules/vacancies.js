@@ -1,26 +1,6 @@
-/**
- * Initial state
- * @type {Object}
- */
-const state = {}
+const state = {};
+const getters = {};
+const mutations = {};
+const actions = {};
 
-/**
- * Getters
- * @type {Object}
- */
-const getters = {}
-
-/**
- * Mutations
- * @type {Object}
- */
-const mutations = {}
-
-/**
- * Actions
- * @type {Object}
- */
-const actions = {}
-
-// Export module
-export default {state, getters, mutations, actions}
+export default {state, getters, mutations, actions};

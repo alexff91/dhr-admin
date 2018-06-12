@@ -1,10 +1,3 @@
-/**
- * Check login state
- * Some middleware to help us ensure the user is authenticated.
- * https://github.com/vuejs/vue-router/issues/1048
- * https://jsfiddle.net/yezr0jjt/
- */
-
 import store from '../store';
 import router from '../router';
 
@@ -24,8 +17,7 @@ export default Vue => {
           return next();
         }
         // unauthorized
-        console.log('Unauthorized');
-        next({name: 'login', query: {redirect: to.fullPath}});
+        next({path: 'login', query: {redirect: to.fullPath}});
       });
   });
 

@@ -1,26 +1,28 @@
-import mainRoutes from './main-routes';
-
-/**
- * 路由表配置
- */
 export default [
   // ## login page
   {
-    name: 'login',
     path: '/login',
     meta: {requiresAuth: false},
     component: () => import(/* webpackChunkName: 'login' */ '../views/login')
   },
-  // ## main page
   {
     path: '/',
     meta: {requiresAuth: true},
     component: () => import(/* webpackChunkName: 'common' */ '../views/layout'),
-    children: mainRoutes
+    children: [
+      {
+        path: '',
+        meta: {requiresAuth: true},
+        component: () => import(/* webpackChunkName: 'vacancies' */ '../views/pages/vacancies')
+      },
+      {
+        path: 'new-vacancy',
+        meta: {requiresAuth: true},
+        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/new-vacancy')
+      }
+    ]
   },
-  // ## not found page
   {
-    name: 'not-found',
     path: '*',
     meta: {requiresAuth: false},
     component: () => import(/* webpackChunkName: 'common' */ '../views/error')

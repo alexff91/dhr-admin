@@ -1,62 +1,44 @@
+/* eslint-disable */
 import Vue from 'vue';
-import element from 'element-ui';
+import App from './app.vue';
 import { sync } from 'vuex-router-sync';
-import ECharts from 'vue-echarts';
-import 'echarts/lib/chart/bar';
-import 'echarts/lib/component/tooltip';
-import VueEditor from 'vue2-editor';
-
-import App from './app';
-import i18n from './i18n';
-import store from './store';
 import router from './router';
+import store from './store';
+import VueAnalytics from 'vue-analytics';
 import plugins from './plugins';
-import './assets/styles/element/index.css';
-import './assets/styles/main.scss';
 
-/**
- * Import styles
- */
+import { Badge, Button, Col, Form, FormItem, Input, Menu, MenuItem, MenuItemGroup, Row, Submenu } from 'element-ui';
 
-/**
- * Use plugins
- */
+import 'element-ui/lib/theme-chalk/index.css';
+import '../src/assets/styles/main.scss';
 
-Vue.component('chart', ECharts);
-Vue.component('vue-editor', VueEditor);
-Vue.use(element);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Input);
+Vue.use(Button);
+Vue.use(Menu);
+Vue.use(MenuItem);
+Vue.use(Submenu);
+Vue.use(Col);
+Vue.use(Row);
+Vue.use(MenuItemGroup);
+Vue.use(Badge);
+
 Vue.use(plugins);
 sync(store, router, {moduleName: 'route'});
-
-/**
- * Config
- */
 
 Vue.config.debug = process.env.NODE_ENV === 'development';
 Vue.config.silent = process.env.NODE_ENV === 'production';
 Vue.config.devtools = true;
 Vue.config.productionTip = false;
 
-/**
- * Initial
- */
-
-// ...
-
-/**
- * Root app
- */
-
-const app = new Vue({
-  name: 'root',
-  i18n: i18n,
-  store: store,
-  router: router,
-  render: h => h(App)
+Vue.use(VueAnalytics, {
+  id: 'UA-120569683-2',
+  router
 });
 
-/**
- * Mount to `#app` element
- */
-
-app.$mount('#app');
+new Vue({
+  render: h => h(App),
+  store: store,
+  router: router
+}).$mount('#app');

@@ -1,10 +1,10 @@
 <template>
     <div>
-        <app-header />
+        <!--<app-header />-->
         <section class="main">
             <app-sidebar />
             <main class="content">
-                <transition name="content">
+                <transition name="fade">
                     <router-view class="inner" />
                 </transition>
             </main>
@@ -13,15 +13,30 @@
 </template>
 
 <script>
-  import Header from '../components/header';
-  import Sidebar from '../components/sidebar';
+  import Header from '../components/layout/header';
+  import Sidebar from '../components/layout/sidebar';
 
   export default {
     name: 'layout',
-    title: 'VI HR',
     components: {
       'app-header': Header,
       'app-sidebar': Sidebar
     }
   };
 </script>
+
+<style lang="scss">
+    .main {
+        display: flex;
+    }
+
+    .content {
+        background-color: #f1f1f1;
+        flex-grow: 1;
+        padding: 2rem;
+
+        h1 {
+            margin-top: 0;
+        }
+    }
+</style>

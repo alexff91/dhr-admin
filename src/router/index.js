@@ -1,14 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import routes from './routes'
+import Vue from 'vue';
+import Router from 'vue-router';
+import routes from './routes';
 
-Vue.use(Router)
-
-// https://router.vuejs.org/zh-cn/advanced/scroll-behavior.html
-// https://github.com/vuejs/vue-router/blob/next/examples/scroll-behavior/app.js
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
-  base: '/dashboard/',
+  base: '/dashboard',
   routes: routes
-})
+});

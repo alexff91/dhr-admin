@@ -1,13 +1,6 @@
-/**
- * Vuex docs
- * https://vuex.vuejs.org/zh-cn
- * https://github.com/vuejs/vue-hackernews-2.0
- */
-
 import Vue from 'vue';
 import Vuex from 'vuex';
-// // Make sure state writeable
-// import * as state from './state' // prop readonly
+
 import state from './state';
 import * as getters from './getters';
 import * as mutations from './mutations';
@@ -33,22 +26,14 @@ if (module.hot) {
     './getters',
     './mutations',
     './actions',
-    './modules/responds',
-    './modules/settings',
-    './modules/vacancies',
-    './modules/users',
-    './modules/demo'
+    './modules/vacancies'
   ], () => {
     store.hotUpdate({
       getters: require('./getters'),
       mutations: require('./mutations'),
       actions: require('./actions'),
       modules: {
-        responds: require('./modules/responds'),
-        settings: require('./modules/settings'),
-        vacancies: require('./modules/vacancies'),
-        users: require('./modules/users'),
-        demo: require('./modules/demo')
+        vacancies: require('./modules/vacancies')
       }
     });
   });

@@ -2,17 +2,16 @@
     <div>
         <section class="error">
             <h1>404</h1>
-            <h2>Not Found</h2>
-            <footer><a href="/">vi-hr.com</a></footer>
+            <h2>Упс! Вы попали не туда</h2>
+            <footer><a href="/">Вернутся на главную</a></footer>
         </section>
     </div>
 </template>
 
 <script>
   export default {
-    name: 'not-fount',
-
-    title: 'Not Found « vi-hr.com | make IT better'
+    name: 'not-found',
+    title: 'Упс! Что-то пошло не туда'
   };
 </script>
 
@@ -24,12 +23,6 @@
         align-items: center;
         justify-content: center;
         letter-spacing: .125rem;
-
-        h1,
-        h2 {
-            margin: 0;
-            font: 300 2.5rem sans-serif;
-        }
 
         h1 {
             font-size: 15rem;
