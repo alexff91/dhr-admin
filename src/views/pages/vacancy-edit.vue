@@ -2,7 +2,8 @@
     <div>
         <slot v-if="vacancy">
             <div class="heading">
-                <h1 class="title">{{vacancy.position}}</h1>
+                <input class="vacancy-position-input" v-model="vacancy.position">
+                <!--<h1 class="title">{{vacancy.position}}</h1>-->
                 <div class="sub-title">Вакансия создана {{new Date(vacancy.creationDate).toLocaleString()}}</div>
             </div>
 
@@ -70,11 +71,17 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "../../assets/styles/variables";
+
     .heading {
         margin-bottom: 1.5rem;
 
-        h1 {
+        .vacancy-position-input {
+            width: 100%;
+            font-size: 24px;
+            padding: 8px;
             margin-bottom: .5rem;
+            border: 1px solid $secondary-color;
         }
 
         .sub-title {
