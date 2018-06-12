@@ -40,7 +40,7 @@
     .content {
         background-color: #f1f1f1;
         flex-grow: 1;
-        padding: 2rem;
+        padding: 1.5rem;
         overflow: auto;
 
         h1 {

@@ -76,32 +76,9 @@
 <style lang="scss">
     @import "../../assets/styles/variables";
 
-    .imba-row {
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        .imba-col.imba-col-main {
-            flex-basis: 250px;
-            flex-grow: 4;
-        }
-
-        .imba-col {
-            flex-grow: 2;
-            flex-shrink: 0;
-            flex-basis: 75px;
-        }
-
-        .imba-col-small {
-            flex-grow: 1;
-        }
-    }
-
     .vacancy-row {
         border-radius: 3px;
         background-color: #fff;
-        padding: 0 0.5rem 0 1rem;
         color: #211A1E;
         text-decoration: none;
         height: 45px;
@@ -118,17 +95,8 @@
         }
     }
 
-    .imba-row-head {
-        background-color: transparent;
-        font-size: 13px;
-        font-weight: bold;
-        color: grey;
-        padding: 0 0.5rem 0 1rem;
-        margin-bottom: 4px;
-    }
-
     .vacancy-status-block {
-        width: 6px;
+        width: 4px;
         height: 100%;
         position: absolute;
         left: 0;

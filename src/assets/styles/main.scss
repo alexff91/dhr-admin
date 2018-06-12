@@ -39,6 +39,8 @@ textarea {
 }
 
 .editr {
+  background-color: #fff;
+
   p {
     margin-top: 0;
     margin-bottom: 1rem;
@@ -50,5 +52,37 @@ textarea {
 
   .main {
     height: 100%;
+  }
+}
+
+.imba-row {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0.5rem 0 1rem;
+
+  &.imba-row-head {
+    background-color: transparent;
+    font-size: 13px;
+    font-weight: bold;
+    color: grey;
+    padding: 0 0.5rem 0 1rem;
+    margin-bottom: 4px;
+  }
+
+  .imba-col.imba-col-main {
+    flex-basis: 250px;
+    flex-grow: 4;
+  }
+
+  .imba-col {
+    flex-grow: 2;
+    flex-shrink: 0;
+    flex-basis: 75px;
+  }
+
+  .imba-col-small {
+    flex-grow: 1;
   }
 }

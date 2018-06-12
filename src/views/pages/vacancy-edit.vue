@@ -8,7 +8,6 @@
 
             <wysiwyg class="vacancy-description" v-model="vacancy.description"></wysiwyg>
 
-
             <div v-if="questions.length" class="vacancy-questions">
                 <h2>Вопросы</h2>
                 <div v-for="question in questions" class="question-item">
@@ -85,7 +84,6 @@
     }
 
     .vacancy-description {
-        background-color: #fff;
         margin-bottom: 2rem;
     }
 
