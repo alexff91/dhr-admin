@@ -6,11 +6,14 @@ import router from './router';
 import store from './store';
 import VueAnalytics from 'vue-analytics';
 import plugins from './plugins';
-
+import wysiwyg from 'vue-wysiwyg';
 import { Badge, Button, Col, Form, FormItem, Input, Menu, MenuItem, MenuItemGroup, Row, Submenu } from 'element-ui';
 
 import 'element-ui/lib/theme-chalk/index.css';
+import 'vue-wysiwyg/dist/vueWysiwyg.css';
 import '../src/assets/styles/main.scss';
+
+Vue.use(wysiwyg, {});
 
 Vue.use(Form);
 Vue.use(FormItem);

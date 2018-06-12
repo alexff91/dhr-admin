@@ -4,7 +4,7 @@
             <h1 class="title">Список вакансий</h1>
         </div>
 
-        <router-link :to="`/vacancies/${vacancy.id}`" v-for="vacancy in vacancies" class="item-row">
+        <router-link :to="`/vacancies/${vacancy.id}`" v-for="vacancy in vacancies" :key="vacancy.id" class="item-row">
             <div>
                 {{vacancy.position}}
             </div>
@@ -51,7 +51,6 @@
     .item-row {
         display: flex;
         flex-direction: row;
-        /*border: 1px solid rebeccapurple;*/
         border-radius: 3px;
         background-color: #fff;
         margin-bottom: .5rem;

@@ -16,9 +16,14 @@ export default [
         component: () => import(/* webpackChunkName: 'vacancies' */ '../views/pages/vacancies')
       },
       {
+        path: 'vacancies/:vacancyId',
+        meta: {requiresAuth: true},
+        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/vacancy-edit')
+      },
+      {
         path: 'new-vacancy',
         meta: {requiresAuth: true},
-        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/new-vacancy')
+        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/vacancy-create')
       }
     ]
   },

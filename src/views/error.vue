@@ -3,7 +3,7 @@
         <section class="error">
             <h1>404</h1>
             <h2>Упс! Вы попали не туда</h2>
-            <footer><a href="/">Вернутся на главную</a></footer>
+            <footer><a href="/">Вернуться на главную</a></footer>
         </section>
     </div>
 </template>
