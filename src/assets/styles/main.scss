@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans+Condensed');
 @import "variables";
 
 html {
@@ -15,17 +16,39 @@ html {
 }
 
 body {
-  font-family: $primary-font-family;
+  font-family: $base-font-family;
   font-size: 1rem;
   margin: 0;
   padding: 0;
   background-color: #eee;
-  color: #262626;
+  color: $base-color;
+  height: 100%;
+  overflow: hidden;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  margin: 0;
+  outline: 0;
+  border: 0;
 }
 
 .editr {
   p {
     margin-top: 0;
     margin-bottom: 1rem;
+  }
+}
+
+.wrapper {
+  height: 100%;
+
+  .main {
+    height: 100%;
   }
 }

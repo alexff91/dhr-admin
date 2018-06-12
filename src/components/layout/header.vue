@@ -41,12 +41,12 @@
     }),
 
     created() {
-      this.$store.dispatch('getUserAndCompany');
     },
 
     methods: {
       logout() {
         this.$store.dispatch('deleteToken');
+        this.$store.dispatch('clearUserAndCompany');
         this.$router.replace({path: '/login'});
       }
     }

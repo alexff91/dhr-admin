@@ -7,11 +7,18 @@ import store from './store';
 import VueAnalytics from 'vue-analytics';
 import plugins from './plugins';
 import wysiwyg from 'vue-wysiwyg';
+import Vuikit from 'vuikit';
+import VuikitIcons from '@vuikit/icons';
+
+// import '@vuikit/theme';
 import { Badge, Button, Col, Form, FormItem, Input, Menu, MenuItem, MenuItemGroup, Row, Submenu } from 'element-ui';
 
 import 'element-ui/lib/theme-chalk/index.css';
 import 'vue-wysiwyg/dist/vueWysiwyg.css';
 import '../src/assets/styles/main.scss';
+
+Vue.use(Vuikit);
+Vue.use(VuikitIcons);
 
 Vue.use(wysiwyg, {});
 

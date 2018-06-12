@@ -21,6 +21,12 @@
     components: {
       'app-header': Header,
       'app-sidebar': Sidebar
+    },
+    created() {
+      if (!this.$store.getters.company) {
+        this.$store.dispatch('getUserAndCompany')
+          .then(this.getVacancies);
+      }
     }
   };
 </script>
@@ -28,12 +34,14 @@
 <style lang="scss">
     .main {
         display: flex;
+        overflow: hidden;
     }
 
     .content {
         background-color: #f1f1f1;
         flex-grow: 1;
         padding: 2rem;
+        overflow: auto;
 
         h1 {
             margin-top: 0;

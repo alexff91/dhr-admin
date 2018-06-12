@@ -1,41 +1,45 @@
 <template>
     <div class="sidebar">
-        <el-menu default-active="1"
-                 router
-                 class="el-menu-vertical-demo">
 
-            <el-menu-item index="1" :route="'/'">
-                <i class="el-icon-menu"></i>
-                <span>Вакансии</span>
-            </el-menu-item>
+        <nav>
+            <router-link :to="'/'" class="sidebar-item heading-item">
+                <img src="../../assets/images/logo.png">
+                <span>Dashboard</span>
+            </router-link>
+        </nav>
 
-            <el-menu-item index="2" :route="'/new-vacancy'">
-                <i class="el-icon-plus"></i>
+        <nav class="top-menu">
+
+            <router-link :to="'/new-vacancy'" active-class="is-active" class="sidebar-button" exact>
+                <vk-icon icon="plus-circle" class="icon" ratio=".75"></vk-icon>
                 <span>Новая вакансия</span>
-            </el-menu-item>
+            </router-link>
 
-            <el-menu-item index="3" :route="'/responses'">
-                <i class="el-icon-document"></i>
+            <router-link :to="'/'" active-class="is-active" class="sidebar-item" exact>
+                <vk-icon icon="list" class="icon"></vk-icon>
+                <span>Вакансии</span>
+            </router-link>
+            <router-link :to="'/responses'" active-class="is-active" class="sidebar-item" exact>
+                <vk-icon icon="users" class="icon"></vk-icon>
                 <span>Отклики кандидатов</span>
-            </el-menu-item>
-            <el-menu-item index="4" :route="'/company-settings'">
-                <i class="el-icon-setting"></i>
+            </router-link>
+            <router-link :to="'/company-settings'" active-class="is-active" class="sidebar-item" exact>
+                <vk-icon icon="cog" class="icon"></vk-icon>
                 <span>Настройка компании</span>
-            </el-menu-item>
-        </el-menu>
+            </router-link>
+        </nav>
+
+        <nav class="secondary-menu">
+            <button class="sidebar-item" @click="logout">
+                <vk-icon icon="sign-out" class="icon"></vk-icon>
+                <span>Выйти</span>
+            </button>
+        </nav>
     </div>
-    <!--<aside class="sidebar" :class="{ collapse: sidebar.collapse }">-->
-    <!--<nav class="menu">-->
-    <!--<menu-list :items="sidebar.menus" active-class />-->
-    <!--</nav>-->
-    <!--<footer class="footer">-->
-    <!--<a class="toggle icon-before icon-circle-left" title="Toggle navigation menu" @click="toggleCollapse"></a>-->
-    <!--</footer>-->
-    <!--</aside>-->
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
   import MenuList from './menu';
 
   export default {
@@ -44,21 +48,119 @@
     computed: mapGetters({
       sidebar: 'sidebar'
     }),
-    methods: mapActions({
-      toggleCollapse: 'toggleSidebarCollapse'
-    })
+    methods: {
+      logout() {
+        this.$store.dispatch('deleteToken');
+        this.$store.dispatch('clearUserAndCompany');
+        this.$router.replace({path: '/login'});
+      }
+    }
+
   };
 </script>
 
 <style lang="scss">
+    @import "../../assets/styles/variables";
+
     .sidebar {
+        display: flex;
+        flex-shrink: 0;
+        flex-direction: column;
         width: 250px;
         height: 100%;
+        background-color: #494D5D;
     }
 
-    .badge-item {
-        .el-badge__content {
-            color: red;
+    .sidebar-item, .sidebar-button {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color .1s linear;
+
+        .icon {
+            vertical-align: middle;
+            display: inline-flex;
         }
+    }
+
+    .sidebar-item {
+        background-color: transparent;
+        text-align: left;
+        width: 100%;
+        padding: 1rem 1rem;
+        color: #B5BBCE;
+
+        &.is-active {
+            color: #fff;
+            background-color: #52576B;
+
+            .icon * {
+                stroke: #fff;
+            }
+        }
+
+        &:hover {
+            background-color: #52576B;
+        }
+
+        .icon {
+            margin-right: .75rem;
+
+            * {
+                stroke: #B5BBCE;
+            }
+        }
+    }
+
+    .sidebar-button {
+        width: 70%;
+        background-color: #24bb64;
+        padding: .75rem 1.2rem;
+        margin: 1rem auto;
+        color: #fff;
+        border-radius: 5px;
+        text-align: center;
+
+        &:hover {
+            background-color: #25e384;
+        }
+
+        .icon {
+            margin-right: .25rem;
+
+            * {
+                stroke: #fff;
+            }
+        }
+
+        span {
+            vertical-align: middle;
+        }
+    }
+
+    .heading-item {
+        background-color: #3C404E;
+        font-size: 20px;
+        color: #e4e4e4;
+
+        &:hover {
+            background-color: #3C404E;
+        }
+
+        img {
+            vertical-align: middle;
+            width: 36px;
+            margin-right: .5rem;
+        }
+
+        span {
+            vertical-align: middle;
+        }
+    }
+
+    .secondary-menu {
+        margin-top: auto;
     }
 </style>

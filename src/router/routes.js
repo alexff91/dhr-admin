@@ -24,6 +24,11 @@ export default [
         path: 'new-vacancy',
         meta: {requiresAuth: true},
         component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/vacancy-create')
+      },
+      {
+        path: 'responses',
+        meta: {requiresAuth: true},
+        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/responses')
       }
     ]
   },

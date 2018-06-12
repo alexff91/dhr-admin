@@ -42,6 +42,11 @@ export const getUserAndCompany = ({commit}) => {
     });
 };
 
+export const clearUserAndCompany = ({commit}) => {
+  commit('CHANGE_USER', null);
+  commit('CHANGE_COMPANY', null);
+};
+
 export const toggleSidebarCollapse = ({commit}) => {
   commit('TOGGLE_SIDEBAR_COLLAPSE');
 };

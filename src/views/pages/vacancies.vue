@@ -31,16 +31,20 @@
     }),
     created() {
       this.$title('Вакансии');
-      this.getVacancies();
+
+      if (!this.company) {
+        this.$store.dispatch('getUserAndCompany')
+          .then(this.getVacancies);
+      } else {
+        this.getVacancies();
+      }
     },
     methods: {
       getVacancies() {
-        this.$store.dispatch('getUserAndCompany')
-          .then(() => {
-            Companies.getVacancies(this.company.id)
-              .then(res => {
-                this.vacancies = res.data;
-              });
+
+        Companies.getVacancies(this.company.id)
+          .then(res => {
+            this.vacancies = res.data;
           });
       }
     }
@@ -48,6 +52,8 @@
 </script>
 
 <style lang="scss">
+    @import "../../assets/styles/variables";
+
     .item-row {
         display: flex;
         flex-direction: row;
@@ -55,5 +61,11 @@
         background-color: #fff;
         margin-bottom: .5rem;
         padding: 1rem;
+        color: $base-color;
+        text-decoration: none;
+
+        &:hover {
+            box-shadow: 0 0 0 2px $brand-color;
+        }
     }
 </style>

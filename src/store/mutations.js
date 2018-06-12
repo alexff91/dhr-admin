@@ -6,7 +6,6 @@ export const CHANGE_SESSION = (state, session) => {
     axios.defaults.headers.Authorization = `Bearer ${session.token}`;
   }
   // TODO: new session mixin
-  Object.assign(state.session, session);
   storage.set('session_info', state.session);
 };
 
@@ -16,11 +15,11 @@ export const TOGGLE_SIDEBAR_COLLAPSE = state => {
 };
 
 export const CHANGE_USER = (state, user) => {
-  // TODO: set in storage
   state.user = user;
+  storage.set('user', state.user);
 };
 
 export const CHANGE_COMPANY = (state, company) => {
-  // TODO: set in storage
   state.company = company;
+  storage.set('company', state.company);
 };
