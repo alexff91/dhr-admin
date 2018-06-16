@@ -87,8 +87,6 @@
           });
       },
       copyVacancyLink(vacancy) {
-        console.log(vacancy.tooltipIsVisible);
-
         this.$copyText(this.getVacancyLink(vacancy.id)).then(() => {
           vacancy.tooltipIsVisible = true;
           setTimeout(() => {

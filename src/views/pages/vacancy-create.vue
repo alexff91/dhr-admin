@@ -28,7 +28,7 @@
                 <draggable v-model="questions" @start="drag=true" @end="drag=false" :options="{handle:'.move-question'}">
                     <div v-for="(question, i) in questions" :key="i" class="imba-row question-row">
                         <div class="imba-col-action move-question">
-                            <vk-icon icon="grid"></vk-icon>
+                            <div class="move-icon"></div>
                         </div>
                         <div class="imba-col imba-col-main question-text-col">
                             <textarea rows="2" class="imba-input" v-model="question.question"></textarea>
@@ -140,41 +140,5 @@
         float: right;
     }
 
-    .imba-input {
-        border: 1px solid $secondary-color;
-        border-radius: 3px;
-        padding: 4px;
-    }
 
-    .move-question {
-        cursor: move;
-    }
-
-    .question-text-col {
-        padding-right: 2rem;
-    }
-
-    .question-row {
-        border-radius: 3px;
-        background-color: #fff;
-        color: #211A1E;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        margin-bottom: 4px;
-        border: 3px solid transparent;
-
-        textarea {
-            width: 100%;
-            resize: none;
-            height: 45px;
-        }
-
-        input {
-            width: 65px;
-        }
-    }
-
-    .sortable-ghost {
-        border: 3px dashed $secondary-color;
-    }
 </style>

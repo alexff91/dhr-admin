@@ -18,8 +18,10 @@
                 <div class="imba-col imba-col-small"></div>
             </div>
 
-            <router-link :to="`/responses/${response.id}`" class="response-row imba-row imba-row-link" v-for="response in
-            responses">
+            <router-link :to="`/responses/${response.id}`"
+                         class="response-row imba-row imba-row-link"
+                         :key="response.id"
+                         v-for="response in responses">
                 <div class="imba-col imba-col-main">{{ response.name }} {{ response.lastName }}</div>
                 <div class="imba-col imba-col-main">{{response.email}}</div>
                 <div class="imba-col imba-col-small">{{RESPONSE_STATUS_RU[response.status]}}</div>

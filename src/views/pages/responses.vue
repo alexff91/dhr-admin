@@ -5,7 +5,7 @@
         </div>
 
         <div class="response-wrap" v-if="questionResponses.length">
-            <div class="question-item" v-for="question in questionResponses">
+            <div class="question-item" v-for="question in questionResponses" :key="question.id">
                 {{question}}
             </div>
         </div>

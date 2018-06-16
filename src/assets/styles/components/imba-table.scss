@@ -1,0 +1,107 @@
+.imba-row {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0.5rem 0 1rem;
+
+  &.imba-row-head {
+    background-color: transparent;
+    font-size: 13px;
+    font-weight: bold;
+    color: grey;
+    padding: 0 0.5rem 0 1rem;
+    margin-bottom: 4px;
+  }
+
+  &.imba-row-link {
+    border-radius: 3px;
+    background-color: #fff;
+    color: #211A1E;
+    text-decoration: none;
+    height: 45px;
+    font-size: 15px;
+    margin-bottom: 3px;
+
+    &:hover {
+      box-shadow: 0 0 2px $primary-color;
+      background-color: #fefeff;
+    }
+
+    &:active {
+      box-shadow: 0 0 1px $primary-color;
+    }
+  }
+
+  .imba-col.imba-col-main {
+    flex-basis: 250px;
+    flex-grow: 4;
+  }
+
+  .imba-col {
+    flex-grow: 2;
+    flex-shrink: 0;
+    flex-basis: 75px;
+  }
+
+  .imba-col-small {
+    flex-grow: 1;
+  }
+
+  .imba-col-action {
+    display: flex;
+    position: relative;
+    flex-basis: 35px;
+    flex-grow: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover * {
+      stroke: $primary-color;
+    }
+
+    > * {
+      cursor: inherit;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    * {
+      stroke: $base-color;
+    }
+
+    .uk-icon {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
+  .imba-popper {
+    position: absolute;
+    background-color: $base-color;
+    color: #fff;
+    right: 100%;
+    padding: 8px 8px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .imba-timestamp {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    color: $secondary-color;
+    font-size: 12px;
+
+    .icon {
+      margin-right: 4px;
+      margin-top: 2px;
+
+      * {
+        stroke: $secondary-color
+      }
+    }
+  }
+}
