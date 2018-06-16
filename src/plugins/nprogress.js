@@ -9,11 +9,10 @@ import { axios, nprogress } from '../utils';
 export default Vue => {
   // Add nprogress to route
   router.beforeEach((to, from, next) => {
-    console.log(to)
     nprogress.start();
     next();
   });
-  router.afterEach(route => {
+  router.afterEach(() => {
     nprogress.done();
   });
 

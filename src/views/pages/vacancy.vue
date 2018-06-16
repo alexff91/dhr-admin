@@ -10,26 +10,30 @@
             <div class="sub-title">Вакансия создана {{new Date(vacancy.creationDate).toLocaleString()}}</div>
         </div>
 
-        <div class="imba-table" v-if="responses.length">
-            <div class="imba-row imba-row-head">
-                <div class="imba-col imba-col-main">Имя Фамилия</div>
-                <div class="imba-col imba-col-main">Email</div>
-                <div class="imba-col imba-col-small">Статус</div>
-                <div class="imba-col imba-col-small"></div>
-            </div>
+        <div class="responses">
+            <h3>Отклики</h3>
 
-            <router-link :to="`/responses/${response.id}`"
-                         class="response-row imba-row imba-row-link"
-                         :key="response.id"
-                         v-for="response in responses">
-                <div class="imba-col imba-col-main">{{ response.name }} {{ response.lastName }}</div>
-                <div class="imba-col imba-col-main">{{response.email}}</div>
-                <div class="imba-col imba-col-small">{{RESPONSE_STATUS_RU[response.status]}}</div>
-                <div class="imba-timestamp imba-col imba-col-small" :title="new Date(response.startDate).toLocaleString()">
-                    <vk-icon icon="clock" class="icon" :ratio="0.7"></vk-icon>
-                    <span>{{ distanceInWords(new Date(response.startDate), new Date(), { locale: ru }) }} назад</span>
+            <div class="imba-table" v-if="responses.length">
+                <div class="imba-row imba-row-head">
+                    <div class="imba-col imba-col-main">Имя Фамилия</div>
+                    <div class="imba-col imba-col-main">Email</div>
+                    <div class="imba-col imba-col-small">Статус</div>
+                    <div class="imba-col imba-col-small"></div>
                 </div>
-            </router-link>
+
+                <router-link :to="`/responses/${response.id}`"
+                             class="response-row imba-row imba-row-link"
+                             :key="response.id"
+                             v-for="response in responses">
+                    <div class="imba-col imba-col-main">{{ response.name }} {{ response.lastName }}</div>
+                    <div class="imba-col imba-col-main">{{response.email}}</div>
+                    <div class="imba-col imba-col-small">{{RESPONSE_STATUS_RU[response.status]}}</div>
+                    <div class="imba-timestamp imba-col imba-col-small" :title="new Date(response.startDate).toLocaleString()">
+                        <vk-icon icon="clock" class="icon" :ratio="0.7"></vk-icon>
+                        <span>{{ distanceInWords(new Date(response.startDate), new Date(), { locale: ru }) }} назад</span>
+                    </div>
+                </router-link>
+            </div>
         </div>
 
         <div v-if="!responses.length">
