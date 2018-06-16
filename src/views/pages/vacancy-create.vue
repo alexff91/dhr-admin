@@ -126,7 +126,7 @@
             Vacancies.setQuestions(res.data, preparedQuestions)
               .then(() => {
                 this.$router.replace({path: '/'});
-              })
+              });
           });
       }
     }
@@ -144,10 +144,6 @@
         border: 1px solid $secondary-color;
         border-radius: 3px;
         padding: 4px;
-    }
-
-    .imba-col-action {
-        width: 50px;
     }
 
     .move-question {

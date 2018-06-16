@@ -6,6 +6,7 @@ export const CHANGE_SESSION = (state, session) => {
     axios.defaults.headers.Authorization = `Bearer ${session.token}`;
   }
   // TODO: new session mixin
+  Object.assign(state.session, session);
   storage.set('session_info', state.session);
 };
 

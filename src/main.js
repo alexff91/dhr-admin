@@ -9,13 +9,15 @@ import plugins from './plugins';
 import wysiwyg from 'vue-wysiwyg';
 import Vuikit from 'vuikit';
 import VuikitIcons from '@vuikit/icons';
-
+import VueClipboard from 'vue-clipboard2';
 // import '@vuikit/theme';
-import { Badge, Button, Col, Form, FormItem, Input, Menu, MenuItem, MenuItemGroup, Row, Submenu } from 'element-ui';
+import { Alert, Badge, Button, Col, Form, FormItem, Input, Menu, MenuItem, MenuItemGroup, Row, Submenu, Tooltip } from 'element-ui';
 
 import 'element-ui/lib/theme-chalk/index.css';
 import 'vue-wysiwyg/dist/vueWysiwyg.css';
 import '../src/assets/styles/main.scss';
+
+Vue.use(VueClipboard);
 
 Vue.use(Vuikit);
 Vue.use(VuikitIcons);
@@ -33,6 +35,8 @@ Vue.use(Col);
 Vue.use(Row);
 Vue.use(MenuItemGroup);
 Vue.use(Badge);
+Vue.use(Alert);
+Vue.use(Tooltip);
 
 Vue.use(plugins);
 sync(store, router, {moduleName: 'route'});

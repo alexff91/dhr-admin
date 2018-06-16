@@ -1,9 +1,9 @@
 <template>
     <div>
         <slot v-if="vacancy">
+            <router-link :to="`/vacancies/${vacancy.id}`" class="view-vacancy-link">← Вернуться на просмотр вакансии</router-link>
             <div class="heading">
                 <input class="vacancy-position-input" v-model="vacancy.position">
-                <!--<h1 class="title">{{vacancy.position}}</h1>-->
                 <div class="sub-title">Вакансия создана {{new Date(vacancy.creationDate).toLocaleString()}}</div>
             </div>
 
@@ -73,21 +73,24 @@
 <style lang="scss" scoped>
     @import "../../assets/styles/variables";
 
-    .heading {
-        margin-bottom: 1.5rem;
+    .view-vacancy-link {
+        display: block;
+        font-size: 14px;
+        color: $secondary-color;
+        margin-bottom: .5rem;
+        text-decoration: none;
 
-        .vacancy-position-input {
-            width: 100%;
-            font-size: 24px;
-            padding: 8px;
-            margin-bottom: .5rem;
-            border: 1px solid $secondary-color;
+        &:hover {
+            color: $primary-color;
         }
+    }
 
-        .sub-title {
-            font-size: 13px;
-            color: gray;
-        }
+    .vacancy-position-input {
+        width: 100%;
+        font-size: 24px;
+        padding: 8px;
+        margin-bottom: .5rem;
+        border: 1px solid $secondary-color;
     }
 
     .vacancy-description {

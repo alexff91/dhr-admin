@@ -19,10 +19,10 @@
                 <vk-icon icon="list" class="icon"></vk-icon>
                 <span>Вакансии</span>
             </router-link>
-            <router-link :to="'/responses'" active-class="is-active" class="sidebar-item" exact>
-                <vk-icon icon="users" class="icon"></vk-icon>
-                <span>Отклики кандидатов</span>
-            </router-link>
+            <!--<router-link :to="'/responses'" active-class="is-active" class="sidebar-item" exact>-->
+                <!--<vk-icon icon="users" class="icon"></vk-icon>-->
+                <!--<span>Отклики кандидатов</span>-->
+            <!--</router-link>-->
             <router-link :to="'/company-settings'" active-class="is-active" class="sidebar-item" exact>
                 <vk-icon icon="cog" class="icon"></vk-icon>
                 <span>Настройка компании</span>
@@ -98,7 +98,7 @@
         &.is-active {
             color: #fff;
             background-color: #52576B;
-            border-left: 3px solid $brand-color;
+            border-left: 3px solid $primary-color;
 
             .icon * {
                 stroke: #fff;
@@ -147,7 +147,7 @@
     .heading-item {
         background-color: #3C404E;
         font-size: 20px;
-        color: #e4e4e4;
+        color: $secondary-color;
 
         &:hover {
             background-color: #3C404E;

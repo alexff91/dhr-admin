@@ -29,7 +29,7 @@ export const checkToken = ({commit, getters}) => {
 
 export const deleteToken = ({commit, getters}) => {
   return Tokens.delete(getters.session.token)
-    .then(() => {
+    .then((res) => {
       commit('CHANGE_SESSION', {token: null});
     });
 };

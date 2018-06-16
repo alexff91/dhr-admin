@@ -72,7 +72,7 @@
               this.loading = false;
             })
             .catch(err => {
-              this.error = {title: 'Ошибка', message: 'Не верный логин или пароль！'};
+              this.error = {title: 'Ошибка', message: 'Неверный логин или пароль！'};
               switch (err.response && err.response.status) {
               case 401:
                 this.error.message = 'Не удалось авторизироваться！';
