@@ -4,7 +4,7 @@
         <section class="main">
             <app-sidebar />
             <main class="content">
-                <transition name="fade">
+                <transition name="content">
                     <router-view class="inner" />
                 </transition>
             </main>

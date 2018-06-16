@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans+Condensed');
 @import "variables";
+@import "transitions";
 @import "components/imba-table";
 @import "components/questions-constructor";
 
@@ -68,4 +69,8 @@ textarea {
     font-size: 13px;
     color: gray;
   }
+}
+
+.nprogress-busy * {
+  cursor: wait !important;
 }
