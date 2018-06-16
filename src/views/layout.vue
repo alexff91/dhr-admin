@@ -24,8 +24,7 @@
     },
     created() {
       if (!this.$store.getters.company) {
-        this.$store.dispatch('getUserAndCompany')
-          .then(this.getVacancies);
+        this.$store.dispatch('getUserAndCompany');
       }
     }
   };
