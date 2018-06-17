@@ -19,10 +19,10 @@
                 <vk-icon icon="list" class="icon"></vk-icon>
                 <span>Вакансии</span>
             </router-link>
-            <!--<router-link :to="'/responses'" active-class="is-active" class="sidebar-item" exact>-->
-                <!--<vk-icon icon="users" class="icon"></vk-icon>-->
-                <!--<span>Отклики кандидатов</span>-->
-            <!--</router-link>-->
+            <router-link :to="'/skills'" active-class="is-active" class="sidebar-item" exact>
+                <vk-icon icon="users" class="icon"></vk-icon>
+                <span>Навыки кандидатов</span>
+            </router-link>
             <router-link :to="'/company-settings'" active-class="is-active" class="sidebar-item" exact>
                 <vk-icon icon="cog" class="icon"></vk-icon>
                 <span>Настройка компании</span>
