@@ -7,6 +7,8 @@
         <div class="response-wrap" v-if="questionResponses.length">
             <div class="question-item" v-for="question in questionResponses" :key="question.id">
                 {{question}}
+
+                <video :src="question.videoPath" controls></video>
             </div>
         </div>
     </div>
