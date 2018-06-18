@@ -9,14 +9,14 @@
 
             <wysiwyg class="vacancy-description" v-model="vacancy.description"></wysiwyg>
 
-            <div class="questions">
+            <div class="questions" v-if="vacancy.questions">
                 <h2>Вопросы</h2>
 
-                <div class="" v-if="questions.length === 0">
+                <div class="" v-if="vacancy.questions.length === 0">
                     Вы еще не добавили вопросы.
                 </div>
 
-                <div class="imba-table" v-if="questions.length">
+                <div class="imba-table" v-if="vacancy.questions.length">
                     <div class="imba-row imba-row-head">
                         <div class="imba-col-action">&nbsp;</div>
                         <div class="imba-col imba-col-main">Вопрос</div>
@@ -26,8 +26,8 @@
                     </div>
 
 
-                    <draggable v-model="questions" @start="drag=true" @end="drag=false" :options="{handle:'.move-question'}">
-                        <div v-for="(question, i) in questions" :key="i" class="imba-row question-row">
+                    <draggable v-model="vacancy.questions" @start="drag=true" @end="drag=false" :options="{handle:'.move-question'}">
+                        <div v-for="(question, i) in vacancy.questions" :key="i" class="imba-row question-row">
                             <div class="imba-col-action move-question">
                                 <div class="move-icon"></div>
                             </div>
@@ -67,8 +67,7 @@
     components: {draggable},
     data() {
       return {
-        vacancy: null,
-        questions: []
+        vacancy: {}
       };
     },
     computed: {
@@ -79,7 +78,6 @@
     created() {
       this.$title('Редактирование вакансии');
       this.getVacancy();
-      this.getQuestions();
     },
 
     methods: {
@@ -87,47 +85,44 @@
         return Vacancies.get(this.id)
           .then(res => {
             this.vacancy = res.data;
+            this.initQuestions();
           });
       },
-      getQuestions() {
-        return Vacancies.getQuestions(this.id)
-          .then(res => {
-            this.questions = res.data;
-          });
+      initQuestions() {
+        this.vacancy.questions.sort((a, b) => a.orderNumber - b.orderNumber);
+        this.vacancy.questions.forEach(e => {
+          e.durationMax /= 1000;
+          e.durationToRead /= 1000;
+        });
+
       },
       saveVacancy() {
-        Vacancies.put(this.id, this.vacancy);
-      },
+        const preparedQuestions = this.vacancy.questions.map((question, index) => {
+          return {
+            ...question,
+            orderNumber: index,
+            durationToRead: question.durationToRead * 1000,
+            durationMax: question.durationMax * 1000
+          };
+        });
 
-      // TODO: вынести в компонент
-      getRandomQuestionContent() {
-        const questions = [
-          'Чем интересна наша вакансия?', 'Какая главная задача вашей позиции?',
-          'Как вы проводите свободное время? Расскажите про ваше любимое хобби',
-          'Расскажите про команду, в которой вы привыкли работать',
-          'Расскажите немного о себе',
-          'Как смотрите на жизнь, какие видите в ней сложности и как с ними справляетесь?',
-          'Чем вас привлекает работа у нас в данной должности?',
-          'Почему вы считаете себя достойным занять эту должность? В чем ваши преимущества перед другими кандидатами?',
-          'Каковы ваши сильные стороны?',
-          'Почему вы решили сменить место работы?',
-          'Как вы представляете свое положение через пять (десять) лет?',
-          'На какую зарплату вы рассчитываете?'
-        ];
-
-        return questions[Math.floor(Math.random() * questions.length)];
+        Vacancies.put(this.id, {
+          ...this.vacancy,
+          questions: preparedQuestions
+        });
       },
       addQuestion() {
-        this.questions.push({
-          'durationMax': 120,
+        this.vacancy.questions.push({
+          'durationMax': 60,
           'durationToRead': 15,
           'isCompulsory': true,
-          'question': this.getRandomQuestionContent()
+          'skills': [],
+          'question': ''
         });
       },
       removeQuestion(index) {
-        this.questions.splice(index, 1);
-      },
+        this.vacancy.questions.splice(index, 1);
+      }
     }
   };
 </script>

@@ -20,16 +20,16 @@
                 <span>Вакансии</span>
             </router-link>
             <router-link :to="'/skills'" active-class="is-active" class="sidebar-item" exact>
-                <vk-icon icon="users" class="icon"></vk-icon>
+                <vk-icon icon="tag" class="icon"></vk-icon>
                 <span>Навыки кандидатов</span>
-            </router-link>
-            <router-link :to="'/company-settings'" active-class="is-active" class="sidebar-item" exact>
-                <vk-icon icon="cog" class="icon"></vk-icon>
-                <span>Настройка компании</span>
             </router-link>
         </nav>
 
         <nav class="secondary-menu">
+            <router-link :to="'/company-settings'" active-class="is-active" class="sidebar-item" exact>
+                <vk-icon icon="cog" class="icon"></vk-icon>
+                <span>Настройка компании</span>
+            </router-link>
             <button class="sidebar-item" @click="logout">
                 <vk-icon icon="sign-out" class="icon"></vk-icon>
                 <span>Выйти</span>

@@ -37,7 +37,6 @@
     }
 
     .content {
-        background-color: #f1f1f1;
         flex-grow: 1;
         padding: 1.5rem;
         overflow: auto;

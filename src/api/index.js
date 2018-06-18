@@ -9,6 +9,12 @@ export const Companies = new Resource('companies', {
   },
   createVacancy(companyId, data) {
     return this.http.post(`/companies/${companyId}/vacancies`, data);
+  },
+  getSkills(companyId) {
+    return this.http.get(`/companies/${companyId}/skills`);
+  },
+  setSkills(companyId, data) {
+    return this.http.post(`/companies/${companyId}/skills`, data);
   }
 });
 

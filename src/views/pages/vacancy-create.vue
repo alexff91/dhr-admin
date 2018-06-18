@@ -57,7 +57,7 @@
 </template>
 
 <script>
-  import { Companies, Vacancies } from '../../api';
+  import { Companies } from '../../api';
   import { mapGetters } from 'vuex';
   import draggable from 'vuedraggable';
 
@@ -119,14 +119,12 @@
 
         Companies.createVacancy(this.company.id, {
           creationDate: new Date().toISOString(),
-          description: this.description || 'Описание',
-          position: this.position || 'Должность'
+          description: this.description || '',
+          position: this.position || 'Должность без названия',
+          questions: preparedQuestions
         })
           .then(res => {
-            Vacancies.setQuestions(res.data, preparedQuestions)
-              .then(() => {
-                this.$router.replace({path: '/'});
-              });
+            this.$router.replace(`/vacancies/${res.data}`);
           });
       }
     }
