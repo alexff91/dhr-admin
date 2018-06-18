@@ -34,6 +34,7 @@
     .main {
         display: flex;
         overflow: hidden;
+        max-width: 1200px;
     }
 
     .content {

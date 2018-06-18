@@ -34,6 +34,16 @@ export default [
         path: 'responses/:responseId',
         meta: {requiresAuth: true},
         component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/responses')
+      },
+      {
+        path: 'skills',
+        meta: {requiresAuth: true},
+        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/skills')
+      },
+      {
+        path: 'company-settings',
+        meta: {requiresAuth: true},
+        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/company-settings')
       }
     ]
   },

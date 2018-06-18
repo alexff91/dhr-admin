@@ -109,7 +109,10 @@
         Vacancies.put(this.id, {
           ...this.vacancy,
           questions: preparedQuestions
-        });
+        })
+          .then(() => {
+            this.$router.replace(`/vacancies/${this.id}`);
+          });
       },
       addQuestion() {
         this.vacancy.questions.push({
