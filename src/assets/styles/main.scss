@@ -44,6 +44,7 @@ textarea {
 
 .editr {
   background-color: #fff;
+  border: 1px solid $secondary-color;
 
   p {
     margin-top: 0;
@@ -64,6 +65,15 @@ textarea {
 
   h1 {
     margin-bottom: .5rem;
+  }
+
+  .heading-input {
+    width: 100%;
+    font-size: 24px;
+    padding: 8px;
+    margin-bottom: .5rem;
+    border: 1px solid $secondary-color;
+    background-color: #fff;
   }
 
   .sub-title {

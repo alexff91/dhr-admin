@@ -3,7 +3,7 @@
         <slot v-if="vacancy">
             <router-link :to="`/vacancies/${vacancy.id}`" class="view-vacancy-link">← К просмотру вакансии</router-link>
             <div class="heading">
-                <input class="vacancy-position-input" v-model="vacancy.position">
+                <input class="heading-input" v-model="vacancy.position">
                 <div class="sub-title">Вакансия создана {{new Date(vacancy.creationDate).toLocaleString()}}</div>
             </div>
 
@@ -143,14 +143,6 @@
         &:hover {
             color: $primary-color;
         }
-    }
-
-    .vacancy-position-input {
-        width: 100%;
-        font-size: 24px;
-        padding: 8px;
-        margin-bottom: .5rem;
-        border: 1px solid $secondary-color;
     }
 
     .vacancy-description {
