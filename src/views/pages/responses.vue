@@ -11,13 +11,13 @@
             <div><a :href="`mailto:${respond.email}`">{{`${respond.email}`}}</a></div>
         </div>
 
-        <!--<div class="response-wrap" v-if="questionResponses.length">-->
-        <!--<div class="question-item" v-for="question in questionResponses" :key="question.id">-->
-        <!--{{question}}-->
+        <div class="response-wrap" v-if="answers.length">
 
-        <!--<video :src="question.videoPath" controls></video>-->
-        <!--</div>-->
-        <!--</div>-->
+            <h2>Видеоответы</h2>
+            <div class="question-item" v-for="answer in answers" :key="answer.id">
+                <video :src="answer.videoPath" controls></video>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -29,7 +29,7 @@
     data() {
       return {
         respond: null,
-        questionResponses: {}
+        answers: {}
       };
     },
     computed: {
