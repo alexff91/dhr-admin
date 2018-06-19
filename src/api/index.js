@@ -31,7 +31,7 @@ export const Vacancies = new Resource('vacancies', {
 });
 
 export const Responds = new Resource('responds', {
-  getResponses(respondId) {
-    return this.http.get(`/respond/${respondId}/questionResponds`);
+  getAnswers(respondId) {
+    return this.http.get(`/respond/${respondId}/answers`);
   }
 });

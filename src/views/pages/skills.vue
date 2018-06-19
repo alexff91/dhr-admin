@@ -55,9 +55,9 @@
       },
       saveSkills() {
         Companies.setSkills(this.company.id, this.skills)
-          .then(() => {
-            this.$router.replace('/');
-          });
+          // .then(() => {
+          //   this.$router.replace('/');
+          // });
       },
 
       addSkill() {

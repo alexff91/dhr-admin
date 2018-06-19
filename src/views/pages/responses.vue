@@ -47,7 +47,7 @@
           this.respond = res.data;
         });
 
-      Responds.getResponses(this.responseId)
+      Responds.getAnswers(this.responseId)
         .then(res => {
           this.answers = res.data;
         });
