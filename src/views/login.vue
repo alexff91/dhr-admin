@@ -1,27 +1,25 @@
 <template>
     <section class="login">
         <header class="login-header">
-            <h1 class="brand">
-                <router-link to="/" tabindex="-1">VI HR</router-link>
-            </h1>
-            <el-alert v-if="error" :title="error.title" type="warning" :description="error.message" show-icon />
+            <img class="logo" src="../assets/images/logo.png">
         </header>
         <el-form class="login-form" auto-complete="off" :model="model" :rules="rules" ref="login-form"
                  label-position="top">
-            <h2 class="heading">Sign-in</h2>
-            <el-form-item label="Login" prop="username">
-                <el-input type="text" v-model="model.username" placeholder="Please enter username" />
+            <h2 class="heading">Вход</h2>
+            <el-form-item prop="username">
+                <el-input type="text" v-model="model.username" placeholder="Логин" />
             </el-form-item>
-            <el-form-item label="Password" prop="password">
-                <el-input type="password" v-model="model.password" placeholder="Please enter password" />
+            <el-form-item prop="password">
+                <el-input type="password" v-model="model.password" placeholder="Пароль" />
             </el-form-item>
-            <el-button type="primary" :loading="loading" @click="submit('login-form')">{{ loading ? 'Loading...' :
-                'Login' }}
+            <el-button type="primary" :loading="loading" @click="submit('login-form')">{{ loading ? 'Загрузка...' :
+                'Войти' }}
             </el-button>
+
+            <br><br>
+
+            <el-alert v-if="error" :title="error.title" type="warning" :description="error.message" show-icon />
         </el-form>
-        <footer class="login-footer">
-            ← Back to <a href="/">VI HR</a>
-        </footer>
     </section>
 </template>
 
@@ -95,11 +93,17 @@
         flex: 1;
         width: 95%;
         max-width: 22rem;
-        margin: 0 auto;
+        margin: 2rem auto 0;
         font-size: .875rem;
 
         &-header {
             margin-bottom: 1rem;
+            text-align: center;
+
+            img {
+                width: 75px;
+                height: 75px;
+            }
 
             .brand {
                 margin: 4.5rem 0 3.5rem;
@@ -108,13 +112,7 @@
 
                 a {
                     margin: 0;
-                    color: red;
                     font: 300 3rem sans-serif;
-
-                    &:hover {
-                        color: darkred;
-                        text-shadow: 0 0 1rem rebeccapurple;
-                    }
                 }
             }
         }
@@ -123,7 +121,6 @@
             margin-bottom: 2.5rem;
             padding: 1.875rem 1.25rem;
             background: #f1f1f1;
-            color: red;
 
             .heading {
                 margin: 0 0 1rem;
