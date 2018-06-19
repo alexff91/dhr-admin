@@ -54,10 +54,10 @@
           });
       },
       saveSkills() {
-        Companies.setSkills(this.company.id, this.skills)
-          // .then(() => {
-          //   this.$router.replace('/');
-          // });
+        Companies.setSkills(this.company.id, this.skills);
+        // .then(() => {
+        //   this.$router.replace('/');
+        // });
       },
 
       addSkill() {

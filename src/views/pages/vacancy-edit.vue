@@ -20,12 +20,13 @@
                     <div class="imba-row imba-row-head">
                         <div class="imba-col-action">&nbsp;</div>
                         <div class="imba-col imba-col-main">Вопрос</div>
+                        <div class="imba-col imba-col-main">Навыки</div>
                         <div class="imba-col">Время на ответ (сек.)</div>
                         <div class="imba-col">Время на подготовку (сек.)</div>
                         <div class="imba-col-action">&nbsp;</div>
                     </div>
 
-
+                    <!--TODO: questions component-->
                     <draggable v-model="vacancy.questions" @start="drag=true" @end="drag=false" :options="{handle:'.move-question'}">
                         <div v-for="(question, i) in vacancy.questions" :key="i" class="imba-row question-row">
                             <div class="imba-col-action move-question">
@@ -34,11 +35,29 @@
                             <div class="imba-col imba-col-main question-text-col">
                                 <textarea rows="2" class="imba-input" v-model="question.question"></textarea>
                             </div>
-                            <div class="imba-col">
-                                <input class="imba-input" v-model.number="question.durationMax" type="number" min="0" max="180">
+                            <div class="imba-col imba-col-main">
+                                <el-select
+                                        no-data-text="Добавьте новый навык"
+                                        v-model="question.skills"
+                                        multiple
+                                        filterable
+                                        allow-create
+                                        value-key="id"
+                                        placeholder="Выберите навык">
+                                    <el-option
+                                            v-for="skill in skills"
+                                            :key="skill.id"
+                                            :label="skill.name"
+                                            :value="skill">
+                                    </el-option>
+                                </el-select>
                             </div>
                             <div class="imba-col">
-                                <input class="imba-input" v-model.number="question.durationToRead" type="number" min="0">
+                                <input class="imba-input imba-number" v-model.number="question.durationMax" type="number" min="0" max="180">
+                            </div>
+                            <div class="imba-col">
+                                <input class="imba-input imba-number" v-model.number="question.durationToRead" type="number" min="0"
+                                       max="180">
                             </div>
                             <div class="imba-col-action">
                                 <button @click="removeQuestion(i)">
@@ -59,7 +78,7 @@
 </template>
 
 <script>
-  import { Vacancies } from '../../api';
+  import { Companies, Vacancies } from '../../api';
   import draggable from 'vuedraggable';
 
   export default {
@@ -67,17 +86,25 @@
     components: {draggable},
     data() {
       return {
-        vacancy: {}
+        vacancy: {},
+        skills: []
       };
     },
     computed: {
       id() {
         return this.$route.params.vacancyId;
+      },
+      company() {
+        return this.$store.getters.company;
       }
     },
     created() {
       this.$title('Редактирование вакансии');
       this.getVacancy();
+      Companies.getSkills(this.company.id)
+        .then(res => {
+          this.skills = res.data;
+        });
     },
 
     methods: {
@@ -94,10 +121,16 @@
           e.durationMax /= 1000;
           e.durationToRead /= 1000;
         });
-
       },
       saveVacancy() {
         const preparedQuestions = this.vacancy.questions.map((question, index) => {
+          question.skills = question.skills.map(skill => {
+            if (typeof skill === 'string') {
+              return {name: skill};
+            }
+            return skill;
+          });
+
           return {
             ...question,
             orderNumber: index,
