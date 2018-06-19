@@ -31,7 +31,7 @@ export default [
         component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/vacancy')
       },
       {
-        path: 'responses/:responseId',
+        path: 'vacancies/:vacancyId/responses/:responseId',
         meta: {requiresAuth: true},
         component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/responses')
       },

@@ -25,13 +25,13 @@ export const Vacancies = new Resource('vacancies', {
   setQuestions(vacancyId, data) {
     return this.http.post(`vacancies/${vacancyId}/questions/batch`, data);
   },
-  getResponses(vacancyId) {
-    return this.http.get(`/vacancies/${vacancyId}/responds`);
+  getResponses(vacancyId, responseId = '') {
+    return this.http.get(`/vacancies/${vacancyId}/responds/${responseId}`);
   }
 });
 
-export const Response = new Resource('respond', {
-  getResponses(responseId) {
-    return this.http.get(`/respond/${responseId}/questionResponds`);
+export const Responds = new Resource('responds', {
+  getResponses(respondId) {
+    return this.http.get(`/respond/${respondId}/questionResponds`);
   }
 });

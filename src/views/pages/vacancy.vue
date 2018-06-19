@@ -21,7 +21,7 @@
                     <div class="imba-col imba-col-small"></div>
                 </div>
 
-                <router-link :to="`/responses/${response.id}`"
+                <router-link :to="`/vacancies/${vacancy.id}/responses/${response.id}`"
                              class="response-row imba-row imba-row-link"
                              :key="response.id"
                              v-for="response in responses">
