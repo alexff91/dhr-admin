@@ -8,6 +8,7 @@
             <h2>Контактные данные</h2>
 
             <div>{{`${respond.name} ${respond.lastName}`}}</div>
+            <div>{{respond.phone}}</div>
             <div><a :href="`mailto:${respond.email}`">{{`${respond.email}`}}</a></div>
         </div>
 
