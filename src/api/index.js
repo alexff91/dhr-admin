@@ -14,7 +14,7 @@ export const Companies = new Resource('companies', {
     return this.http.get(`/companies/${companyId}/skills`);
   },
   setSkills(companyId, data) {
-    return this.http.post(`/companies/${companyId}/skills`, data);
+    return this.http.post(`/companies/${companyId}/skills/batch`, data);
   }
 });
 
