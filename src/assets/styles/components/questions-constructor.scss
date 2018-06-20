@@ -14,10 +14,6 @@
     resize: none;
     height: 45px;
   }
-
-  input {
-    width: 65px;
-  }
 }
 
 .sortable-ghost {
@@ -59,8 +55,17 @@
   border: 1px solid $secondary-color;
   border-radius: 3px;
   padding: 4px;
+
+  &.imba-number {
+    width: 65px;
+  }
 }
 
 .question-text-col {
+  padding-right: 2rem;
+}
+
+.el-select {
+  width: 100%;
   padding-right: 2rem;
 }
