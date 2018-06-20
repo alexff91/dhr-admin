@@ -33,5 +33,17 @@ export const Vacancies = new Resource('vacancies', {
 export const Responds = new Resource('responds', {
   getAnswers(respondId) {
     return this.http.get(`/respond/${respondId}/answers`);
+  },
+  createRespondFeedback(respondId, userId, data) {
+    return this.http.post(`/respond/${respondId}/review/${userId}`, data);
+  }
+});
+
+export const Answers = new Resource('answers', {
+  getAll(questionAnswerId) {
+    return this.http.get(`/answers/${questionAnswerId}/review`);
+  },
+  createAnswerFeedback(questionAnswerId, userId, data) {
+    return this.http.post(`/answers/${questionAnswerId}/review/user/${userId}`, data);
   }
 });

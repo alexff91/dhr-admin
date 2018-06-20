@@ -11,7 +11,24 @@ import Vuikit from 'vuikit';
 import VuikitIcons from '@vuikit/icons';
 import VueClipboard from 'vue-clipboard2';
 // import '@vuikit/theme';
-import { Alert, Badge, Button, Col, Form, FormItem, Input, Menu, MenuItem, MenuItemGroup, Row, Submenu, Tooltip, Select, Option } from 'element-ui';
+import {
+  Alert,
+  Badge,
+  Button,
+  Col,
+  Form,
+  FormItem,
+  Input,
+  Menu,
+  MenuItem,
+  MenuItemGroup,
+  Option,
+  Rate,
+  Row,
+  Select,
+  Submenu,
+  Tooltip
+} from 'element-ui';
 
 import 'element-ui/lib/theme-chalk/index.css';
 import 'vue-wysiwyg/dist/vueWysiwyg.css';
@@ -39,6 +56,7 @@ Vue.use(Alert);
 Vue.use(Tooltip);
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(Rate);
 
 Vue.use(plugins);
 sync(store, router, {moduleName: 'route'});
