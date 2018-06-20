@@ -35,7 +35,7 @@ export const Responds = new Resource('responds', {
     return this.http.get(`/respond/${respondId}/answers`);
   },
   createRespondFeedback(respondId, userId, data) {
-    return this.http.post(`/respond/${respondId}/review/${userId}`, data);
+    return this.http.post(`/respond/${respondId}/users/${userId}/review`, data);
   }
 });
 
@@ -44,6 +44,6 @@ export const Answers = new Resource('answers', {
     return this.http.get(`/answers/${questionAnswerId}/review`);
   },
   createAnswerFeedback(questionAnswerId, userId, data) {
-    return this.http.post(`/answers/${questionAnswerId}/review/user/${userId}`, data);
+    return this.http.post(`/answers/${questionAnswerId}/users/${userId}/review`, data);
   }
 });
