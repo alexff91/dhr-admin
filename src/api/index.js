@@ -35,7 +35,7 @@ export const Responds = new Resource('responds', {
     return this.http.get(`/respond/${respondId}/answers`);
   },
   createRespondFeedback(respondId, userId, data) {
-    return this.http.post(`/respond/${respondId}/users/${userId}/review`, data);
+    return this.http.post(`/responds/${respondId}/users/${userId}/review`, data);
   }
 });
 
