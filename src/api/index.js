@@ -44,6 +44,6 @@ export const Answers = new Resource('answers', {
     return this.http.get(`/answers/${questionAnswerId}/review`);
   },
   createAnswerFeedback(questionAnswerId, userId, data) {
-    return this.http.post(`/answers/${questionAnswerId}/users/${userId}/review`, data);
+    return this.http.post(`/answers/${questionAnswerId}/user/${userId}/review`, data);
   }
 });
