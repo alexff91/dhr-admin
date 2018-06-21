@@ -6,12 +6,19 @@ export const Tokens = new Resource('tokens', {
     return this.http.post(`/secured/login`, data);
   },
 });
+
 export const Companies = new Resource('companies', {
   getVacancies(companyId) {
-    return this.http.get(`/secured//companies/${companyId}/vacancies`);
+    return this.http.get(`/secured/companies/${companyId}/vacancies`);
   },
   createVacancy(companyId, data) {
-    return this.http.post(`/secured//companies/${companyId}/vacancies`, data);
+    return this.http.post(`/secured/companies/${companyId}/vacancies`, data);
+  },
+  getSkills(companyId) {
+    return this.http.get(`/secured/companies/${companyId}/skills`);
+  },
+  setSkills(companyId, data) {
+    return this.http.post(`/secured/companies/${companyId}/skills/batch`, data);
   }
 });
 
@@ -19,12 +26,28 @@ export const Vacancies = new Resource('vacancies', {
   getQuestions(vacancyId = '') {
     return this.http.get(`/vacancies/${vacancyId}/questions`);
   },
-  setQuestions(vacancyId, data){
-    return this.http.post(`/secured/vacancies/${vacancyId}/questions/batch`, data)
+  setQuestions(vacancyId, data) {
+    return this.http.post(`/secured/vacancies/${vacancyId}/questions/batch`, data);
+  },
+  getResponses(vacancyId, responseId = '') {
+    return this.http.get(`/secured/vacancies/${vacancyId}/responds/${responseId}`);
   }
 });
+
 export const Responds = new Resource('responds', {
-  createRespond(vacancyId, data) {
-    return this.http.post(`/secured/vacancies/${vacancyId}/responds`, data);
+  getAnswers(respondId) {
+    return this.http.get(`/secured/respond/${respondId}/answers`);
+  },
+  createRespondFeedback(respondId, userId, data) {
+    return this.http.post(`/secured/responds/${respondId}/users/${userId}/review`, data);
+  }
+});
+
+export const Answers = new Resource('answers', {
+  getAll(questionAnswerId) {
+    return this.http.get(`/secured/answers/${questionAnswerId}/review`);
+  },
+  createAnswerFeedback(questionAnswerId, userId, data) {
+    return this.http.post(`/secured/answers/${questionAnswerId}/user/${userId}/review`, data);
   }
 });

@@ -1,27 +1,76 @@
 <template>
     <div>
         <slot v-if="vacancy">
+            <router-link :to="`/vacancies/${vacancy.id}`" class="view-vacancy-link">← К просмотру вакансии</router-link>
             <div class="heading">
-                <input class="vacancy-position-input" v-model="vacancy.position">
-                <!--<h1 class="title">{{vacancy.position}}</h1>-->
+                <input class="heading-input" v-model="vacancy.position">
                 <div class="sub-title">Вакансия создана {{new Date(vacancy.creationDate).toLocaleString()}}</div>
             </div>
 
             <wysiwyg class="vacancy-description" v-model="vacancy.description"></wysiwyg>
 
-            <div v-if="questions.length" class="vacancy-questions">
+            <div class="questions" v-if="vacancy.questions">
                 <h2>Вопросы</h2>
-                <div v-for="question in questions" class="question-item">
-                    <div class="question-text">{{question.question}}</div>
-                    <div class="question-actions">
-                        <div class="question-duration-max">{{question.durationMax}} мс</div>
-                        <div class="question-duration-to-read">{{question.durationToRead}} мс</div>
-                        <div class="question-is-compulsory">{{question.isCompulsory}}</div>
+
+                <div class="" v-if="vacancy.questions.length === 0">
+                    Вы еще не добавили вопросы.
+                </div>
+
+                <div class="imba-table" v-if="vacancy.questions.length">
+                    <div class="imba-row imba-row-head">
+                        <div class="imba-col-action">&nbsp;</div>
+                        <div class="imba-col imba-col-main">Вопрос</div>
+                        <div class="imba-col imba-col-main">Навыки</div>
+                        <div class="imba-col">Время на ответ (сек.)</div>
+                        <div class="imba-col">Время на подготовку (сек.)</div>
+                        <div class="imba-col-action">&nbsp;</div>
                     </div>
 
+                    <!--TODO: questions component-->
+                    <draggable v-model="vacancy.questions" @start="drag=true" @end="drag=false" :options="{handle:'.move-question'}">
+                        <div v-for="(question, i) in vacancy.questions" :key="i" class="imba-row question-row">
+                            <div class="imba-col-action move-question">
+                                <div class="move-icon"></div>
+                            </div>
+                            <div class="imba-col imba-col-main question-text-col">
+                                <textarea rows="2" class="imba-input" v-model="question.question"></textarea>
+                            </div>
+                            <div class="imba-col imba-col-main">
+                                <el-select
+                                        no-data-text="Добавьте новый навык"
+                                        v-model="question.skills"
+                                        multiple
+                                        filterable
+                                        allow-create
+                                        value-key="id"
+                                        placeholder="Выберите навык">
+                                    <el-option
+                                            v-for="skill in skills"
+                                            :key="skill.id"
+                                            :label="skill.name"
+                                            :value="skill">
+                                    </el-option>
+                                </el-select>
+                            </div>
+                            <div class="imba-col">
+                                <input class="imba-input imba-number" v-model.number="question.durationMax" type="number" min="0" max="180">
+                            </div>
+                            <div class="imba-col">
+                                <input class="imba-input imba-number" v-model.number="question.durationToRead" type="number" min="0"
+                                       max="180">
+                            </div>
+                            <div class="imba-col-action">
+                                <button @click="removeQuestion(i)">
+                                    <vk-icon icon="trash"></vk-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </draggable>
                 </div>
-            </div>
 
+
+                <el-button @click="addQuestion" type="text">+ Добавить вопрос</el-button>
+            </div>
 
             <el-button class="save-button" type="primary" @click="saveVacancy">Сохранить</el-button>
         </slot>
@@ -29,25 +78,33 @@
 </template>
 
 <script>
-  import { Vacancies } from '../../api';
+  import { Companies, Vacancies } from '../../api';
+  import draggable from 'vuedraggable';
 
   export default {
     name: 'vacancy-edit',
+    components: {draggable},
     data() {
       return {
-        vacancy: null,
-        questions: []
+        vacancy: {},
+        skills: []
       };
     },
     computed: {
       id() {
         return this.$route.params.vacancyId;
+      },
+      company() {
+        return this.$store.getters.company;
       }
     },
     created() {
       this.$title('Редактирование вакансии');
       this.getVacancy();
-      this.getQuestions();
+      Companies.getSkills(this.company.id)
+        .then(res => {
+          this.skills = res.data;
+        });
     },
 
     methods: {
@@ -55,16 +112,52 @@
         return Vacancies.get(this.id)
           .then(res => {
             this.vacancy = res.data;
+            this.initQuestions();
           });
       },
-      getQuestions() {
-        return Vacancies.getQuestions(this.id)
-          .then(res => {
-            this.questions = res.data;
-          });
+      initQuestions() {
+        this.vacancy.questions.sort((a, b) => a.orderNumber - b.orderNumber);
+        this.vacancy.questions.forEach(e => {
+          e.durationMax /= 1000;
+          e.durationToRead /= 1000;
+        });
       },
       saveVacancy() {
-        Vacancies.put(this.id, this.vacancy);
+        const preparedQuestions = this.vacancy.questions.map((question, index) => {
+          question.skills = question.skills.map(skill => {
+            if (typeof skill === 'string') {
+              return {name: skill};
+            }
+            return skill;
+          });
+
+          return {
+            ...question,
+            orderNumber: index,
+            durationToRead: question.durationToRead * 1000,
+            durationMax: question.durationMax * 1000
+          };
+        });
+
+        Vacancies.put(this.id, {
+          ...this.vacancy,
+          questions: preparedQuestions
+        })
+          .then(() => {
+            this.$router.replace(`/vacancies/${this.id}`);
+          });
+      },
+      addQuestion() {
+        this.vacancy.questions.push({
+          'durationMax': 60,
+          'durationToRead': 15,
+          'isCompulsory': true,
+          'skills': [],
+          'question': ''
+        });
+      },
+      removeQuestion(index) {
+        this.vacancy.questions.splice(index, 1);
       }
     }
   };
@@ -73,20 +166,15 @@
 <style lang="scss" scoped>
     @import "../../assets/styles/variables";
 
-    .heading {
-        margin-bottom: 1.5rem;
+    .view-vacancy-link {
+        display: block;
+        font-size: 14px;
+        color: $secondary-color;
+        margin-bottom: .5rem;
+        text-decoration: none;
 
-        .vacancy-position-input {
-            width: 100%;
-            font-size: 24px;
-            padding: 8px;
-            margin-bottom: .5rem;
-            border: 1px solid $secondary-color;
-        }
-
-        .sub-title {
-            font-size: 13px;
-            color: gray;
+        &:hover {
+            color: $primary-color;
         }
     }
 

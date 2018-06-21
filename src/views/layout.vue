@@ -4,7 +4,7 @@
         <section class="main">
             <app-sidebar />
             <main class="content">
-                <transition name="fade">
+                <transition name="content">
                     <router-view class="inner" />
                 </transition>
             </main>
@@ -24,8 +24,7 @@
     },
     created() {
       if (!this.$store.getters.company) {
-        this.$store.dispatch('getUserAndCompany')
-          .then(this.getVacancies);
+        this.$store.dispatch('getUserAndCompany');
       }
     }
   };
@@ -35,10 +34,10 @@
     .main {
         display: flex;
         overflow: hidden;
+        max-width: 1200px;
     }
 
     .content {
-        background-color: #f1f1f1;
         flex-grow: 1;
         padding: 1.5rem;
         overflow: auto;

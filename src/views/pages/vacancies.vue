@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <div class="heading">
             <h1 class="title">Список вакансий</h1>
         </div>
@@ -7,24 +7,38 @@
         <div class="imba-table">
             <div class="imba-row imba-row-head">
                 <div class="imba-col imba-col-main">Позиция</div>
-                <div class="imba-col imba-col-small">Статус</div>
                 <div class="imba-col imba-col-small">Отклики</div>
                 <div class="imba-col imba-col-small">Создана</div>
+                <div class="imba-col-action"></div>
+                <div class="imba-col-action"></div>
             </div>
-            <router-link :to="`/vacancies/${vacancy.id}`" v-for="vacancy in vacancies" :key="vacancy.id" class="vacancy-row imba-row">
+            <router-link :to="`/vacancies/${vacancy.id}`" v-for="vacancy in vacancies" :key="vacancy.id"
+                         class="imba-row imba-row-link">
                 <div class="vacancy-status-block is-active"></div>
                 <div class="imba-col imba-col-main">
                     {{vacancy.position}}
                 </div>
-                <div class="imba-col imba-col-small">
-                    В работе
-                </div>
                 <div class="imba-col imba-col-small" title="Откликов/Просмотров">
-                    <b>11</b>/65
+                    <b>{{vacancy.respondsCount}}</b>
                 </div>
-                <div class="vacancy-creation-time imba-col imba-col-small" :title="new Date(vacancy.creationDate).toLocaleString()">
+                <div class="imba-timestamp imba-col imba-col-small" :title="new Date(vacancy.creationDate).toLocaleString()">
                     <vk-icon icon="clock" class="icon" :ratio="0.7"></vk-icon>
                     <span>{{ distanceInWords(new Date(vacancy.creationDate), new Date(), { locale: ru }) }} назад</span>
+                </div>
+
+                <div class="imba-col-action" title="Скопировать ссылку на вакансию">
+                    <div class="imba-popper" v-if="vacancy.tooltipIsVisible">
+                        Ссылка скопирована
+                    </div>
+                    <button @click.prevent="copyVacancyLink(vacancy)">
+                        <vk-icon icon="link"></vk-icon>
+                    </button>
+                </div>
+
+                <div class="imba-col-action" title="Редактировать">
+                    <router-link :to="`/vacancies/${vacancy.id}/edit`">
+                        <vk-icon icon="file-edit"></vk-icon>
+                    </router-link>
                 </div>
             </router-link>
         </div>
@@ -32,15 +46,14 @@
 </template>
 
 <script>
+  const VACANCIES_URL = 'https://app.vi-hr.com/demo/vacancy/';
   import { Companies } from '../../api';
   import { mapGetters } from 'vuex';
   import { distanceInWords } from 'date-fns';
   import ru from 'date-fns/locale/ru';
-  import VkIcon from 'vuikit/src/library/icon/components/icon';
 
   export default {
     name: 'vacancies',
-    components: {VkIcon},
     data() {
       return {
         vacancies: [],
@@ -63,11 +76,27 @@
     },
     methods: {
       getVacancies() {
-
         Companies.getVacancies(this.company.id)
           .then(res => {
-            this.vacancies = res.data.sort((a, b) => b.creationDate - a.creationDate);
+            this.vacancies = res.data.sort((a, b) => b.creationDate - a.creationDate).map(vacancy => {
+              return {
+                ...vacancy,
+                tooltipIsVisible: false
+              };
+            });
           });
+      },
+      copyVacancyLink(vacancy) {
+        this.$copyText(this.getVacancyLink(vacancy.id)).then(() => {
+          vacancy.tooltipIsVisible = true;
+          setTimeout(() => {
+            vacancy.tooltipIsVisible = false;
+          }, 2000);
+        });
+      },
+
+      getVacancyLink(id) {
+        return VACANCIES_URL + id;
       }
     }
   };
@@ -76,25 +105,6 @@
 <style lang="scss">
     @import "../../assets/styles/variables";
 
-    .vacancy-row {
-        border-radius: 3px;
-        background-color: #fff;
-        color: #211A1E;
-        text-decoration: none;
-        height: 45px;
-        font-size: 15px;
-        margin-bottom: 5px;
-
-        &:hover {
-            box-shadow: 0 0 0 2px #e4e4e4;
-            background-color: #fefeff;
-        }
-
-        &:active {
-            box-shadow: 0 0 0 1px #e4e4e4;
-        }
-    }
-
     .vacancy-status-block {
         width: 4px;
         height: 100%;
@@ -102,22 +112,5 @@
         left: 0;
         background-color: #24bb64;
         border-radius: 3px 0 0 3px;
-    }
-
-    .vacancy-creation-time {
-        display: flex;
-        align-items: center;
-        margin-left: auto;
-        color: $secondary-color;
-        font-size: 12px;
-
-        .icon {
-            margin-right: 4px;
-            margin-top: 2px;
-
-            * {
-                stroke: $secondary-color
-            }
-        }
     }
 </style>

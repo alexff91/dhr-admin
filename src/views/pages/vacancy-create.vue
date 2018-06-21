@@ -20,24 +20,43 @@
                 <div class="imba-row imba-row-head">
                     <div class="imba-col-action">&nbsp;</div>
                     <div class="imba-col imba-col-main">Вопрос</div>
+                    <div class="imba-col imba-col-main">Навыки</div>
                     <div class="imba-col">Время на ответ (сек.)</div>
                     <div class="imba-col">Время на подготовку (сек.)</div>
                     <div class="imba-col-action">&nbsp;</div>
                 </div>
 
                 <draggable v-model="questions" @start="drag=true" @end="drag=false" :options="{handle:'.move-question'}">
+
                     <div v-for="(question, i) in questions" :key="i" class="imba-row question-row">
                         <div class="imba-col-action move-question">
-                            <vk-icon icon="grid"></vk-icon>
+                            <div class="move-icon"></div>
                         </div>
                         <div class="imba-col imba-col-main question-text-col">
                             <textarea rows="2" class="imba-input" v-model="question.question"></textarea>
                         </div>
-                        <div class="imba-col">
-                            <input class="imba-input" v-model.number="question.durationMax" type="number" min="0" max="180">
+                        <div class="imba-col imba-col-main">
+                            <el-select
+                                    no-data-text="Добавьте новый навык"
+                                    v-model="question.skills"
+                                    multiple
+                                    filterable
+                                    allow-create
+                                    value-key="id"
+                                    placeholder="Выберите навык">
+                                <el-option
+                                        v-for="skill in skills"
+                                        :key="skill.id"
+                                        :label="skill.name"
+                                        :value="skill">
+                                </el-option>
+                            </el-select>
                         </div>
                         <div class="imba-col">
-                            <input class="imba-input" v-model.number="question.durationToRead" type="number" min="0">
+                            <input class="imba-input imba-number" v-model.number="question.durationMax" type="number" min="0" max="180">
+                        </div>
+                        <div class="imba-col">
+                            <input class="imba-input imba-number" v-model.number="question.durationToRead" type="number" min="0" max="180">
                         </div>
                         <div class="imba-col-action">
                             <button @click="removeQuestion(i)">
@@ -57,7 +76,7 @@
 </template>
 
 <script>
-  import { Companies, Vacancies } from '../../api';
+  import { Companies } from '../../api';
   import { mapGetters } from 'vuex';
   import draggable from 'vuedraggable';
 
@@ -68,7 +87,8 @@
       return {
         position: '',
         description: '',
-        questions: []
+        questions: [],
+        skills: []
       };
     },
     computed: mapGetters({
@@ -76,6 +96,10 @@
     }),
     created() {
       this.$title('Новая вакансия');
+      Companies.getSkills(this.company.id)
+        .then(res => {
+          this.skills = res.data;
+        });
     },
     methods: {
       getRandomQuestionContent() {
@@ -109,6 +133,13 @@
 
       createVacancy() {
         const preparedQuestions = this.questions.map((question, index) => {
+          question.skills = question.skills.map(skill => {
+            if (typeof skill === 'string') {
+              return {name: skill};
+            }
+            return skill;
+          });
+
           return {
             ...question,
             orderNumber: index,
@@ -119,14 +150,12 @@
 
         Companies.createVacancy(this.company.id, {
           creationDate: new Date().toISOString(),
-          description: this.description || 'Описание',
-          position: this.position || 'Должность'
+          description: this.description || '',
+          position: this.position || 'Должность без названия',
+          questions: preparedQuestions
         })
           .then(res => {
-            Vacancies.setQuestions(res.data, preparedQuestions)
-              .then(() => {
-                this.$router.replace({path: '/'});
-              })
+            this.$router.replace(`/vacancies/${res.data}`);
           });
       }
     }
@@ -138,47 +167,5 @@
 
     .create-button {
         float: right;
-    }
-
-    .imba-input {
-        border: 1px solid $secondary-color;
-        border-radius: 3px;
-        padding: 4px;
-    }
-
-    .imba-col-action {
-        width: 50px;
-    }
-
-    .move-question {
-        cursor: move;
-    }
-
-    .question-text-col {
-        padding-right: 2rem;
-    }
-
-    .question-row {
-        border-radius: 3px;
-        background-color: #fff;
-        color: #211A1E;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        margin-bottom: 4px;
-        border: 3px solid transparent;
-
-        textarea {
-            width: 100%;
-            resize: none;
-            height: 45px;
-        }
-
-        input {
-            width: 65px;
-        }
-    }
-
-    .sortable-ghost {
-        border: 3px dashed $secondary-color;
     }
 </style>
