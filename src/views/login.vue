@@ -31,7 +31,7 @@
     data() {
       // TODO: remove default values
       const model = {
-        username: 'ololo',
+        username: 'admin',
         password: 'olololo'
       };
 

@@ -1,7 +1,7 @@
 import { Tokens, Users } from '../api';
 
 export const createToken = ({commit}, {username, password}) => {
-  return Tokens.post({
+  return Tokens.getToken({
     username: username.trim(),
     password: password.trim()
   })
