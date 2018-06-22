@@ -65,13 +65,11 @@
 
           return {
             ...question,
-            orderNumber: index,
-            durationToRead: question.durationToRead * 1000,
-            durationMax: question.durationMax * 1000
+            orderNumber: index
           };
         });
 
-        Vacancies.put(this.id, {
+        Vacancies.setSecured(this.id, {
           ...this.vacancy,
           questions: preparedQuestions
         })

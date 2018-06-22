@@ -4,10 +4,10 @@ export const Users = new Resource('users');
 export const Tokens = new Resource('tokens', {
   getToken(data) {
     return this.http.post(`/secured/login`, data);
-  },
+  }
 });
 
-export const Companies = new Resource('companies', {
+export const Companies = new Resource('secured/companies', {
   getVacancies(companyId) {
     return this.http.get(`/secured/companies/${companyId}/vacancies`);
   },
@@ -23,6 +23,9 @@ export const Companies = new Resource('companies', {
 });
 
 export const Vacancies = new Resource('vacancies', {
+  setSecured(vacancyId, data) {
+    return this.http.put(`/secured/vacancies/${vacancyId}`, data);
+  },
   getResponses(vacancyId, responseId = '') {
     return this.http.get(`/secured/vacancies/${vacancyId}/responds/${responseId}`);
   }
