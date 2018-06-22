@@ -9,8 +9,8 @@
                 <div class="imba-col-action">&nbsp;</div>
                 <div class="imba-col imba-col-main">Вопрос</div>
                 <div class="imba-col imba-col-main">Навыки</div>
-                <div class="imba-col">Время на ответ (сек.)</div>
-                <div class="imba-col">Время на подготовку (сек.)</div>
+                <div class="imba-col">Время на ответ</div>
+                <div class="imba-col">Время на подготовку</div>
                 <div class="imba-col-action">&nbsp;</div>
             </div>
 
@@ -20,7 +20,8 @@
                         <div class="move-icon"></div>
                     </div>
                     <div class="imba-col imba-col-main question-text-col">
-                        <textarea rows="2" class="imba-input" v-model="question.question" placeholder="Введите вопрос"></textarea>
+                        <el-input type="textarea" autosize v-model="question.question" placeholder="Введите вопрос" size="mini"></el-input>
+                        <!--<textarea rows="2" class="imba-input"  ></textarea>-->
                     </div>
                     <div class="imba-col imba-col-main">
                         <el-select
@@ -30,7 +31,7 @@
                                 filterable
                                 allow-create
                                 value-key="id"
-                                placeholder="Выберите навык">
+                                placeholder="Выберите навык" size="small">
                             <el-option
                                     v-for="skill in skills"
                                     :key="skill.id"
@@ -39,11 +40,21 @@
                             </el-option>
                         </el-select>
                     </div>
-                    <div class="imba-col">
-                        <input class="imba-input imba-number" v-model.number="question.durationMax" type="number" min="0" max="180">
+                    <div class="imba-col duration-select-wrap">
+                        <el-select v-model="question.durationMax" placeholder="Длительность" size="small">
+                            <el-option v-for="duration in durationMaxOptions"
+                                       :key="duration"
+                                       :label="parseMillisecondsIntoReadableTime(duration)"
+                                       :value="duration"></el-option>
+                        </el-select>
                     </div>
-                    <div class="imba-col">
-                        <input class="imba-input imba-number" v-model.number="question.durationToRead" type="number" min="0" max="180">
+                    <div class="imba-col duration-select-wrap">
+                        <el-select v-model="question.durationToRead" placeholder="Длительность" size="mini">
+                            <el-option v-for="duration in durationToReadOptions"
+                                       :key="duration"
+                                       :label="duration ? parseMillisecondsIntoReadableTime(duration) : 'Без подготовки'"
+                                       :value="duration"></el-option>
+                        </el-select>
                     </div>
                     <div class="imba-col-action">
                         <button @click="removeQuestion(i)">
@@ -62,6 +73,7 @@
   import { Companies } from '../api/index';
   import { mapGetters } from 'vuex';
   import draggable from 'vuedraggable';
+  import { parseMillisecondsIntoReadableTime } from '../utils';
 
   export default {
     name: 'questions-editor',
@@ -74,7 +86,14 @@
     },
     data() {
       return {
-        skills: []
+        skills: [],
+        durationMaxOptions: [
+          15000, 30000, 60000, 90000, 120000, 150000, 180000
+        ],
+        durationToReadOptions: [
+          0, 5000, 10000, 15000
+        ],
+        parseMillisecondsIntoReadableTime
       };
     },
     computed: mapGetters({
@@ -89,8 +108,8 @@
     methods: {
       addQuestion() {
         this.value.push({
-          'durationMax': 60,
-          'durationToRead': 15,
+          'durationMax': 120000,
+          'durationToRead': 10000,
           'isCompulsory': true,
           'skills': [],
           'question': ''

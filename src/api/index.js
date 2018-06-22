@@ -23,12 +23,6 @@ export const Companies = new Resource('companies', {
 });
 
 export const Vacancies = new Resource('vacancies', {
-  getQuestions(vacancyId = '') {
-    return this.http.get(`/vacancies/${vacancyId}/questions`);
-  },
-  setQuestions(vacancyId, data) {
-    return this.http.post(`/secured/vacancies/${vacancyId}/questions/batch`, data);
-  },
   getResponses(vacancyId, responseId = '') {
     return this.http.get(`/secured/vacancies/${vacancyId}/responds/${responseId}`);
   }

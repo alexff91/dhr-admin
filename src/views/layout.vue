@@ -33,14 +33,16 @@
 <style lang="scss">
     .main {
         display: flex;
-        overflow: hidden;
-        max-width: 1200px;
     }
 
     .content {
         flex-grow: 1;
         padding: 1.5rem;
         overflow: auto;
+
+        .inner {
+            max-width: 1200px;
+        }
 
         h1 {
             margin-top: 0;

@@ -52,10 +52,6 @@
       },
       initQuestions() {
         this.vacancy.questions.sort((a, b) => a.orderNumber - b.orderNumber);
-        this.vacancy.questions.forEach(e => {
-          e.durationMax /= 1000;
-          e.durationToRead /= 1000;
-        });
       },
       saveVacancy() {
         // TODO: вынести preparedQuestions
