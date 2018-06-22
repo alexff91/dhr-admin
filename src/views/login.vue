@@ -30,7 +30,7 @@
       // TODO: remove default values
       const model = {
         username: 'admin',
-        password: 'olololo'
+        password: 'admin123'
       };
 
       const rules = {
