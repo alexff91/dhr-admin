@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  const VACANCIES_URL = 'https://app.vi-hr.com/demo/vacancy/';
+  const VACANCIES_URL = 'https://nexign.vi-hr.com/vacancy/';
   import { Companies } from '../../api';
   import { mapGetters } from 'vuex';
   import { distanceInWords } from 'date-fns';
