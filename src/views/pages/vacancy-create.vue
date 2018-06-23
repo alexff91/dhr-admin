@@ -12,6 +12,10 @@
         <h2>Вопросы</h2>
         <questions-editor v-model="questions"></questions-editor>
 
+        <h3>Промо-видео вакансии или компании</h3>
+        <div class="heading">
+            <input type="text" v-model="vacancy.video" class="heading-input">
+        </div>
         <el-button class="create-button" @click="createVacancy" type="primary">Создать</el-button>
     </div>
 </template>
@@ -50,7 +54,7 @@
 
           return {
             ...question,
-            orderNumber: index,
+            orderNumber: index
           };
         });
 

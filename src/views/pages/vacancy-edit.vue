@@ -8,10 +8,14 @@
             </div>
             <h2>Описание</h2>
             <wysiwyg class="vacancy-description" v-model="vacancy.description"></wysiwyg>
-            <h2>Промо-видео вакансии или компании</h2>
-            <input class="heading-input" v-model="vacancy.video">
+
             <h2>Вопросы</h2>
             <questions-editor v-model="vacancy.questions"></questions-editor>
+
+            <h3>Промо-видео вакансии или компании</h3>
+            <div class="heading">
+                <input type="text" v-model="vacancy.video" class="heading-input">
+            </div>
 
             <el-button class="save-button" type="primary" @click="saveVacancy">Сохранить</el-button>
         </slot>
