@@ -6,9 +6,10 @@
                 <input class="heading-input" v-model="vacancy.position">
                 <div class="sub-title">Вакансия создана {{new Date(vacancy.creationDate).toLocaleString()}}</div>
             </div>
-
+            <h2>Описание</h2>
             <wysiwyg class="vacancy-description" v-model="vacancy.description"></wysiwyg>
-
+            <h2>Промо-видео вакансии или компании</h2>
+            <input class="heading-input" v-model="vacancy.video">
             <h2>Вопросы</h2>
             <questions-editor v-model="vacancy.questions"></questions-editor>
 
