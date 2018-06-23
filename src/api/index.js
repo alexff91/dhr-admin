@@ -1,6 +1,6 @@
 import Resource from './resource';
 
-export const Users = new Resource('users');
+export const Users = new Resource('secured/users');
 export const Tokens = new Resource('tokens', {
   getToken(data) {
     return this.http.post(`/secured/login`, data);
