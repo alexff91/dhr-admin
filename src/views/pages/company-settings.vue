@@ -2,22 +2,22 @@
     <div>
         <div class="heading">
             <input class="heading-input" v-model="company.name">
+
         </div>
-
-        {{company}}
-
+        <wysiwyg class="vacancy-description" v-model="company.description"></wysiwyg>
+        <h3>Лого:</h3>
         <div class="logo-preview" ref="logo-preview">
+            <img v-if="company.logo" :src="company.logo">
             <!--<img :src="">-->
         </div>
-
-        <input type="file" @change="onFileSelect" accept=".jpg, .jpeg, .png, .svg">
-
-
+        <input type="file" class="" @change="onFileSelect" accept=".jpg, .jpeg, .png, .svg">
+        <el-button class="save-button" type="primary" @click="updateCompany">Сохранить</el-button>
     </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
+  import { Companies } from '../../api';
 
   export default {
     name: 'skills',
@@ -39,6 +39,9 @@
 
     },
     methods: {
+      updateCompany() {
+        Companies.put(this.company.id, this.company);
+      },
       setImg(base64) {
         let img = document.createElement('img');
         img.src = base64;
