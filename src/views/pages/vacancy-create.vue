@@ -14,7 +14,7 @@
 
         <h3>Промо-видео вакансии или компании</h3>
         <div class="heading">
-            <input type="text" v-model="vacancy.video" class="heading-input">
+            <input type="text" v-model="video" class="heading-input">
         </div>
         <el-button class="create-button" @click="createVacancy" type="primary">Создать</el-button>
     </div>
@@ -32,7 +32,8 @@
       return {
         position: '',
         description: '',
-        questions: []
+        questions: [],
+        video: ''
       };
     },
     computed: mapGetters({
@@ -62,7 +63,8 @@
           creationDate: new Date().toISOString(),
           description: this.description || '',
           position: this.position || 'Должность без названия',
-          questions: preparedQuestions
+          questions: preparedQuestions,
+          video: this.video
         })
           .then(res => {
             this.$router.replace(`/vacancies/${res.data}`);
