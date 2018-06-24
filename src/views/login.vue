@@ -133,17 +133,5 @@
                 width: 100%;
             }
         }
-
-        &-footer {
-            margin-bottom: 1rem;
-            padding: .625rem;
-            border: .0625rem solid red;
-            font-size: .75rem;
-            text-align: center;
-
-            a {
-                color: rebeccapurple;
-            }
-        }
     }
 </style>
