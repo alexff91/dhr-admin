@@ -19,6 +19,9 @@ export const Companies = new Resource('secured/companies', {
   },
   setSkills(companyId, data) {
     return this.http.post(`/secured/companies/${companyId}/skills/batch`, data);
+  },
+  deleteSkill(companyId, skillId){
+    return this.http.delete(`/secured/companies/${companyId}/skills/${skillId}`);
   }
 });
 
