@@ -11,6 +11,7 @@
             <!--<img :src="">-->
         </div>
         <input type="file" class="" @change="onFileSelect" accept=".jpg, .jpeg, .png, .svg">
+        <br>
         <el-button class="save-button" type="primary" @click="updateCompany">Сохранить</el-button>
     </div>
 </template>
@@ -20,7 +21,7 @@
   import { Companies } from '../../api';
 
   export default {
-    name: 'skills',
+    name: 'company-settings',
     data() {
       return {};
     },
@@ -29,14 +30,10 @@
     }),
     created() {
       if (!this.company) {
-        this.$store.dispatch('getUserAndCompany')
-          .then(this.getSkills);
-      } else {
-        this.getSkills();
+        this.$store.dispatch('getUserAndCompany');
       }
 
       this.$title('Настройки компании');
-
     },
     methods: {
       updateCompany() {
@@ -64,9 +61,13 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .logo-preview img {
         max-width: 175px;
         max-height: 80px;
+    }
+
+    .save-button {
+        float: right;
     }
 </style>
