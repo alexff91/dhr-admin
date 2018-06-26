@@ -54,6 +54,11 @@
         <el-tabs tab-position="top" style="">
             <el-tab-pane label="Рейтинг кандидата" class="final-decision-wrap" v-if="respond">
                 <h3>Рейтинг кандидата</h3>
+
+                <div v-for="(skill, key) in skillsSummary" class="skill-summary">
+                    <div class="skill-name">{{key}}</div>
+                    <el-rate v-model="skillsSummary[key]" class="skill-value" disabled></el-rate>
+                </div>
                 <!--<el-input type="textarea" rows="5" v-model="respondReviewComment"-->
                 <!--placeholder="Напишите пару строк почему вы приняли такое решение"></el-input>-->
 
@@ -125,6 +130,7 @@
         respond: null,
         respondReviewComment: '',
         reviews: [],
+        skillsSummary: {},
         RESPONSE_REVIEW_STATUS_RU,
         RESPONSE_VIEWED_STATUS_RU
       };
@@ -158,8 +164,17 @@
         });
 
       Responds.getSkillsSummary(this.responseId)
-        .then(res => {
-          console.log(res.data);
+        .then(() => {
+
+          this.skillsSummary = {
+            'Коммуникабельность': 3,
+            'Открытость': 4,
+            'Мотивация': 5,
+            'Agile': 2,
+            'Системное мышление': 5,
+            'Нацеленность на результат': 4,
+            'Опыт тестирования': 3
+          };
         });
     },
 
@@ -195,6 +210,20 @@
         .sub-head {
             color: $secondary-color;
             font-size: 14px;
+        }
+    }
+
+    .skill-summary {
+        display: flex;
+        max-width: 500px;
+        line-height: 1.8;
+
+        .skill-name {
+            font-size: 18px;
+        }
+
+        .skill-value {
+            margin-left: auto;
         }
     }
 </style>
