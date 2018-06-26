@@ -54,10 +54,10 @@
         <el-tabs tab-position="top" style="">
             <el-tab-pane label="Рейтинг кандидата" class="final-decision-wrap" v-if="respond">
                 <h3>Рейтинг кандидата</h3>
-                <el-input type="textarea" rows="5" v-model="respondReviewComment"
-                          placeholder="Напишите пару строк почему вы приняли такое решение"></el-input>
+                <!--<el-input type="textarea" rows="5" v-model="respondReviewComment"-->
+                <!--placeholder="Напишите пару строк почему вы приняли такое решение"></el-input>-->
 
-                <div class="decision-buttons">
+                <div class="decision-buttons" style="text-align: left;">
                     <el-button icon="el-icon-close" plain
                                :type="respond.reviewStatus === 'DECLINED' ? 'primary' : ''"
                                @click="declineResponse()">
