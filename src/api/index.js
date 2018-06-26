@@ -55,6 +55,9 @@ export const Responds = new Resource('responds', {
   },
   createRespondFeedback(respondId, userId, data) {
     return this.http.post(`/secured/responds/${respondId}/users/${userId}/review`, data);
+  },
+  getSkillsSummary(responseId) {
+    return this.http.get(`/secured/responds/${responseId}/skillsSummary`);
   }
 });
 

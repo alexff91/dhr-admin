@@ -156,6 +156,11 @@
         .then(res => {
           this.reviews = res.data;
         });
+
+      Responds.getSkillsSummary(this.responseId)
+        .then(res => {
+          console.log(res.data);
+        });
     },
 
     methods: {
