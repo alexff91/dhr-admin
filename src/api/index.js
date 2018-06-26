@@ -26,6 +26,9 @@ export const Companies = new Resource('secured/companies', {
 });
 
 export const Vacancies = new Resource('vacancies', {
+  deleteVacancy(vacancyId){
+    return this.http.delete(`/secured/vacancies/${vacancyId}`);
+  },
   setSecured(vacancyId, data) {
     return this.http.put(`/secured/vacancies/${vacancyId}`, data);
   },
