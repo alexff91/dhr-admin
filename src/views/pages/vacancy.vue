@@ -60,7 +60,7 @@
   import { Vacancies } from '../../api';
   import { distanceInWords } from 'date-fns';
   import ru from 'date-fns/locale/ru';
-  import { RESPONSE_RU, RESPONSE_VIEWED_STATUS_RU } from '../../utils/constants';
+  import { RESPONSE_RU, RESPONSE_VIEWED_STATUS_RU, VACANCY_URL } from '../../utils/constants';
 
   export default {
     name: 'vacancy',
@@ -95,7 +95,7 @@
 
     methods: {
       copyVacancyLink(vacancy) {
-        this.$copyText(`${location.origin}/vacancy/${vacancy.id}`).then(() => {
+        this.$copyText(`${VACANCY_URL}/${vacancy.id}`).then(() => {
           // vacancy.tooltipIsVisible = true;
           // setTimeout(() => {
           //   vacancy.tooltipIsVisible = false;

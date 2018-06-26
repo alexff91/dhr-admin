@@ -1,3 +1,5 @@
+export const VACANCY_URL = 'https://app.vi-hr.com/demo/vacancy';
+
 export const RESPONSE_RU = {
   COMPLETE: 'Готов',
   INCOMPLETE: 'В процессе'

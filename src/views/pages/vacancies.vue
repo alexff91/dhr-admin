@@ -67,6 +67,7 @@
   import { mapGetters } from 'vuex';
   import { distanceInWords } from 'date-fns';
   import ru from 'date-fns/locale/ru';
+  import { VACANCY_URL } from '../../utils/constants';
 
   export default {
     name: 'vacancies',
@@ -110,7 +111,7 @@
           });
       },
       copyVacancyLink(vacancy) {
-        this.$copyText(`${location.origin}/vacancy/${vacancy.id}`).then(() => {
+        this.$copyText(`${VACANCY_URL}/${vacancy.id}`).then(() => {
           vacancy.tooltipIsVisible = true;
           setTimeout(() => {
             vacancy.tooltipIsVisible = false;
