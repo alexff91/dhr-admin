@@ -52,7 +52,7 @@
             <div v-if="archivedVacancies.length" class="archived-wrap">
                 <h4>Архив</h4>
 
-                <div class="imba-row imba-row-link vacancy-row is-archived" v-for="vacancy in archivedVacancies">
+                <div class="imba-row imba-row-link vacancy-row is-archived" v-for="vacancy in archivedVacancies" :key="vacancy.id">
                     <div class="imba-col imba-col-main">
                         {{vacancy.position}}
                     </div>
@@ -121,9 +121,8 @@
 
       archiveVacancy(vacancy) {
         Vacancies.deleteVacancy(vacancy.id)
-          .then(res => {
+          .then(() => {
             vacancy.deleted = true;
-            console.log(res);
           });
       },
 
