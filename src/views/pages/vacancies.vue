@@ -11,11 +11,11 @@
                 <div class="imba-col imba-col-small">Создана</div>
                 <div class="imba-col-action"></div>
                 <div class="imba-col-action"></div>
+                <div class="imba-col-action"></div>
             </div>
-            <router-link :to="`/vacancies/${vacancy.id}`" v-for="vacancy in vacancies" :key="vacancy.id"
+            <router-link :to="`/vacancies/${vacancy.id}`" v-for="(vacancy, i) in vacancies" :key="vacancy.id"
                          class="imba-row imba-row-link vacancy-row">
-                <div class="vacancy-status-block is-active" v-if="!vacancy.deleted"></div>
-                <div class="vacancy-status-block is-archived" v-if="vacancy.deleted"></div>
+                <div class="vacancy-status-block is-active"></div>
                 <div class="imba-col imba-col-main">
                     {{vacancy.position}}
                 </div>
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="imba-col-action" title="Архивировать">
-                    <button @click.prevent="archiveVacancy(vacancy)">
+                    <button @click.prevent="archiveVacancy(vacancy, i)">
                         <vk-icon icon="future" ratio=".85"></vk-icon>
                     </button>
                 </div>
@@ -53,10 +53,15 @@
                 <h4>Архив</h4>
 
                 <div class="imba-row imba-row-link vacancy-row is-archived"
-                     v-for="vacancy in archivedVacancies"
+                     v-for="(vacancy, i) in archivedVacancies"
                      :key="vacancy.id">
                     <div class="imba-col imba-col-main">
                         {{vacancy.position}}
+                    </div>
+                    <div class="imba-col-action" title="Восстановить">
+                        <button @click.prevent="restoreVacancy(vacancy, i)">
+                            <vk-icon icon="history" ratio=".85"></vk-icon>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -121,10 +126,19 @@
         });
       },
 
-      archiveVacancy(vacancy) {
+      archiveVacancy(vacancy, index) {
         Vacancies.deleteVacancy(vacancy.id)
           .then(() => {
-            vacancy.deleted = true;
+            this.vacancies.splice(index, 1);
+            this.archivedVacancies.push(vacancy);
+          });
+      },
+
+      restoreVacancy(vacancy, index) {
+        Vacancies.restoreVacancy(vacancy.id)
+          .then(() => {
+            this.vacancies.push(vacancy);
+            this.archivedVacancies.splice(index, 1);
           });
       }
     }

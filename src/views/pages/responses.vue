@@ -55,13 +55,17 @@
             <el-tab-pane label="Рейтинг кандидата" class="final-decision-wrap" v-if="respond">
                 <h3>Рейтинг кандидата</h3>
 
-                <div v-for="(skill, key) in skillsSummary" class="skill-summary" :key="key">
-                    <div class="skill-name">{{key}}</div>
 
-                    <el-rate v-model="skillsSummary[key]" class="skill-value" disabled></el-rate>
+                <div class="skills-wrap">
+                    <div v-for="(skill, key) in skillsSummary" class="skill-summary" :key="key">
+                        <div class="skill-name">{{key}}</div>
+
+                        <el-rate v-model="skillsSummary[key]" class="skill-value" disabled></el-rate>
+                    </div>
                 </div>
-                <!--<el-input type="textarea" rows="5" v-model="respondReviewComment"-->
-                <!--placeholder="Напишите пару строк почему вы приняли такое решение"></el-input>-->
+
+                <el-input type="textarea" rows="5" v-model="respond.comment"
+                          placeholder="Напишите пару строк почему вы приняли такое решение"></el-input>
 
                 <div class="decision-buttons" style="text-align: left;">
                     <el-button icon="el-icon-close" plain
@@ -170,11 +174,11 @@
 
     methods: {
       acceptResponse() {
-        Vacancies.acceptResponse(this.vacancyId, this.responseId);
+        Vacancies.acceptResponse(this.vacancyId, this.responseId, {comment: this.respond.comment});
         this.respond.reviewStatus = 'ACCEPTED';
       },
       declineResponse() {
-        Vacancies.declineResponse(this.vacancyId, this.responseId);
+        Vacancies.declineResponse(this.vacancyId, this.responseId, {comment: this.respond.comment});
         this.respond.reviewStatus = 'DECLINED';
       },
 
@@ -201,6 +205,10 @@
             color: $secondary-color;
             font-size: 14px;
         }
+    }
+
+    .skills-wrap {
+        margin-bottom: 1rem;
     }
 
     .skill-summary {

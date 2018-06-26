@@ -29,17 +29,20 @@ export const Vacancies = new Resource('vacancies', {
   deleteVacancy(vacancyId) {
     return this.http.delete(`/secured/vacancies/${vacancyId}`);
   },
+  restoreVacancy(vacancyId) {
+    return this.http.put(`/secured/vacancies/${vacancyId}/restore`);
+  },
   setSecured(vacancyId, data) {
     return this.http.put(`/secured/vacancies/${vacancyId}`, data);
   },
   getResponses(vacancyId, responseId = '') {
     return this.http.get(`/secured/vacancies/${vacancyId}/responds/${responseId}`);
   },
-  acceptResponse(vacancyId, responseId) {
-    return this.http.post(`/secured/vacancies/${vacancyId}/responds/${responseId}/accept`);
+  acceptResponse(vacancyId, responseId, data) {
+    return this.http.post(`/secured/vacancies/${vacancyId}/responds/${responseId}/accept`, data);
   },
-  declineResponse(vacancyId, responseId) {
-    return this.http.post(`/secured/vacancies/${vacancyId}/responds/${responseId}/decline`);
+  declineResponse(vacancyId, responseId, data) {
+    return this.http.post(`/secured/vacancies/${vacancyId}/responds/${responseId}/decline`, data);
   }
 });
 
