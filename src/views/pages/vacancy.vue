@@ -2,7 +2,17 @@
     <div>
         <div class="heading">
             <h1 class="title">Вакансия {{vacancy.position}}</h1>
-            <div class="sub-title">Вакансия создана {{new Date(vacancy.creationDate).toLocaleString()}}</div>
+            <div class="sub-title">
+                Создана {{new Date(vacancy.creationDate).toLocaleString('ru', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                timezone: 'UTC',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric'
+                })}}
+            </div>
         </div>
 
         <div class="helpers">

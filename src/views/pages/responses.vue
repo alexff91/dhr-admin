@@ -163,17 +163,8 @@
         });
 
       Responds.getSkillsSummary(this.responseId)
-        .then(() => {
-
-          this.skillsSummary = {
-            'Коммуникабельность': 3,
-            'Открытость': 4,
-            'Мотивация': 5,
-            'Agile': 2,
-            'Системное мышление': 5,
-            'Нацеленность на результат': 4,
-            'Опыт тестирования': 3
-          };
+        .then(res => {
+          this.skillsSummary = res.data;
         });
     },
 
