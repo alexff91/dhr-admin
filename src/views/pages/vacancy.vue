@@ -26,8 +26,8 @@
         <div class="responses">
             <h3>Отклики</h3>
 
-            <div class="imba-table" v-if="responses.length">
-                <div class="imba-row imba-row-head">
+            <div class="imba-table">
+                <div class="imba-row imba-row-head" v-if="responses.length">
                     <div class="imba-col imba-col-main">Имя Фамилия</div>
                     <div class="imba-col imba-col-main">Email</div>
                     <div class="imba-col imba-col-small">Статус</div>
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div v-if="!responses.length">
+        <div v-if="!responses.length && !uncompletedResponses.length">
             Откликов по этой вакансии еще нет.
         </div>
     </div>
@@ -109,17 +109,12 @@
 
           this.uncompletedResponses = res.data
             .filter(e => e.status === 'INCOMPLETE');
-
         });
     },
 
     methods: {
       copyVacancyLink(vacancy) {
         this.$copyText(`${VACANCY_URL}/${vacancy.id}`).then(() => {
-          // vacancy.tooltipIsVisible = true;
-          // setTimeout(() => {
-          //   vacancy.tooltipIsVisible = false;
-          // }, 2000);
         });
       }
     }
@@ -157,7 +152,7 @@
 
     .uncompleted-wrap {
         // TODO: acrhived-wrap copy!
-        margin-top: 4rem;
+        margin-top: 2rem;
 
         .imba-row {
             height: 40px;
