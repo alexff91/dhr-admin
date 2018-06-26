@@ -93,7 +93,7 @@
 
             const skillsFeedback = {};
             answer.question.respondSkills.forEach(skill => {
-              skillsFeedback[skill.name] = null;
+              skillsFeedback[skill.name] = 0;
             });
 
             return {
