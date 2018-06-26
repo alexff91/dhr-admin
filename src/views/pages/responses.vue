@@ -41,13 +41,18 @@
                 <div class="sub-head">Email</div>
                 {{respond.email}}
             </div>
+
+            <div class="respond-data-block" v-if="respond.reviewStatus">
+                <div class="sub-head">Статус</div>
+                {{RESPONSE_VIEWED_STATUS_RU[respond.reviewStatus]}}
+            </div>
         </div>
 
         <br>
         <br>
 
         <el-tabs tab-position="top" style="">
-            <el-tab-pane label="Рейтинг кандидата" class="final-decision-wrap">
+            <el-tab-pane label="Рейтинг кандидата" class="final-decision-wrap" v-if="respond">
                 <h3>Рейтинг кандидата</h3>
                 <el-input type="textarea" rows="5" v-model="respondReviewComment"
                           placeholder="Напишите пару строк почему вы приняли такое решение"></el-input>
@@ -109,7 +114,7 @@
 <script>
   import { Responds, Vacancies } from '../../api';
   import AnswersReview from '../../components/review/index';
-  import { RESPONSE_REVIEW_STATUS_RU } from '../../utils/constants';
+  import { RESPONSE_REVIEW_STATUS_RU, RESPONSE_VIEWED_STATUS_RU } from '../../utils/constants';
 
   export default {
     name: 'responses',
@@ -120,7 +125,8 @@
         respond: null,
         respondReviewComment: '',
         reviews: [],
-        RESPONSE_REVIEW_STATUS_RU
+        RESPONSE_REVIEW_STATUS_RU,
+        RESPONSE_VIEWED_STATUS_RU
       };
     },
     computed: {
@@ -153,22 +159,13 @@
     },
 
     methods: {
-      // sendReview(status) {
-      //
-      //   Responds.createRespondFeedback(this.responseId, this.user.id, {
-      //     respondReviewStatus: status,
-      //     comment: this.respondReviewComment
-      //   })
-      //     .then(() => {
-      //       this.finished = true;
-      //     });
-      // },
-
       acceptResponse() {
         Vacancies.acceptResponse(this.vacancyId, this.responseId);
+        this.respond.reviewStatus = 'ACCEPTED';
       },
       declineResponse() {
         Vacancies.declineResponse(this.vacancyId, this.responseId);
+        this.respond.reviewStatus = 'DECLINED';
       },
 
       copyExpertLink() {
