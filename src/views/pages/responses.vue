@@ -55,8 +55,9 @@
             <el-tab-pane label="Рейтинг кандидата" class="final-decision-wrap" v-if="respond">
                 <h3>Рейтинг кандидата</h3>
 
-                <div v-for="(skill, key) in skillsSummary" class="skill-summary">
+                <div v-for="(skill, key) in skillsSummary" class="skill-summary" :key="key">
                     <div class="skill-name">{{key}}</div>
+
                     <el-rate v-model="skillsSummary[key]" class="skill-value" disabled></el-rate>
                 </div>
                 <!--<el-input type="textarea" rows="5" v-model="respondReviewComment"-->
