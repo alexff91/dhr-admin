@@ -26,7 +26,7 @@ export const Companies = new Resource('secured/companies', {
 });
 
 export const Vacancies = new Resource('vacancies', {
-  deleteVacancy(vacancyId){
+  deleteVacancy(vacancyId) {
     return this.http.delete(`/secured/vacancies/${vacancyId}`);
   },
   setSecured(vacancyId, data) {
@@ -34,6 +34,12 @@ export const Vacancies = new Resource('vacancies', {
   },
   getResponses(vacancyId, responseId = '') {
     return this.http.get(`/secured/vacancies/${vacancyId}/responds/${responseId}`);
+  },
+  acceptResponse(vacancyId, responseId) {
+    return this.http.post(`/secured/vacancies/${vacancyId}/responds/${responseId}/accept`);
+  },
+  declineResponse(vacancyId, responseId) {
+    return this.http.post(`/secured/vacancies/${vacancyId}/responds/${responseId}/decline`);
   }
 });
 

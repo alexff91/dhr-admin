@@ -23,8 +23,6 @@
                     <span>Скопировать ссылку для эксперта</span>
                 </el-button>
             </div>
-
-
         </div>
 
         <div v-if="respond">
@@ -52,13 +50,13 @@
             <el-tab-pane label="Рейтинг кандидата" class="final-decision-wrap">
                 <h3>Рейтинг кандидата</h3>
                 <el-input type="textarea" rows="5" v-model="respondReviewComment"
-                          placeholder="Напишите пару строк почему вы приняли такое решение" @input="showDecisionButtons = true"></el-input>
+                          placeholder="Напишите пару строк почему вы приняли такое решение"></el-input>
 
-                <div class="decision-buttons" v-if="showDecisionButtons">
-                    <el-button icon="el-icon-close" plain @click="sendReview('DECLINE')">
+                <div class="decision-buttons">
+                    <el-button icon="el-icon-close" plain @click="declineResponse()">
                         Отказать
                     </el-button>
-                    <el-button icon="el-icon-check" plain @click="sendReview('APPROVE')">
+                    <el-button icon="el-icon-check" plain @click="acceptResponse()">
                         Принять
                     </el-button>
                 </div>
@@ -117,7 +115,6 @@
         vacancy: null,
         respond: null,
         respondReviewComment: '',
-        showDecisionButtons: false,
         reviews: [],
         RESPONSE_REVIEW_STATUS_RU
       };
@@ -152,15 +149,22 @@
     },
 
     methods: {
-      sendReview(status) {
+      // sendReview(status) {
+      //
+      //   Responds.createRespondFeedback(this.responseId, this.user.id, {
+      //     respondReviewStatus: status,
+      //     comment: this.respondReviewComment
+      //   })
+      //     .then(() => {
+      //       this.finished = true;
+      //     });
+      // },
 
-        Responds.createRespondFeedback(this.responseId, this.user.id, {
-          respondReviewStatus: status,
-          comment: this.respondReviewComment
-        })
-          .then(() => {
-            this.finished = true;
-          });
+      acceptResponse() {
+        Vacancies.acceptResponse(this.vacancyId, this.responseId);
+      },
+      declineResponse() {
+        Vacancies.declineResponse(this.vacancyId, this.responseId);
       },
 
       copyExpertLink() {

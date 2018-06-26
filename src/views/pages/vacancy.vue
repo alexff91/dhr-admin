@@ -12,6 +12,15 @@
                     <span>Редактировать вакансию</span>
                 </router-link>
             </div>
+
+            <div class="helper-block">
+                <el-button @click.prevent="copyVacancyLink(vacancy)" type="text">
+                    <!--<vk-icon icon="copy" class="icon"></vk-icon>-->
+                    <el-icon class="el-icon-news"></el-icon>
+
+                    <span>Скопировать ссылку на вакансию</span>
+                </el-button>
+            </div>
         </div>
 
         <div class="responses">
@@ -83,6 +92,17 @@
         .then(res => {
           this.responses = res.data.sort((a, b) => b.startDate - a.startDate);
         });
+    },
+
+    methods: {
+      copyVacancyLink(vacancy) {
+        this.$copyText(`${location.origin}/vacancy/${vacancy.id}`).then(() => {
+          // vacancy.tooltipIsVisible = true;
+          // setTimeout(() => {
+          //   vacancy.tooltipIsVisible = false;
+          // }, 2000);
+        });
+      }
     }
   };
 </script>

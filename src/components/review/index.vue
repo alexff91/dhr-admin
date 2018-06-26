@@ -131,7 +131,11 @@
       getAnswerReview() {
         Answers.get(this.activeAnswer.id, this.user.id)
           .then(res => {
-            this.answerReview = res.data;
+            if (res.data) {
+              this.answerReview = res.data;
+            } else {
+              this.answerReview = this.reviews[0];
+            }
           });
       },
 

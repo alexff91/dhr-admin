@@ -63,7 +63,6 @@
 </template>
 
 <script>
-  const VACANCIES_URL = 'https://app.vi-hr.com/demo/vacancy/';
   import { Companies, Vacancies } from '../../api';
   import { mapGetters } from 'vuex';
   import { distanceInWords } from 'date-fns';
@@ -111,7 +110,7 @@
           });
       },
       copyVacancyLink(vacancy) {
-        this.$copyText(this.getVacancyLink(vacancy.id)).then(() => {
+        this.$copyText(`${location.origin}/vacancy/${vacancy.id}`).then(() => {
           vacancy.tooltipIsVisible = true;
           setTimeout(() => {
             vacancy.tooltipIsVisible = false;
@@ -124,10 +123,6 @@
           .then(() => {
             vacancy.deleted = true;
           });
-      },
-
-      getVacancyLink(id) {
-        return VACANCIES_URL + id;
       }
     }
   };
