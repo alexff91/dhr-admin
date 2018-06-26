@@ -3,53 +3,61 @@ export default [
   {
     path: '/login',
     meta: {requiresAuth: false},
-    component: () => import(/* webpackChunkName: 'login' */ '../views/login')
+    component: () => import('../views/login')
   },
   {
     path: '/',
     meta: {requiresAuth: true},
-    component: () => import(/* webpackChunkName: 'common' */ '../views/layout'),
+    component: () => import('../views/layout'),
     children: [
       {
         path: '',
         meta: {requiresAuth: true},
-        component: () => import(/* webpackChunkName: 'vacancies' */ '../views/pages/vacancies')
+        component: () => import('../views/pages/vacancies')
       },
       {
         path: 'vacancies/:vacancyId/edit',
         meta: {requiresAuth: true},
-        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/vacancy-edit')
+        component: () => import('../views/pages/vacancy-edit')
       },
       {
         path: 'new-vacancy',
         meta: {requiresAuth: true},
-        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/vacancy-create')
+        component: () => import('../views/pages/vacancy-create')
       },
       {
         path: 'vacancies/:vacancyId',
         meta: {requiresAuth: true},
-        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/vacancy')
+        component: () => import('../views/pages/vacancy')
       },
       {
         path: 'vacancies/:vacancyId/responses/:responseId',
         meta: {requiresAuth: true},
-        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/responses')
+        component: () => import('../views/pages/responses')
       },
       {
+        name: 'review',
+        path: 'vacancies/:vacancyId/responses/:responseId/review/',
+        meta: {requiresAuth: true},
+        component: () => import('../views/pages/review')
+      },
+      {
+        name: 'skills',
         path: 'skills',
         meta: {requiresAuth: true},
-        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/skills')
+        component: () => import('../views/pages/skills')
       },
       {
+        name: 'company-settings',
         path: 'company-settings',
         meta: {requiresAuth: true},
-        component: () => import(/* webpackChunkName: 'new-vacancy' */ '../views/pages/company-settings')
+        component: () => import('../views/pages/company-settings')
       }
     ]
   },
   {
     path: '*',
     meta: {requiresAuth: false},
-    component: () => import(/* webpackChunkName: 'common' */ '../views/error')
+    component: () => import('../views/error')
   }
 ];

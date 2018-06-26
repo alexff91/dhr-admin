@@ -11,9 +11,10 @@
                 <div class="imba-col imba-col-small">Создана</div>
                 <div class="imba-col-action"></div>
                 <div class="imba-col-action"></div>
+                <div class="imba-col-action"></div>
             </div>
-            <router-link :to="`/vacancies/${vacancy.id}`" v-for="vacancy in vacancies" :key="vacancy.id"
-                         class="imba-row imba-row-link">
+            <router-link :to="`/vacancies/${vacancy.id}`" v-for="(vacancy, i) in vacancies" :key="vacancy.id"
+                         class="imba-row imba-row-link vacancy-row">
                 <div class="vacancy-status-block is-active"></div>
                 <div class="imba-col imba-col-main">
                     {{vacancy.position}}
@@ -37,26 +38,50 @@
 
                 <div class="imba-col-action" title="Редактировать">
                     <router-link :to="`/vacancies/${vacancy.id}/edit`">
-                        <vk-icon icon="file-edit"></vk-icon>
+                        <vk-icon icon="file-edit" ratio=".9"></vk-icon>
                     </router-link>
                 </div>
+
+                <div class="imba-col-action" title="Архивировать">
+                    <button @click.prevent="archiveVacancy(vacancy, i)">
+                        <vk-icon icon="future" ratio=".85"></vk-icon>
+                    </button>
+                </div>
             </router-link>
+
+            <div v-if="archivedVacancies.length" class="archived-wrap">
+                <h4>Архив</h4>
+
+                <div class="imba-row imba-row-link vacancy-row is-archived"
+                     v-for="(vacancy, i) in archivedVacancies"
+                     :key="vacancy.id">
+                    <div class="imba-col imba-col-main">
+                        {{vacancy.position}}
+                    </div>
+                    <div class="imba-col-action" title="Восстановить">
+                        <button @click.prevent="restoreVacancy(vacancy, i)">
+                            <vk-icon icon="history" ratio=".85"></vk-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-  const VACANCIES_URL = 'https://nexign.vi-hr.com/vacancy/';
-  import { Companies } from '../../api';
+  import { Companies, Vacancies } from '../../api';
   import { mapGetters } from 'vuex';
   import { distanceInWords } from 'date-fns';
   import ru from 'date-fns/locale/ru';
+  import { VACANCY_URL } from '../../utils/constants';
 
   export default {
     name: 'vacancies',
     data() {
       return {
         vacancies: [],
+        archivedVacancies: [],
         distanceInWords,
         ru
       };
@@ -78,16 +103,22 @@
       getVacancies() {
         Companies.getVacancies(this.company.id)
           .then(res => {
-            this.vacancies = res.data.sort((a, b) => b.creationDate - a.creationDate).map(vacancy => {
-              return {
-                ...vacancy,
-                tooltipIsVisible: false
-              };
-            });
+            this.vacancies =
+              res.data
+                .filter(e => !e.deleted)
+                .sort((a, b) => b.creationDate - a.creationDate)
+                .map(vacancy => {
+                  return {
+                    ...vacancy,
+                    tooltipIsVisible: false
+                  };
+                });
+
+            this.archivedVacancies = res.data.filter(e => e.deleted);
           });
       },
       copyVacancyLink(vacancy) {
-        this.$copyText(this.getVacancyLink(vacancy.id)).then(() => {
+        this.$copyText(`${VACANCY_URL}/${vacancy.id}`).then(() => {
           vacancy.tooltipIsVisible = true;
           setTimeout(() => {
             vacancy.tooltipIsVisible = false;
@@ -95,8 +126,20 @@
         });
       },
 
-      getVacancyLink(id) {
-        return VACANCIES_URL + id;
+      archiveVacancy(vacancy, index) {
+        Vacancies.deleteVacancy(vacancy.id)
+          .then(() => {
+            this.vacancies.splice(index, 1);
+            this.archivedVacancies.push(vacancy);
+          });
+      },
+
+      restoreVacancy(vacancy, index) {
+        Vacancies.restoreVacancy(vacancy.id)
+          .then(() => {
+            this.vacancies.push(vacancy);
+            this.archivedVacancies.splice(index, 1);
+          });
       }
     }
   };
@@ -105,12 +148,42 @@
 <style lang="scss">
     @import "../../assets/styles/variables";
 
+    .vacancy-row.is-archived {
+        opacity: .5;
+    }
+
     .vacancy-status-block {
         width: 4px;
         height: 100%;
         position: absolute;
         left: 0;
-        background-color: #24bb64;
         border-radius: 3px 0 0 3px;
+
+        &.is-active {
+            background-color: #24bb64;
+        }
+
+        &.is-archived {
+            background-color: #bbb94b;
+        }
+    }
+
+    .archived-wrap {
+        margin-top: 4rem;
+
+        .vacancy-row {
+            height: 40px;
+
+            &:hover {
+                box-shadow: none;
+            }
+        }
+
+        h4 {
+            font-size: 13px;
+            margin-bottom: 2px;
+            padding-left: 1rem;
+            color: $secondary-color
+        }
     }
 </style>

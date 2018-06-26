@@ -2,10 +2,10 @@
     <div>
         <!--<app-header />-->
         <section class="main">
-            <app-sidebar />
+            <app-sidebar v-if="!expertView"></app-sidebar>
             <main class="content">
                 <transition name="content">
-                    <router-view class="inner" />
+                    <router-view class="inner" :class="{'expert-view': expertView}" />
                 </transition>
             </main>
         </section>
@@ -21,6 +21,11 @@
     components: {
       'app-header': Header,
       'app-sidebar': Sidebar
+    },
+    computed: {
+      expertView() {
+        return this.$route.name && this.$route.name === 'review';
+      }
     },
     created() {
       if (!this.$store.getters.company) {
@@ -42,6 +47,11 @@
 
         .inner {
             max-width: 1200px;
+
+            &.expert-view {
+                max-width: 900px;
+                margin: 0 auto;
+            }
         }
 
         h1 {
