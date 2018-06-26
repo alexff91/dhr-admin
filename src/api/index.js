@@ -20,7 +20,7 @@ export const Companies = new Resource('secured/companies', {
   setSkills(companyId, data) {
     return this.http.post(`/secured/companies/${companyId}/skills/batch`, data);
   },
-  deleteSkill(companyId, skillId){
+  deleteSkill(companyId, skillId) {
     return this.http.delete(`/secured/companies/${companyId}/skills/${skillId}`);
   }
 });
@@ -44,9 +44,10 @@ export const Responds = new Resource('responds', {
 });
 
 export const Answers = new Resource('answers', {
-  getAll(questionAnswerId) {
-    return this.http.get(`/secured/answers/${questionAnswerId}/review`);
+  get(questionAnswerId, userId) {
+    return this.http.get(`/secured/answers/${questionAnswerId}/review/user/${userId}`);
   },
+
   createAnswerFeedback(questionAnswerId, userId, data) {
     return this.http.post(`/secured/answers/${questionAnswerId}/user/${userId}/review`, data);
   }

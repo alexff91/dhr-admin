@@ -72,9 +72,8 @@
 
       removeSkill(i) {
         Companies.deleteSkill(this.company.id, this.skills[i].id)
-          .then(res => {
-            console.log(res);
-            this.skills.splice(index, 1);
+          .then(() => {
+            this.skills.splice(i, 1);
           });
       }
     }

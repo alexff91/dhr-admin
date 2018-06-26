@@ -27,7 +27,9 @@ import {
   Row,
   Select,
   Submenu,
-  Tooltip
+  Tooltip,
+  Steps,
+  Step
 } from 'element-ui';
 
 import 'element-ui/lib/theme-chalk/index.css';
@@ -57,6 +59,8 @@ Vue.use(Tooltip);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(Rate);
+Vue.use(Steps);
+Vue.use(Step);
 
 Vue.use(plugins);
 sync(store, router, {moduleName: 'route'});

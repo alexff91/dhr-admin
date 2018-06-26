@@ -1,26 +1,56 @@
 <template>
     <div class="review-wrap">
-        <!-- TODO: отрефачить весь компонент и запилить норм ui-->
-        answers review component:
 
-        <div class="answer-item" v-for="(answer, i) in answers" :key="answer.id">
-            <video :src="answer.videoPath" controls></video>
+        <el-steps :active="activeIndex" v-if="!finalDecisionIsActive && !finished" finish-status="success" class="review-steps">
+            <el-step v-for="n in answers" :key="n.id"></el-step>
+        </el-steps>
 
-            <div class="answer-review">
-                <div>{{answer.question.question}}</div>
-
-                <div v-for="skill in answer.question.respondSkills" :key="skill.id">
-                    {{skill.name}}:
-                    <el-rate v-model="review[i].skillsFeedback[skill.name]"></el-rate>
+        <div class="answer-viewer" v-if="activeAnswer && !finalDecisionIsActive">
+            <h3>Вопрос: {{activeAnswer.question.question}}</h3>
+            <div class="answer-item" v-if="activeAnswer">
+                <div class="video-block">
+                    <video :src="activeAnswer.videoPath" controls></video>
                 </div>
 
-                <textarea v-model="review[i].comment" placeholder="Комментарий"></textarea>
+                <div class="review-actions">
+                    <div class="skills-wrap">
+                        <div v-for="skill in activeAnswer.question.respondSkills" :key="skill.id">
+                            {{skill.name}}:
+                            <el-rate v-model="reviews[activeIndex].skillsFeedback[skill.name]"></el-rate>
+                        </div>
+                    </div>
 
-                <el-button type="primary" @click="sendAnswerReview(i)">Отправить</el-button>
-
+                    <el-input type="textarea" rows="5" v-model="reviews[activeIndex].comment" placeholder="Напишите комментарий"
+                              class="comment-input"></el-input>
+                </div>
+            </div>
+            <div class="review-pagination">
+                <el-button type="text" size="big" v-if="activeIndex > 0" @click="setActiveAnswer(activeIndex - 1)">Назад</el-button>
+                <el-button type="primary" size="big" @click="nextAnswerHandler()">Следующий</el-button>
             </div>
         </div>
 
+        <div class="final-decision-wrap" v-if="finalDecisionIsActive && !finished">
+            <h3>Напишите ваше финальное заключение по кандидату</h3>
+            <el-input type="textarea" rows="5" v-model="respondReviewComment"
+                      placeholder="" @input="showDecisionButtons = true"></el-input>
+
+            <div class="decision-buttons" v-if="showDecisionButtons">
+                <el-button icon="el-icon-close" plain @click="sendReview('DECLINE')">
+                    Отказать
+                </el-button>
+                <el-button icon="el-icon-check" plain @click="sendReview('APPROVE')">
+                    Принять
+                </el-button>
+            </div>
+        </div>
+
+        <div class="finished-block" v-if="finished">
+            <h3>Спасибо за ревью!</h3>
+            <p>
+                Ваши комментарии и оценки сохранены.
+            </p>
+        </div>
     </div>
 </template>
 
@@ -38,20 +68,27 @@
     data() {
       return {
         answers: [],
-        review: [],
-        test: null
+        reviews: [],
+        activeIndex: 0,
+        finished: false,
+        finalDecisionIsActive: false,
+        showDecisionButtons: false,
+        respondReviewComment: ''
       };
     },
     computed: {
       user() {
         return this.$store.getters.user;
+      },
+      activeAnswer() {
+        return this.answers[this.activeIndex];
       }
     },
     created() {
       Responds.getAnswers(this.responseId)
         .then(res => {
           this.answers = res.data;
-          this.review = this.answers.map(answer => {
+          this.reviews = this.answers.map(answer => {
 
             const skillsFeedback = {};
             answer.question.respondSkills.forEach(skill => {
@@ -67,8 +104,35 @@
         });
     },
     methods: {
-      sendAnswerReview(answerId) {
-        Answers.createAnswerFeedback(this.review[answerId].answerId, this.user.id, this.review[answerId]);
+      nextAnswerHandler() {
+        this.sendAnswerReview(this.reviews[this.activeIndex])
+          .then(() => {
+            this.setActiveAnswer(this.activeIndex + 1);
+          });
+      },
+
+      sendAnswerReview(review) {
+        return Answers.createAnswerFeedback(review.answerId, this.user.id, review);
+      },
+
+      setActiveAnswer(i) {
+        if (i === this.answers.length) {
+          this.finalDecisionIsActive = true;
+          return;
+        }
+
+        this.activeIndex = i;
+        Answers.get(this.activeAnswer.id, this.user.id);
+      },
+
+      sendReview(status) {
+        Responds.createRespondFeedback(this.responseId, this.user.id, {
+          respondReviewStatus: status,
+          comment: this.respondReviewComment
+        })
+          .then(() => {
+            this.finished = true;
+          });
       }
     }
   };
@@ -77,13 +141,90 @@
 <style scoped lang="scss">
     @import "../../assets/styles/variables";
 
-    .answer-item {
-        border-bottom: 1px solid #e4e4e4;
-        display: flex;
+    .review-steps {
+        margin-bottom: 3rem;
+    }
 
-        textarea {
-            background-color: #fff;
-            border: 1px solid $secondary-color;
+    .answer-viewer {
+        max-width: 800px;
+        margin: 0 auto;
+
+        h3 {
+            text-align: center;
+            margin-bottom: 2rem;
         }
+    }
+
+    .answer-item {
+        display: flex;
+        margin: 0 auto 2rem;
+
+        .video-block {
+            width: 400px;
+            height: 300px;
+            margin-right: 2rem;
+            background-color: #000;
+
+            video {
+                position: relative;
+                display: block;
+                max-width: 100%;
+                max-height: 100%;
+                margin: 0 auto;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        .skills-wrap {
+            margin-bottom: 1rem;
+        }
+
+        .comment-input {
+            width: 370px;
+        }
+    }
+
+    .review-pagination {
+        text-align: center;
+
+        button:first-of-type {
+            margin-right: 2rem;
+        }
+    }
+
+    .final-decision-wrap {
+        max-width: 600px;
+        margin: 0 auto;
+
+        h3 {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .decision-buttons {
+            text-align: center;
+            margin: 2rem auto;
+        }
+
+        .uk-icon {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+
+            * {
+                stroke: #fff !important;
+            }
+
+            polyline {
+                stroke: #fff !important;
+
+            }
+        }
+    }
+
+    .finished-block {
+        max-width: 400px;
+        margin: 6rem auto 0;
     }
 </style>
