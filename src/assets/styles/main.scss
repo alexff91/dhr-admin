@@ -60,6 +60,18 @@ textarea {
   }
 }
 
+.go-back-link {
+  display: block;
+  font-size: 1rem;
+  color: $secondary-color;
+  margin-bottom: .5rem;
+  text-decoration: none;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
 .heading {
   margin-bottom: 1.5rem;
 
@@ -77,11 +89,44 @@ textarea {
   }
 
   .sub-title {
-    font-size: 13px;
+    font-size: 14px;
     color: gray;
   }
 }
 
+.helpers {
+  display: flex;
+  flex-direction: column;
+
+  .helper-block {
+
+    a, button {
+      text-decoration: none;
+      color: $secondary-color;
+      font-size: 1rem;
+
+      &:hover {
+        color: $primary-color
+      }
+
+    }
+  }
+
+}
+
 .nprogress-busy * {
   cursor: wait !important;
+}
+
+.font-size-small {
+  font-size: 13px;
+}
+
+.final-decision-wrap {
+  max-width: 600px;
+
+  .decision-buttons {
+    text-align: center;
+    margin: 2rem auto;
+  }
 }

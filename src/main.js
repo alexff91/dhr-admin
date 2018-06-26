@@ -29,7 +29,10 @@ import {
   Submenu,
   Tooltip,
   Steps,
-  Step
+  Step,
+  Tabs,
+  TabPane,
+  Icon
 } from 'element-ui';
 
 import 'element-ui/lib/theme-chalk/index.css';
@@ -61,6 +64,9 @@ Vue.use(Option);
 Vue.use(Rate);
 Vue.use(Steps);
 Vue.use(Step);
+Vue.use(Tabs);
+Vue.use(TabPane);
+Vue.use(Icon);
 
 Vue.use(plugins);
 sync(store, router, {moduleName: 'route'});

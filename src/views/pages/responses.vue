@@ -1,38 +1,105 @@
 <template>
     <div>
-        <!-- TODO: отрефачить весь компонент и запилить норм ui-->
-
+        <router-link :to="`/vacancies/${vacancyId}/`" class="go-back-link">← К списку откликов</router-link>
         <div class="heading" v-if="vacancy && respond">
             <h1 class="title">{{`${respond.name} ${respond.lastName}`}}</h1>
             <div class="sub-title">{{vacancy.position}}</div>
         </div>
 
+        <div class="helpers">
+            <div class="helper-block">
+                <router-link :to="`/vacancies/${vacancyId}/edit`" class="edit-heading">
+                    <!--<vk-icon icon="pencil" class="icon"></vk-icon>-->
+                    <el-icon class="el-icon-edit"></el-icon>
+                    <span>Редактировать вакансию</span>
+                </router-link>
+            </div>
+
+            <div class="helper-block">
+                <el-button @click="copyExpertLink()" type="text">
+                    <!--<vk-icon icon="copy" class="icon"></vk-icon>-->
+                    <el-icon class="el-icon-news"></el-icon>
+
+                    <span>Скопировать ссылку для эксперта</span>
+                </el-button>
+            </div>
+
+
+        </div>
+
         <div v-if="respond">
             <h3>Контактные данные</h3>
 
-            <div>{{`${respond.name} ${respond.lastName}`}}</div>
-            <div>{{respond.phone}}</div>
-            <div><a :href="`mailto:${respond.email}`">{{`${respond.email}`}}</a></div>
-        </div>
+            <div class="respond-data-block">
+                <div class="sub-head">Имя Фамилия</div>
+                <div>{{`${respond.name} ${respond.lastName}`}}</div>
+            </div>
+            <div class="respond-data-block" v-if="respond.phone">
+                <div class="sub-head">Телефон</div>
+                {{respond.phone}}
+            </div>
 
-        <div class="">
-            Решение:
-            <select v-model="respondReviewStatus">
-                <option value="APPROVE">approve</option>
-                <option value="DECLINE">decline</option>
-            </select>
-
-            Комментарий:
-            <textarea v-model="respondReviewComment"></textarea>
-
-            <el-button type="primary" @click="sendReview">Отправить</el-button>
+            <div class="respond-data-block">
+                <div class="sub-head">Email</div>
+                {{respond.email}}
+            </div>
         </div>
 
         <br>
         <br>
-        <br>
 
-        <answers-review :responseId="responseId"></answers-review>
+        <el-tabs tab-position="top" style="">
+            <el-tab-pane label="Рейтинг кандидата" class="final-decision-wrap">
+                <h3>Рейтинг кандидата</h3>
+                <el-input type="textarea" rows="5" v-model="respondReviewComment"
+                          placeholder="Напишите пару строк почему вы приняли такое решение" @input="showDecisionButtons = true"></el-input>
+
+                <div class="decision-buttons" v-if="showDecisionButtons">
+                    <el-button icon="el-icon-close" plain @click="sendReview('DECLINE')">
+                        Отказать
+                    </el-button>
+                    <el-button icon="el-icon-check" plain @click="sendReview('APPROVE')">
+                        Принять
+                    </el-button>
+                </div>
+            </el-tab-pane>
+
+            <el-tab-pane label="Заключения экспертов">
+                <div v-if="!reviews.length">
+                    Заключений нет
+                </div>
+
+                <div class="imba-table" v-if="reviews.length">
+                    <div class="imba-row imba-row-head">
+                        <div class="imba-col imba-col-main">Пользователь</div>
+                        <div class="imba-col imba-col-main">Комментарий</div>
+                        <div class="imba-col">Решение</div>
+                    </div>
+
+                    <div class="imba-row imba-row-link" v-for="review in reviews">
+                        <div class="imba-col imba-col-main">{{review.id}}</div>
+                        <div class="imba-col imba-col-main">{{review.comment}}</div>
+                        <div class="imba-col">
+                            <template v-if="review.respondReviewStatus === 'APPROVE'">
+                                <el-icon class="el-icon-success"></el-icon>
+                                {{RESPONSE_REVIEW_STATUS_RU[review.respondReviewStatus]}}
+                            </template>
+
+                            <template v-if="review.respondReviewStatus === 'DECLINE'">
+                                <el-icon class="el-icon-error"></el-icon>
+                                {{RESPONSE_REVIEW_STATUS_RU[review.respondReviewStatus]}}
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+            </el-tab-pane>
+
+            <el-tab-pane label="Интервью">
+                <answers-review :responseId="responseId" style="max-width: 900px;"></answers-review>
+            </el-tab-pane>
+        </el-tabs>
+
 
     </div>
 </template>
@@ -40,6 +107,7 @@
 <script>
   import { Responds, Vacancies } from '../../api';
   import AnswersReview from '../../components/review/index';
+  import { RESPONSE_REVIEW_STATUS_RU } from '../../utils/constants';
 
   export default {
     name: 'responses',
@@ -48,8 +116,10 @@
       return {
         vacancy: null,
         respond: null,
-        respondReviewStatus: null,
-        respondReviewComment: null
+        respondReviewComment: '',
+        showDecisionButtons: false,
+        reviews: [],
+        RESPONSE_REVIEW_STATUS_RU
       };
     },
     computed: {
@@ -74,13 +144,31 @@
         .then(res => {
           this.respond = res.data;
         });
+
+      Responds.getAllReviews(this.responseId)
+        .then(res => {
+          this.reviews = res.data;
+        });
     },
 
     methods: {
-      sendReview() {
+      sendReview(status) {
+
         Responds.createRespondFeedback(this.responseId, this.user.id, {
-          respondReviewStatus: this.respondReviewStatus,
+          respondReviewStatus: status,
           comment: this.respondReviewComment
+        })
+          .then(() => {
+            this.finished = true;
+          });
+      },
+
+      copyExpertLink() {
+        this.$copyText(`${location.href}/review`).then(() => {
+          // vacancy.tooltipIsVisible = true;
+          setTimeout(() => {
+            // vacancy.tooltipIsVisible = false;
+          }, 2000);
         });
       }
     }
@@ -88,4 +176,15 @@
 </script>
 
 <style lang="scss">
+
+    @import "../../assets/styles/variables";
+
+    .respond-data-block {
+        margin-bottom: .75rem;
+
+        .sub-head {
+            color: $secondary-color;
+            font-size: 14px;
+        }
+    }
 </style>

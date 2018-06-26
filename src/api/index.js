@@ -38,6 +38,12 @@ export const Responds = new Resource('responds', {
   getAnswers(respondId) {
     return this.http.get(`/secured/respond/${respondId}/answers`);
   },
+  getAllReviews(respondId) {
+    return this.http.get(`/secured/responds/${respondId}/review`);
+  },
+  getReviewByUser(respondId, userId) {
+    return this.http.get(`/secured/responds/${respondId}/users/${userId}/review`);
+  },
   createRespondFeedback(respondId, userId, data) {
     return this.http.post(`/secured/responds/${respondId}/users/${userId}/review`, data);
   }

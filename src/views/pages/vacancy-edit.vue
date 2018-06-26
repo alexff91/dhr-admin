@@ -1,7 +1,7 @@
 <template>
     <div>
         <slot v-if="vacancy">
-            <router-link :to="`/vacancies/${vacancy.id}`" class="view-vacancy-link">← К просмотру вакансии</router-link>
+            <router-link :to="`/vacancies/${vacancy.id}`" class="go-back-link">← К просмотру вакансии</router-link>
             <div class="heading">
                 <input class="heading-input" v-model="vacancy.position">
                 <div class="sub-title">Вакансия создана {{new Date(vacancy.creationDate).toLocaleString()}}</div>
@@ -88,18 +88,6 @@
 
 <style lang="scss" scoped>
     @import "../../assets/styles/variables";
-
-    .view-vacancy-link {
-        display: block;
-        font-size: 14px;
-        color: $secondary-color;
-        margin-bottom: .5rem;
-        text-decoration: none;
-
-        &:hover {
-            color: $primary-color;
-        }
-    }
 
     .save-button {
         float: right;

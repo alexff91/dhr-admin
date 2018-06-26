@@ -194,32 +194,11 @@
     }
 
     .final-decision-wrap {
-        max-width: 600px;
         margin: 0 auto;
 
         h3 {
             margin-top: 3rem;
             text-align: center;
-        }
-
-        .decision-buttons {
-            text-align: center;
-            margin: 2rem auto;
-        }
-
-        .uk-icon {
-            display: inline-flex;
-            align-items: center;
-            vertical-align: middle;
-
-            * {
-                stroke: #fff !important;
-            }
-
-            polyline {
-                stroke: #fff !important;
-
-            }
         }
     }
 
