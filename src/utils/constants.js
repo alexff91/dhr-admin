@@ -5,7 +5,9 @@ export const RESPONSE_RU = {
 
 export const RESPONSE_VIEWED_STATUS_RU = {
   REVIEWED: 'Просмотрен',
-  NOT_WATCHED: 'Не просмотрен'
+  NOT_WATCHED: 'Не просмотрен',
+  ACCEPTED: 'Принят',
+  DECLINED: 'Отклонен'
 };
 
 export const RESPONSE_REVIEW_STATUS_RU = {

@@ -53,10 +53,14 @@
                           placeholder="Напишите пару строк почему вы приняли такое решение"></el-input>
 
                 <div class="decision-buttons">
-                    <el-button icon="el-icon-close" plain @click="declineResponse()">
+                    <el-button icon="el-icon-close" plain
+                               :type="respond.reviewStatus === 'DECLINED' ? 'primary' : ''"
+                               @click="declineResponse()">
                         Отказать
                     </el-button>
-                    <el-button icon="el-icon-check" plain @click="acceptResponse()">
+                    <el-button icon="el-icon-check" plain
+                               :type="respond.reviewStatus === 'ACCEPTED' ? 'primary' : ''"
+                               @click="acceptResponse()">
                         Принять
                     </el-button>
                 </div>

@@ -42,7 +42,6 @@
                     <div class="imba-col imba-col-main">{{ response.name }} {{ response.lastName }}</div>
                     <div class="imba-col imba-col-main">{{response.email}}</div>
                     <div class="imba-col imba-col-small font-size-small">{{RESPONSE_VIEWED_STATUS_RU[response.reviewStatus]}}</div>
-                    <!--<div class="imba-col imba-col-small">{{RESPONSE_RU[response.status]}}</div>-->
                     <div class="imba-timestamp imba-col imba-col-small" :title="new Date(response.startDate).toLocaleString()">
                         <vk-icon icon="clock" class="icon" :ratio="0.7"></vk-icon>
                         <span>{{ distanceInWords(new Date(response.startDate), new Date(), { locale: ru }) }} назад</span>
