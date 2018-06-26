@@ -24,7 +24,7 @@
     },
     computed: {
       expertView() {
-        return this.$route.name ? !this.$route.name.review : false;
+        return this.$route.name && this.$route.name === 'review';
       }
     },
     created() {

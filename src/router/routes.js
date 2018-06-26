@@ -42,6 +42,7 @@ export default [
         component: () => import('../views/pages/review')
       },
       {
+        name: 'skills',
         path: 'skills',
         meta: {requiresAuth: true},
         component: () => import('../views/pages/skills')
