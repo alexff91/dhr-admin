@@ -112,8 +112,6 @@
                 <answers-review :responseId="responseId" style="max-width: 900px;"></answers-review>
             </el-tab-pane>
         </el-tabs>
-
-
     </div>
 </template>
 

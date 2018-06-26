@@ -51,14 +51,17 @@
                 <div v-if="uncompletedResponses.length" class="uncompleted-wrap">
                     <h4>Незавершенные отклики</h4>
 
-                    <div class="imba-row imba-row-link" v-for="response in uncompletedResponses" :key="response.id">
+                    <router-link :to="`/vacancies/${vacancy.id}/responses/${response.id}`"
+                                 class="imba-row imba-row-link"
+                                 v-for="response in uncompletedResponses"
+                                 :key="response.id">
                         <div class="imba-col imba-col-main">{{ response.name }} {{ response.lastName }}</div>
                         <div class="imba-col imba-col-main">{{response.email}}</div>
                         <div class="imba-timestamp imba-col imba-col-small" :title="new Date(response.startDate).toLocaleString()">
                             <vk-icon icon="clock" class="icon" :ratio="0.7"></vk-icon>
                             <span>{{ distanceInWords(new Date(response.startDate), new Date(), { locale: ru }) }} назад</span>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
         </div>
