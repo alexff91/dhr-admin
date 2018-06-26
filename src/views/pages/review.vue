@@ -40,7 +40,6 @@
       Vacancies.getResponses(this.vacancyId, this.responseId)
         .then(res => {
           this.response = res.data;
-
         });
     }
   };

@@ -7,7 +7,7 @@
 
         <div class="answer-viewer" v-if="activeAnswer && !finalDecisionIsActive">
             <h3>Вопрос: {{activeAnswer.question.question}}</h3>
-            <div class="answer-item" v-if="activeAnswer">
+            <div class="answer-item" v-if="activeAnswer && answerReview">
                 <div class="video-block">
                     <video :src="activeAnswer.videoPath" controls></video>
                 </div>
@@ -16,11 +16,11 @@
                     <div class="skills-wrap">
                         <div v-for="skill in activeAnswer.question.respondSkills" :key="skill.id">
                             {{skill.name}}:
-                            <el-rate v-model="reviews[activeIndex].skillsFeedback[skill.name]"></el-rate>
+                            <el-rate v-model="answerReview.skillsFeedback[skill.name]"></el-rate>
                         </div>
                     </div>
 
-                    <el-input type="textarea" rows="5" v-model="reviews[activeIndex].comment" placeholder="Напишите комментарий"
+                    <el-input type="textarea" rows="5" v-model="answerReview.comment" placeholder="Напишите комментарий"
                               class="comment-input"></el-input>
                 </div>
             </div>
@@ -73,7 +73,8 @@
         finished: false,
         finalDecisionIsActive: false,
         showDecisionButtons: false,
-        respondReviewComment: ''
+        respondReviewComment: '',
+        answerReview: null
       };
     },
     computed: {
@@ -101,18 +102,20 @@
               comment: ''
             };
           });
+
+          this.getAnswerReview();
         });
     },
     methods: {
       nextAnswerHandler() {
-        this.sendAnswerReview(this.reviews[this.activeIndex])
+        this.sendAnswerReview(this.answerReview)
           .then(() => {
             this.setActiveAnswer(this.activeIndex + 1);
           });
       },
 
       sendAnswerReview(review) {
-        return Answers.createAnswerFeedback(review.answerId, this.user.id, review);
+        return Answers.createAnswerFeedback(this.reviews[this.activeIndex].answerId, this.user.id, review);
       },
 
       setActiveAnswer(i) {
@@ -122,7 +125,14 @@
         }
 
         this.activeIndex = i;
-        Answers.get(this.activeAnswer.id, this.user.id);
+        this.getAnswerReview();
+      },
+
+      getAnswerReview() {
+        Answers.get(this.activeAnswer.id, this.user.id)
+          .then(res => {
+            this.answerReview = res.data;
+          });
       },
 
       sendReview(status) {

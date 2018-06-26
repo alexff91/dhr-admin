@@ -64,7 +64,7 @@
                 </div>
             </el-tab-pane>
 
-            <el-tab-pane label="Заключения экспертов">
+            <el-tab-pane :label="`Заключения экспертов ${reviews.length}`">
                 <div v-if="!reviews.length">
                     Заключений нет
                 </div>
@@ -77,7 +77,7 @@
                     </div>
 
                     <div class="imba-row imba-row-link" v-for="review in reviews" :key="review.id">
-                        <div class="imba-col imba-col-main">{{review.id}}</div>
+                        <div class="imba-col imba-col-main">{{review.user.login}}</div>
                         <div class="imba-col imba-col-main">{{review.comment}}</div>
                         <div class="imba-col">
                             <template v-if="review.respondReviewStatus === 'APPROVE'">
