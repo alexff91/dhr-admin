@@ -1,4 +1,4 @@
-export const VACANCY_URL = 'https://app.vi-hr.com/demo/vacancy';
+export const VACANCY_URL = 'https://nexign.vi-hr.com/vacancy';
 
 export const RESPONSE_RU = {
   COMPLETE: 'Готов',
