@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: '/dashboard/',
+  baseUrl: '/',
   outputDir: 'dist',
   lintOnSave: true,
   chainWebpack: config => {},
