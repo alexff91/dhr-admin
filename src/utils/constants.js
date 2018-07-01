@@ -1,4 +1,4 @@
-export const VACANCY_URL = 'https://vacancy.vi-hr.com';
+export const VACANCY_URL = 'https://vacancies.vi-hr.com';
 
 export const RESPONSE_RU = {
   COMPLETE: 'Готов',
