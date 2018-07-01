@@ -27,7 +27,6 @@
   export default {
     name: 'login',
     data() {
-      // TODO: remove default values
       const model = {
         username: '',
         password: ''

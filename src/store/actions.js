@@ -27,11 +27,8 @@ export const checkToken = ({commit, getters}) => {
   });
 };
 
-export const deleteToken = ({commit, getters}) => {
-  return Tokens.delete(getters.session.token)
-    .then(() => {
-      commit('CHANGE_SESSION', {token: null});
-    });
+export const deleteToken = ({commit}) => {
+  commit('CHANGE_SESSION', {token: null});
 };
 
 export const getUserAndCompany = ({commit}) => {
