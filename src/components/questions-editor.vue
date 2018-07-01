@@ -33,7 +33,7 @@
                                 value-key="id"
                                 placeholder="Выберите навык" size="small">
                             <el-option
-                                    v-for="skill in skills"
+                                    v-for="skill in companySkills.concat(question.skills)"
                                     :key="skill.id"
                                     :label="skill.name"
                                     :value="skill">
@@ -86,7 +86,7 @@
     },
     data() {
       return {
-        skills: [],
+        companySkills: [],
         durationMaxOptions: [
           15000, 30000, 60000, 90000, 120000, 150000, 180000
         ],
@@ -102,7 +102,7 @@
     created() {
       Companies.getSkills(this.company.id)
         .then(res => {
-          this.skills = res.data;
+          this.companySkills = res.data;
         });
     },
     methods: {
