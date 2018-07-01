@@ -29,8 +29,8 @@
     data() {
       // TODO: remove default values
       const model = {
-        username: 'admin',
-        password: 'admin123'
+        username: '',
+        password: ''
       };
 
       const rules = {
