@@ -3,7 +3,7 @@
         <header class="login-header">
             <img class="logo" src="../assets/images/logo.png">
         </header>
-        <el-form class="login-form" auto-complete="off" :model="model" :rules="rules" ref="login-form"
+        <el-form class="login-form" auto-complete="off" :model="model" :rules="rules" ref="login-form" @submit.prevent.native="submit('login-form')"
                  label-position="top">
             <h2 class="heading">Вход</h2>
             <el-form-item prop="username">
@@ -12,8 +12,8 @@
             <el-form-item prop="password">
                 <el-input type="password" v-model="model.password" placeholder="Пароль" />
             </el-form-item>
-            <el-button type="primary" :loading="loading" @click="submit('login-form')">{{ loading ? 'Загрузка...' :
-                'Войти' }}
+            <el-button type="primary" :loading="loading" native-type="submit">
+                {{ loading ? 'Загрузка...' : 'Войти' }}
             </el-button>
 
             <br><br>
@@ -34,12 +34,10 @@
 
       const rules = {
         username: [
-          {required: true, message: 'Необходимо ввести имя пользователя'},
-          {min: 2, max: 16, message: 'Минимальное количество символов 2, максимальное 16'}
+          {required: true, message: 'Необходимо ввести имя пользователя'}
         ],
         password: [
-          {required: true, message: 'Необходимо ввести пароль'},
-          {min: 6, max: 16, message: 'Минимальное количество символов 6, максимальное 16'}
+          {required: true, message: 'Необходимо ввести пароль'}
         ]
       };
 
