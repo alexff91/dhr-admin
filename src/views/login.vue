@@ -34,7 +34,7 @@
 
       const rules = {
         username: [
-          {required: true, message: 'Необходимо ввести имя пользователя'}
+          {required: true, message: 'Необходимо ввести логин'}
         ],
         password: [
           {required: true, message: 'Необходимо ввести пароль'}
