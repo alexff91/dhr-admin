@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!--TODO: remove errors -->
         <div v-if="value.length === 0">
             Вы еще не добавили вопросы.
         </div>
@@ -21,7 +22,6 @@
                     </div>
                     <div class="imba-col imba-col-main question-text-col">
                         <el-input type="textarea" autosize v-model="question.question" placeholder="Введите вопрос" size="mini"></el-input>
-                        <!--<textarea rows="2" class="imba-input"  ></textarea>-->
                     </div>
                     <div class="imba-col imba-col-main">
                         <el-select
@@ -30,11 +30,11 @@
                                 multiple
                                 filterable
                                 allow-create
-                                value-key="id"
+                                value-key="name"
                                 placeholder="Выберите навык" size="small">
                             <el-option
-                                    v-for="skill in companySkills.concat(question.skills)"
-                                    :key="skill.id"
+                                    v-for="skill in companySkills"
+                                    :key="skill.name"
                                     :label="skill.name"
                                     :value="skill">
                             </el-option>
@@ -81,7 +81,7 @@
     props: {
       value: {
         type: Array,
-        default: () => [{}]
+        default: () => []
       }
     },
     data() {
@@ -105,7 +105,34 @@
           this.companySkills = res.data;
         });
     },
+
+    updated() {
+      this.checkSkills();
+    },
+    watch: {
+      value() {
+        this.checkSkills();
+      }
+    },
     methods: {
+      checkSkills() {
+        this.value.forEach(question => {
+          question.skills.forEach(skill => {
+
+            if (typeof skill === 'string') {
+              skill = {name: skill};
+            }
+
+            const added = this.companySkills.some(sk => {
+              return sk.name === skill.name;
+            });
+
+            if (!added) {
+              this.companySkills.push(skill);
+            }
+          });
+        });
+      },
       addQuestion() {
         this.value.push({
           'durationMax': 120000,
