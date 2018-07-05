@@ -2,7 +2,7 @@
     <div>
         <!--TODO: remove errors -->
         <div v-if="value.length === 0">
-            Вы еще не добавили вопросы.
+            Вы еще не добавили вопросы
         </div>
 
         <div class="imba-table" v-if="value.length">
