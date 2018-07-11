@@ -7,8 +7,8 @@
         <wysiwyg class="vacancy-description" v-model="company.description"></wysiwyg>
         <h3>Лого:</h3>
         <div class="logo-preview" ref="logo-preview">
-            <img v-if="company.logo" :src="company.logo">
-            <!--<img :src="">-->
+            <img v-if="company.logo && !newLogoSrc" :src="company.logo">
+            <img v-if="newLogoSrc" :src="newLogoSrc">
         </div>
         <input type="file" class="" @change="onFileSelect" accept=".jpg, .jpeg, .png, .svg">
         <br>
@@ -17,13 +17,15 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import { Companies } from '../../api';
 
   export default {
     name: 'company-settings',
     data() {
-      return {};
+      return {
+        newLogoSrc: ''
+      };
     },
     computed: mapGetters({
       company: 'company'
@@ -36,25 +38,27 @@
       this.$title('Настройки компании');
     },
     methods: {
+      ...mapActions({
+        setCompany: 'setCompany'
+      }),
       updateCompany() {
-        Companies.put(this.company.id, this.company);
-      },
-      setImg(base64) {
-        let img = document.createElement('img');
-        img.src = base64;
-        this.$refs['logo-preview'].appendChild(img);
-      },
+        let updatedCompany = this.company;
 
-      onFileSelect(e) {
-        const logoPreview = this.$refs['logo-preview'];
-        while (logoPreview.firstChild) {
-          logoPreview.removeChild(logoPreview.firstChild);
+        if (this.newLogoSrc) {
+          updatedCompany = {
+            ...this.company,
+            logo: this.newLogoSrc
+          };
         }
 
+        this.setCompany(updatedCompany);
+        Companies.put(this.company.id, updatedCompany);
+      },
+      onFileSelect(e) {
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
         reader.onload = () => {
-          this.setImg(reader.result);
+          this.newLogoSrc = reader.result;
         };
       }
     }
