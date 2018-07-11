@@ -28,7 +28,7 @@
         <nav class="secondary-menu">
             <router-link :to="'/company-settings'" active-class="is-active" class="sidebar-item" exact>
                 <vk-icon icon="cog" class="icon"></vk-icon>
-                <span>Настройка компании</span>
+                <span>{{companyName}}</span>
             </router-link>
             <button class="sidebar-item" @click="logout">
                 <vk-icon icon="sign-out" class="icon"></vk-icon>
@@ -45,9 +45,15 @@
   export default {
     name: 'app-sidebar',
     components: {MenuList},
-    computed: mapGetters({
-      sidebar: 'sidebar'
-    }),
+    computed: {
+      ...mapGetters({
+        sidebar: 'sidebar',
+        company: 'company'
+      }),
+      companyName() {
+        return this.company ? this.company.name : 'Настройка компании';
+      }
+    },
     methods: {
       logout() {
         this.$store.dispatch('deleteToken');
