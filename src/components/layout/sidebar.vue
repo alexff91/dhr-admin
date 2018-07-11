@@ -51,7 +51,7 @@
         company: 'company'
       }),
       companyName() {
-        return this.company ? this.company.name : 'Настройка компании';
+        return this.company && this.company.name ? this.company.name : 'Настройка компании';
       }
     },
     methods: {
