@@ -69,12 +69,12 @@
 
                 <div class="decision-buttons" style="text-align: left;">
                     <el-button icon="el-icon-close" plain
-                               :type="respond.reviewStatus === 'DECLINED' ? 'primary' : ''"
+                               :type="respond.reviewStatus === 'DECLINED' ? 'primary' : 'danger'"
                                @click="declineResponse()">
                         Отказать
                     </el-button>
                     <el-button icon="el-icon-check" plain
-                               :type="respond.reviewStatus === 'ACCEPTED' ? 'primary' : ''"
+                               :type="respond.reviewStatus === 'ACCEPTED' ? 'primary' : 'success'"
                                @click="acceptResponse()">
                         Принять
                     </el-button>
