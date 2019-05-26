@@ -160,7 +160,7 @@
         border-radius: 3px 0 0 3px;
 
         &.is-active {
-            background-color: #24bb64;
+            background-color: #af25c4;
         }
 
         &.is-archived {

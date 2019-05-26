@@ -126,7 +126,7 @@
 
     .sidebar-button {
         width: 80%;
-        background-color: #24bb64;
+        background-color: #c036ff;
         padding: .75rem 1.2rem;
         margin: 1rem auto;
         color: #fff;
@@ -134,7 +134,7 @@
         text-align: center;
 
         &:hover {
-            background-color: #25e384;
+            background-color: #c884e6;
         }
 
         .icon {

@@ -98,12 +98,12 @@
                         <div class="imba-col imba-col-main">{{review.comment}}</div>
                         <div class="imba-col">
                             <template v-if="review.respondReviewStatus === 'APPROVE'">
-                                <el-icon class="el-icon-success"></el-icon>
+                                <el-button type="success" size="mini" icon="el-icon-check" circle></el-button>
                                 {{RESPONSE_REVIEW_STATUS_RU[review.respondReviewStatus]}}
                             </template>
 
                             <template v-if="review.respondReviewStatus === 'DECLINE'">
-                                <el-icon class="el-icon-error"></el-icon>
+                                 <el-button type="danger" size="mini" icon="el-icon-error" circle></el-button>
                                 {{RESPONSE_REVIEW_STATUS_RU[review.respondReviewStatus]}}
                             </template>
                         </div>
