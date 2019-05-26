@@ -23,67 +23,67 @@
 </template>
 
 <script>
-  import { Vacancies } from '../../api';
-  import QuestionsEditor from '../../components/questions-editor';
+    import {Vacancies} from '../../api';
+    import QuestionsEditor from '../../components/questions-editor';
 
-  export default {
-    name: 'vacancy-edit',
-    components: {QuestionsEditor},
-    data() {
-      return {
-        vacancy: {}
-      };
-    },
-    computed: {
-      id() {
-        return this.$route.params.vacancyId;
-      },
-      company() {
-        return this.$store.getters.company;
-      }
-    },
-    created() {
-      this.$title('Редактирование вакансии');
-      this.getVacancy();
-    },
-
-    methods: {
-      getVacancy() {
-        return Vacancies.get(this.id)
-          .then(res => {
-            this.vacancy = res.data;
-            this.initQuestions();
-          });
-      },
-      initQuestions() {
-        this.vacancy.questions.sort((a, b) => a.orderNumber - b.orderNumber);
-      },
-      saveVacancy() {
-        // TODO: вынести preparedQuestions
-        const preparedQuestions = this.vacancy.questions.map((question, index) => {
-          question.skills = question.skills.map(skill => {
-            if (typeof skill === 'string') {
-              return {name: skill};
+    export default {
+        name: 'vacancy-edit',
+        components: {QuestionsEditor},
+        data() {
+            return {
+                vacancy: {}
+            };
+        },
+        computed: {
+            id() {
+                return this.$route.params.vacancyId;
+            },
+            company() {
+                return this.$store.getters.company;
             }
-            return skill;
-          });
+        },
+        created() {
+            this.$title('Редактирование вакансии');
+            this.getVacancy();
+        },
 
-          return {
-            ...question,
-            orderNumber: index
-          };
-        });
+        methods: {
+            getVacancy() {
+                return Vacancies.get(this.id)
+                    .then(res => {
+                        this.vacancy = res.data;
+                        this.initQuestions();
+                    });
+            },
+            initQuestions() {
+                this.vacancy.questions.sort((a, b) => a.orderNumber - b.orderNumber);
+            },
+            saveVacancy() {
+                // TODO: вынести preparedQuestions
+                const preparedQuestions = this.vacancy.questions.map((question, index) => {
+                    question.skills = question.skills.map(skill => {
+                        if (typeof skill === 'string') {
+                            return {name: skill};
+                        }
+                        return skill;
+                    });
 
-        Vacancies.setSecured(this.id, {
-          ...this.vacancy,
-          questions: preparedQuestions
-        })
-          .then(() => {
-            this.$router.replace(`/vacancies/${this.id}`);
-          });
-      }
-    }
-  };
+                    return {
+                        ...question,
+                        orderNumber: index
+                    };
+                });
+
+                Vacancies.setSecured(this.id, {
+                    ...this.vacancy,
+                    questions: preparedQuestions
+                })
+                    .then(() => {
+                        this.$router.replace(`/vacancies/${this.id}`);
+                    });
+            }
+        }
+    };
 </script>
 
 <style lang="scss" scoped>

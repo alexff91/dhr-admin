@@ -103,7 +103,7 @@
                             </template>
 
                             <template v-if="review.respondReviewStatus === 'DECLINE'">
-                                 <el-button type="danger" size="mini" icon="el-icon-error" circle></el-button>
+                                <el-button type="danger" size="mini" icon="el-icon-error" circle></el-button>
                                 {{RESPONSE_REVIEW_STATUS_RU[review.respondReviewStatus]}}
                             </template>
                         </div>
@@ -120,78 +120,78 @@
 </template>
 
 <script>
-  import { Responds, Vacancies } from '../../api';
-  import AnswersReview from '../../components/review/index';
-  import { RESPONSE_REVIEW_STATUS_RU, RESPONSE_VIEWED_STATUS_RU } from '../../utils/constants';
+    import {Responds, Vacancies} from '../../api';
+    import AnswersReview from '../../components/review/index';
+    import {RESPONSE_REVIEW_STATUS_RU, RESPONSE_VIEWED_STATUS_RU} from '../../utils/constants';
 
-  export default {
-    name: 'responses',
-    components: {AnswersReview},
-    data() {
-      return {
-        vacancy: null,
-        respond: null,
-        respondReviewComment: '',
-        reviews: [],
-        skillsSummary: {},
-        RESPONSE_REVIEW_STATUS_RU,
-        RESPONSE_VIEWED_STATUS_RU
-      };
-    },
-    computed: {
-      vacancyId() {
-        return this.$route.params.vacancyId;
-      },
-      responseId() {
-        return this.$route.params.responseId;
-      },
-      user() {
-        return this.$store.getters.user;
-      }
-    },
-    created() {
-      this.$title('Отклики');
-      Vacancies.get(this.vacancyId)
-        .then(res => {
-          this.vacancy = res.data;
-        });
+    export default {
+        name: 'responses',
+        components: {AnswersReview},
+        data() {
+            return {
+                vacancy: null,
+                respond: null,
+                respondReviewComment: '',
+                reviews: [],
+                skillsSummary: {},
+                RESPONSE_REVIEW_STATUS_RU,
+                RESPONSE_VIEWED_STATUS_RU
+            };
+        },
+        computed: {
+            vacancyId() {
+                return this.$route.params.vacancyId;
+            },
+            responseId() {
+                return this.$route.params.responseId;
+            },
+            user() {
+                return this.$store.getters.user;
+            }
+        },
+        created() {
+            this.$title('Отклики');
+            Vacancies.get(this.vacancyId)
+                .then(res => {
+                    this.vacancy = res.data;
+                });
 
-      Vacancies.getResponses(this.vacancyId, this.responseId)
-        .then(res => {
-          this.respond = res.data;
-        });
+            Vacancies.getResponses(this.vacancyId, this.responseId)
+                .then(res => {
+                    this.respond = res.data;
+                });
 
-      Responds.getAllReviews(this.responseId)
-        .then(res => {
-          this.reviews = res.data;
-        });
+            Responds.getAllReviews(this.responseId)
+                .then(res => {
+                    this.reviews = res.data;
+                });
 
-      Responds.getSkillsSummary(this.responseId)
-        .then(res => {
-          this.skillsSummary = res.data;
-        });
-    },
+            Responds.getSkillsSummary(this.responseId)
+                .then(res => {
+                    this.skillsSummary = res.data;
+                });
+        },
 
-    methods: {
-      acceptResponse() {
-        Vacancies.acceptResponse(this.vacancyId, this.responseId, {comment: this.respond.comment});
-        this.respond.reviewStatus = 'ACCEPTED';
-      },
-      declineResponse() {
-        Vacancies.declineResponse(this.vacancyId, this.responseId, {comment: this.respond.comment});
-        this.respond.reviewStatus = 'DECLINED';
-      },
+        methods: {
+            acceptResponse() {
+                Vacancies.acceptResponse(this.vacancyId, this.responseId, {comment: this.respond.comment});
+                this.respond.reviewStatus = 'ACCEPTED';
+            },
+            declineResponse() {
+                Vacancies.declineResponse(this.vacancyId, this.responseId, {comment: this.respond.comment});
+                this.respond.reviewStatus = 'DECLINED';
+            },
 
-      copyExpertLink() {
-        this.$copyText(`${location.href}/review`).then(() => {
-          // vacancy.tooltipIsVisible = true;
-          setTimeout(() => {
-            // vacancy.tooltipIsVisible = false;
-          }, 2000);
-        });
-      }
-    }
-  };
+            copyExpertLink() {
+                this.$copyText(`${location.href}/review`).then(() => {
+                    // vacancy.tooltipIsVisible = true;
+                    setTimeout(() => {
+                        // vacancy.tooltipIsVisible = false;
+                    }, 2000);
+                });
+            }
+        }
+    };
 </script>
 
 <style lang="scss">

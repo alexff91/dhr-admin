@@ -22,7 +22,8 @@
                 <div class="imba-col imba-col-small" title="Откликов/Просмотров">
                     <b>{{vacancy.respondsCount}}</b>
                 </div>
-                <div class="imba-timestamp imba-col imba-col-small" :title="new Date(vacancy.creationDate).toLocaleString()">
+                <div class="imba-timestamp imba-col imba-col-small"
+                     :title="new Date(vacancy.creationDate).toLocaleString()">
                     <vk-icon icon="clock" class="icon" :ratio="0.7"></vk-icon>
                     <span>{{ distanceInWords(new Date(vacancy.creationDate), new Date(), { locale: ru }) }} назад</span>
                 </div>
@@ -70,79 +71,79 @@
 </template>
 
 <script>
-  import { Companies, Vacancies } from '../../api';
-  import { mapGetters } from 'vuex';
-  import { distanceInWords } from 'date-fns';
-  import ru from 'date-fns/locale/ru';
-  import { VACANCY_URL } from '../../utils/constants';
+    import {Companies, Vacancies} from '../../api';
+    import {mapGetters} from 'vuex';
+    import {distanceInWords} from 'date-fns';
+    import ru from 'date-fns/locale/ru';
+    import {VACANCY_URL} from '../../utils/constants';
 
-  export default {
-    name: 'vacancies',
-    data() {
-      return {
-        vacancies: [],
-        archivedVacancies: [],
-        distanceInWords,
-        ru
-      };
-    },
-    computed: mapGetters({
-      company: 'company'
-    }),
-    created() {
-      this.$title('Вакансии');
+    export default {
+        name: 'vacancies',
+        data() {
+            return {
+                vacancies: [],
+                archivedVacancies: [],
+                distanceInWords,
+                ru
+            };
+        },
+        computed: mapGetters({
+            company: 'company'
+        }),
+        created() {
+            this.$title('Вакансии');
 
-      if (!this.company) {
-        this.$store.dispatch('getUserAndCompany')
-          .then(this.getVacancies);
-      } else {
-        this.getVacancies();
-      }
-    },
-    methods: {
-      getVacancies() {
-        Companies.getVacancies(this.company.id)
-          .then(res => {
-            this.vacancies =
-              res.data
-                .filter(e => !e.deleted)
-                .sort((a, b) => b.creationDate - a.creationDate)
-                .map(vacancy => {
-                  return {
-                    ...vacancy,
-                    tooltipIsVisible: false
-                  };
+            if (!this.company) {
+                this.$store.dispatch('getUserAndCompany')
+                    .then(this.getVacancies);
+            } else {
+                this.getVacancies();
+            }
+        },
+        methods: {
+            getVacancies() {
+                Companies.getVacancies(this.company.id)
+                    .then(res => {
+                        this.vacancies =
+                            res.data
+                                .filter(e => !e.deleted)
+                                .sort((a, b) => b.creationDate - a.creationDate)
+                                .map(vacancy => {
+                                    return {
+                                        ...vacancy,
+                                        tooltipIsVisible: false
+                                    };
+                                });
+
+                        this.archivedVacancies = res.data.filter(e => e.deleted);
+                    });
+            },
+            copyVacancyLink(vacancy) {
+                this.$copyText(`${VACANCY_URL}/${vacancy.id}`).then(() => {
+                    vacancy.tooltipIsVisible = true;
+                    setTimeout(() => {
+                        vacancy.tooltipIsVisible = false;
+                    }, 2000);
                 });
+            },
 
-            this.archivedVacancies = res.data.filter(e => e.deleted);
-          });
-      },
-      copyVacancyLink(vacancy) {
-        this.$copyText(`${VACANCY_URL}/${vacancy.id}`).then(() => {
-          vacancy.tooltipIsVisible = true;
-          setTimeout(() => {
-            vacancy.tooltipIsVisible = false;
-          }, 2000);
-        });
-      },
+            archiveVacancy(vacancy, index) {
+                Vacancies.deleteVacancy(vacancy.id)
+                    .then(() => {
+                        this.vacancies.splice(index, 1);
+                        this.archivedVacancies.push(vacancy);
+                    });
+            },
 
-      archiveVacancy(vacancy, index) {
-        Vacancies.deleteVacancy(vacancy.id)
-          .then(() => {
-            this.vacancies.splice(index, 1);
-            this.archivedVacancies.push(vacancy);
-          });
-      },
-
-      restoreVacancy(vacancy, index) {
-        Vacancies.restoreVacancy(vacancy.id)
-          .then(() => {
-            this.vacancies.push(vacancy);
-            this.archivedVacancies.splice(index, 1);
-          });
-      }
-    }
-  };
+            restoreVacancy(vacancy, index) {
+                Vacancies.restoreVacancy(vacancy.id)
+                    .then(() => {
+                        this.vacancies.push(vacancy);
+                        this.archivedVacancies.splice(index, 1);
+                    });
+            }
+        }
+    };
 </script>
 
 <style lang="scss">

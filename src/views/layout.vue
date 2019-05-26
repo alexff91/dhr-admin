@@ -5,7 +5,7 @@
             <app-sidebar v-if="!expertView"></app-sidebar>
             <main class="content">
                 <transition name="content">
-                    <router-view class="inner" :class="{'expert-view': expertView}" />
+                    <router-view class="inner" :class="{'expert-view': expertView}"/>
                 </transition>
             </main>
         </section>
@@ -13,26 +13,26 @@
 </template>
 
 <script>
-  import Header from '../components/layout/header';
-  import Sidebar from '../components/layout/sidebar';
+    import Header from '../components/layout/header';
+    import Sidebar from '../components/layout/sidebar';
 
-  export default {
-    name: 'layout',
-    components: {
-      'app-header': Header,
-      'app-sidebar': Sidebar
-    },
-    computed: {
-      expertView() {
-        return this.$route.name && this.$route.name === 'review';
-      }
-    },
-    created() {
-      if (!this.$store.getters.company) {
-        this.$store.dispatch('getUserAndCompany');
-      }
-    }
-  };
+    export default {
+        name: 'layout',
+        components: {
+            'app-header': Header,
+            'app-sidebar': Sidebar
+        },
+        computed: {
+            expertView() {
+                return this.$route.name && this.$route.name === 'review';
+            }
+        },
+        created() {
+            if (!this.$store.getters.company) {
+                this.$store.dispatch('getUserAndCompany');
+            }
+        }
+    };
 </script>
 
 <style lang="scss">

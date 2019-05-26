@@ -26,58 +26,58 @@
 </template>
 
 <script>
-  import { Companies } from '../../api';
-  import { mapGetters } from 'vuex';
+    import {Companies} from '../../api';
+    import {mapGetters} from 'vuex';
 
-  export default {
-    name: 'skills',
-    data() {
-      return {
-        skills: []
-      };
-    },
-    computed: mapGetters({
-      company: 'company'
-    }),
-    created() {
-      if (!this.company) {
-        this.$store.dispatch('getUserAndCompany')
-          .then(this.getSkills);
-      } else {
-        this.getSkills();
-      }
+    export default {
+        name: 'skills',
+        data() {
+            return {
+                skills: []
+            };
+        },
+        computed: mapGetters({
+            company: 'company'
+        }),
+        created() {
+            if (!this.company) {
+                this.$store.dispatch('getUserAndCompany')
+                    .then(this.getSkills);
+            } else {
+                this.getSkills();
+            }
 
-      this.$title('Конструктор навыков');
-    },
-    methods: {
-      getSkills() {
-        Companies.getSkills(this.company.id)
-          .then(res => {
-            this.skills = res.data;
-          });
-      },
-      saveSkills() {
-        Companies.setSkills(this.company.id, this.skills);
-      },
+            this.$title('Конструктор навыков');
+        },
+        methods: {
+            getSkills() {
+                Companies.getSkills(this.company.id)
+                    .then(res => {
+                        this.skills = res.data;
+                    });
+            },
+            saveSkills() {
+                Companies.setSkills(this.company.id, this.skills);
+            },
 
-      addSkill() {
-        this.skills.push({
-          name: 'Навык'
-        });
+            addSkill() {
+                this.skills.push({
+                    name: 'Навык'
+                });
 
-        this.$nextTick(() => {
-          this.$refs.skill[this.skills.length - 1].focus();
-        });
-      },
+                this.$nextTick(() => {
+                    this.$refs.skill[this.skills.length - 1].focus();
+                });
+            },
 
-      removeSkill(i) {
-        Companies.deleteSkill(this.company.id, this.skills[i].id)
-          .then(() => {
-            this.skills.splice(i, 1);
-          });
-      }
-    }
-  };
+            removeSkill(i) {
+                Companies.deleteSkill(this.company.id, this.skills[i].id)
+                    .then(() => {
+                        this.skills.splice(i, 1);
+                    });
+            }
+        }
+    };
 </script>
 
 <style lang="scss">

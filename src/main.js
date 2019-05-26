@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue';
 import App from './app.vue';
-import { sync } from 'vuex-router-sync';
+import {sync} from 'vuex-router-sync';
 import router from './router';
 import store from './store';
 import VueAnalytics from 'vue-analytics';
@@ -12,27 +12,28 @@ import VuikitIcons from '@vuikit/icons';
 import VueClipboard from 'vue-clipboard2';
 // import '@vuikit/theme';
 import {
-  Alert,
-  Badge,
-  Button,
-  Col,
-  Form,
-  FormItem,
-  Input,
-  Menu,
-  MenuItem,
-  MenuItemGroup,
-  Option,
-  Rate,
-  Row,
-  Select,
-  Submenu,
-  Tooltip,
-  Steps,
-  Step,
-  Tabs,
-  TabPane,
-  Icon
+    Alert,
+    Badge,
+    Button,
+    Col,
+    Form,
+    FormItem,
+    Icon,
+    Input,
+    Link,
+    Menu,
+    MenuItem,
+    MenuItemGroup,
+    Option,
+    Rate,
+    Row,
+    Select,
+    Step,
+    Steps,
+    Submenu,
+    TabPane,
+    Tabs,
+    Tooltip
 } from 'element-ui';
 
 import 'element-ui/lib/theme-chalk/index.css';
@@ -47,6 +48,7 @@ Vue.use(VuikitIcons);
 Vue.use(wysiwyg, {});
 
 Vue.use(Form);
+Vue.use(Link);
 Vue.use(FormItem);
 Vue.use(Input);
 Vue.use(Button);
@@ -77,12 +79,12 @@ Vue.config.devtools = true;
 Vue.config.productionTip = false;
 
 Vue.use(VueAnalytics, {
-  id: 'UA-120569683-2',
-  router
+    id: 'UA-120569683-2',
+    router
 });
 
 new Vue({
-  render: h => h(App),
-  store: store,
-  router: router
+    render: h => h(App),
+    store: store,
+    router: router
 }).$mount('#app');

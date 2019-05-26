@@ -21,57 +21,57 @@
 </template>
 
 <script>
-  import { Companies } from '../../api';
-  import { mapGetters } from 'vuex';
-  import QuestionsEditor from '../../components/questions-editor';
+    import {Companies} from '../../api';
+    import {mapGetters} from 'vuex';
+    import QuestionsEditor from '../../components/questions-editor';
 
-  export default {
-    name: 'vacancies',
-    components: {QuestionsEditor},
-    data() {
-      return {
-        position: '',
-        description: '',
-        questions: [],
-        video: ''
-      };
-    },
-    computed: mapGetters({
-      company: 'company'
-    }),
-    created() {
-      this.$title('Новая вакансия');
-    },
-    methods: {
-      createVacancy() {
-        // TODO: вынести preparedQuestions
-        const preparedQuestions = this.questions.map((question, index) => {
-          question.skills = question.skills.map(skill => {
-            if (typeof skill === 'string') {
-              return {name: skill};
+    export default {
+        name: 'vacancies',
+        components: {QuestionsEditor},
+        data() {
+            return {
+                position: '',
+                description: '',
+                questions: [],
+                video: ''
+            };
+        },
+        computed: mapGetters({
+            company: 'company'
+        }),
+        created() {
+            this.$title('Новая вакансия');
+        },
+        methods: {
+            createVacancy() {
+                // TODO: вынести preparedQuestions
+                const preparedQuestions = this.questions.map((question, index) => {
+                    question.skills = question.skills.map(skill => {
+                        if (typeof skill === 'string') {
+                            return {name: skill};
+                        }
+                        return skill;
+                    });
+
+                    return {
+                        ...question,
+                        orderNumber: index
+                    };
+                });
+
+                Companies.createVacancy(this.company.id, {
+                    creationDate: new Date().toISOString(),
+                    description: this.description || '',
+                    position: this.position || 'Должность без названия',
+                    questions: preparedQuestions,
+                    video: this.video
+                })
+                    .then(res => {
+                        this.$router.replace(`/vacancies/${res.data}`);
+                    });
             }
-            return skill;
-          });
-
-          return {
-            ...question,
-            orderNumber: index
-          };
-        });
-
-        Companies.createVacancy(this.company.id, {
-          creationDate: new Date().toISOString(),
-          description: this.description || '',
-          position: this.position || 'Должность без названия',
-          questions: preparedQuestions,
-          video: this.video
-        })
-          .then(res => {
-            this.$router.replace(`/vacancies/${res.data}`);
-          });
-      }
-    }
-  };
+        }
+    };
 </script>
 
 <style lang="scss">

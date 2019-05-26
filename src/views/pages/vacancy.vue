@@ -51,8 +51,11 @@
                              v-for="response in responses">
                     <div class="imba-col imba-col-main">{{ response.name }} {{ response.lastName }}</div>
                     <div class="imba-col imba-col-main">{{response.email}}</div>
-                    <div class="imba-col imba-col-small font-size-small">{{RESPONSE_VIEWED_STATUS_RU[response.reviewStatus]}}</div>
-                    <div class="imba-timestamp imba-col imba-col-small" :title="new Date(response.startDate).toLocaleString()">
+                    <div class="imba-col imba-col-small font-size-small">
+                        {{RESPONSE_VIEWED_STATUS_RU[response.reviewStatus]}}
+                    </div>
+                    <div class="imba-timestamp imba-col imba-col-small"
+                         :title="new Date(response.startDate).toLocaleString()">
                         <vk-icon icon="clock" class="icon" :ratio="0.7"></vk-icon>
                         <span>{{ distanceInWords(new Date(response.startDate), new Date(), { locale: ru }) }} назад</span>
                     </div>
@@ -67,7 +70,8 @@
                                  :key="response.id">
                         <div class="imba-col imba-col-main">{{ response.name }} {{ response.lastName }}</div>
                         <div class="imba-col imba-col-main">{{response.email}}</div>
-                        <div class="imba-timestamp imba-col imba-col-small" :title="new Date(response.startDate).toLocaleString()">
+                        <div class="imba-timestamp imba-col imba-col-small"
+                             :title="new Date(response.startDate).toLocaleString()">
                             <vk-icon icon="clock" class="icon" :ratio="0.7"></vk-icon>
                             <span>{{ distanceInWords(new Date(response.startDate), new Date(), { locale: ru }) }} назад</span>
                         </div>
@@ -83,55 +87,55 @@
 </template>
 
 <script>
-  import { Vacancies } from '../../api';
-  import { distanceInWords } from 'date-fns';
-  import ru from 'date-fns/locale/ru';
-  import { RESPONSE_RU, RESPONSE_VIEWED_STATUS_RU, VACANCY_URL } from '../../utils/constants';
+    import {Vacancies} from '../../api';
+    import {distanceInWords} from 'date-fns';
+    import ru from 'date-fns/locale/ru';
+    import {RESPONSE_RU, RESPONSE_VIEWED_STATUS_RU, VACANCY_URL} from '../../utils/constants';
 
-  export default {
-    name: 'vacancy',
-    data() {
-      return {
-        vacancy: {},
-        responses: [],
-        uncompletedResponses: [],
-        distanceInWords,
-        ru,
-        RESPONSE_RU,
-        RESPONSE_VIEWED_STATUS_RU
-      };
-    },
-    computed: {
-      id() {
-        return this.$route.params.vacancyId;
-      }
-    },
-    created() {
-      this.$title('Вакансия');
+    export default {
+        name: 'vacancy',
+        data() {
+            return {
+                vacancy: {},
+                responses: [],
+                uncompletedResponses: [],
+                distanceInWords,
+                ru,
+                RESPONSE_RU,
+                RESPONSE_VIEWED_STATUS_RU
+            };
+        },
+        computed: {
+            id() {
+                return this.$route.params.vacancyId;
+            }
+        },
+        created() {
+            this.$title('Вакансия');
 
-      Vacancies.get(this.id)
-        .then(res => {
-          this.vacancy = res.data;
-        });
+            Vacancies.get(this.id)
+                .then(res => {
+                    this.vacancy = res.data;
+                });
 
-      Vacancies.getResponses(this.id)
-        .then(res => {
-          this.responses = res.data
-            .filter(e => e.status === 'COMPLETE')
-            .sort((a, b) => b.startDate - a.startDate);
+            Vacancies.getResponses(this.id)
+                .then(res => {
+                    this.responses = res.data
+                        .filter(e => e.status === 'COMPLETE')
+                        .sort((a, b) => b.startDate - a.startDate);
 
-          this.uncompletedResponses = res.data
-            .filter(e => e.status === 'INCOMPLETE');
-        });
-    },
+                    this.uncompletedResponses = res.data
+                        .filter(e => e.status === 'INCOMPLETE');
+                });
+        },
 
-    methods: {
-      copyVacancyLink(vacancy) {
-        this.$copyText(`${VACANCY_URL}/${vacancy.id}`).then(() => {
-        });
-      }
-    }
-  };
+        methods: {
+            copyVacancyLink(vacancy) {
+                this.$copyText(`${VACANCY_URL}/${vacancy.id}`).then(() => {
+                });
+            }
+        }
+    };
 </script>
 
 <style lang="scss">

@@ -39,30 +39,30 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import MenuList from './menu';
+    import {mapGetters} from 'vuex';
+    import MenuList from './menu';
 
-  export default {
-    name: 'app-sidebar',
-    components: {MenuList},
-    computed: {
-      ...mapGetters({
-        sidebar: 'sidebar',
-        company: 'company'
-      }),
-      companyName() {
-        return this.company && this.company.name ? this.company.name : 'Настройка компании';
-      }
-    },
-    methods: {
-      logout() {
-        this.$store.dispatch('deleteToken');
-        this.$store.dispatch('clearUserAndCompany');
-        this.$router.replace({path: '/login'});
-      }
-    }
+    export default {
+        name: 'app-sidebar',
+        components: {MenuList},
+        computed: {
+            ...mapGetters({
+                sidebar: 'sidebar',
+                company: 'company'
+            }),
+            companyName() {
+                return this.company && this.company.name ? this.company.name : 'Настройка компании';
+            }
+        },
+        methods: {
+            logout() {
+                this.$store.dispatch('deleteToken');
+                this.$store.dispatch('clearUserAndCompany');
+                this.$router.replace({path: '/login'});
+            }
+        }
 
-  };
+    };
 </script>
 
 <style lang="scss">

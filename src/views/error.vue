@@ -3,16 +3,18 @@
         <section class="error">
             <h1>404</h1>
             <h2>Упс! Вы попали не туда</h2>
-            <footer><router-link :to="'/'">Вернуться на главную</router-link></footer>
+            <footer>
+                <router-link :to="'/'">Вернуться на главную</router-link>
+            </footer>
         </section>
     </div>
 </template>
 
 <script>
-  export default {
-    name: 'not-found',
-    title: 'Упс! Что-то пошло не туда'
-  };
+    export default {
+        name: 'not-found',
+        title: 'Упс! Что-то пошло не туда'
+    };
 </script>
 
 <style lang="scss">

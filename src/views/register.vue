@@ -1,24 +1,27 @@
 <template>
-    <section class="login">
-        <header class="login-header">
+    <section class="register">
+        <header class="register-header">
             <img class="logo" src="../assets/images/logo.png">
         </header>
-        <el-form class="login-form" auto-complete="off" :model="model" :rules="rules" ref="login-form"
-                 @submit.prevent.native="submit('login-form')"
+        <el-form class="register-form" auto-complete="off" :model="model" :rules="rules" ref="register-form"
+                 @submit.prevent.native="submit('register-form')"
                  label-position="top">
-            <h2 class="heading">Вход</h2>
-            <el-form-item prop="username">
-                <el-input type="text" v-model="model.username" placeholder="Логин"/>
+            <h2 class="heading">Регистрация</h2>
+            <el-form-item prop="username" required="true">
+                <el-input type="text" v-model="model.username" placeholder="Логин (email)"/>
             </el-form-item>
-            <el-form-item prop="password">
+            <el-form-item prop="password" required="true">
                 <el-input type="password" v-model="model.password" placeholder="Пароль"/>
             </el-form-item>
+            <el-form-item prop="company" required="true">
+                <el-input type="password" v-model="model.company" placeholder="Название компании"/>
+            </el-form-item>
             <el-button type="primary" :loading="loading" native-type="submit">
-                {{ loading ? 'Загрузка...' : 'Войти' }}
+                {{ loading ? 'Загрузка...' : 'Зарегистрироваться' }}
             </el-button>
 
             <br><br>
-            <el-link icon="el-icon-edit" type="success" href="/register">Зарегистрироваться</el-link>
+            <el-link type="primary" href="/login">Уже зарегистрированы? Войти</el-link>
             <el-alert v-if="error" :title="error.title" type="warning" :description="error.message" show-icon/>
         </el-form>
     </section>
@@ -26,11 +29,12 @@
 
 <script>
     export default {
-        name: 'login',
+        name: 'register',
         data() {
             const model = {
                 username: '',
-                password: ''
+                password: '',
+                company: ''
             };
 
             const rules = {
@@ -39,6 +43,9 @@
                 ],
                 password: [
                     {required: true, message: 'Необходимо ввести пароль'}
+                ],
+                company: [
+                    {required: true, message: 'Необходимо ввести имя компании'}
                 ]
             };
 
@@ -46,7 +53,7 @@
         },
 
         created() {
-            this.$title('Вход');
+            this.$title('Регистрация');
         },
 
         methods: {
@@ -62,7 +69,7 @@
                     this.loading = true;
 
                     // create token from remote
-                    this.$store.dispatch('createToken', this.model)
+                    this.$store.dispatch('createCompany', this.model)
                         .then(() => {
                             this.$router.replace({path: this.$route.query.redirect || '/'});
                             this.loading = false;
@@ -87,7 +94,7 @@
 
 <style lang="scss">
 
-    .login {
+    .register {
         flex: 1;
         width: 95%;
         max-width: 22rem;
