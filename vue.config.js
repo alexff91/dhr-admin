@@ -2,8 +2,8 @@ module.exports = {
   baseUrl: '/',
   outputDir: 'dist',
   lintOnSave: true,
-  chainWebpack: config => {},
-  configureWebpack: config => {},
+  chainWebpack: config => { },
+  configureWebpack: config => { },
   productionSourceMap: true,
   css: {
     extract: true,
@@ -20,9 +20,10 @@ module.exports = {
     port: 9797,
     https: false,
     hotOnly: false,
+    disableHostCheck: true,
     // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
     proxy: null, // string | Object
-    before: app => {}
+    before: app => { }
   },
 
   // options for 3rd party plugins
