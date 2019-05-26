@@ -11,11 +11,12 @@ export const createToken = ({commit}, {username, password}) => {
         });
 };
 
-export const createCompany = ({commit}, {username, password, company}) => {
+export const createCompany = ({commit}, {username, password, company, phone}) => {
     return Registration.register({
         username: username.trim(),
         password: password.trim(),
-        company: company.trim()
+        company: company.trim(),
+        phone: phone.trim()
     })
         .then(res => {
             return Tokens.getToken({

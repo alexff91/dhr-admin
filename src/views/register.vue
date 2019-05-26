@@ -13,8 +13,11 @@
             <el-form-item prop="password" required="true">
                 <el-input type="password" v-model="model.password" placeholder="Пароль"/>
             </el-form-item>
+            <el-form-item prop="phone" required="true">
+                <el-input type="tel" v-model="model.phone" placeholder="Телефон"/>
+            </el-form-item>
             <el-form-item prop="company" required="true">
-                <el-input type="password" v-model="model.company" placeholder="Название компании"/>
+                <el-input type="text" v-model="model.company" placeholder="Название компании"/>
             </el-form-item>
             <el-button type="primary" :loading="loading" native-type="submit">
                 {{ loading ? 'Загрузка...' : 'Зарегистрироваться' }}
@@ -34,7 +37,8 @@
             const model = {
                 username: '',
                 password: '',
-                company: ''
+                company: '',
+                phone: ''
             };
 
             const rules = {
@@ -46,6 +50,9 @@
                 ],
                 company: [
                     {required: true, message: 'Необходимо ввести имя компании'}
+                ],
+                phone: [
+                    {required: true, message: 'Необходимо ввести телефон'}
                 ]
             };
 
