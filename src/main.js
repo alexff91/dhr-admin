@@ -6,7 +6,7 @@ import router from './router';
 import store from './store';
 import VueAnalytics from 'vue-analytics';
 import plugins from './plugins';
-import wysiwyg from 'vue-wysiwyg';
+import VEditor from 'yimo-vue-editor'
 import Vuikit from 'vuikit';
 import VuikitIcons from '@vuikit/icons';
 import VueClipboard from 'vue-clipboard2';
@@ -37,7 +37,6 @@ import {
 } from 'element-ui';
 
 import 'element-ui/lib/theme-chalk/index.css';
-import 'vue-wysiwyg/dist/vueWysiwyg.css';
 import '../src/assets/styles/main.scss';
 
 import 'vue2-toast/lib/toast.css';
@@ -45,11 +44,12 @@ import Toast from 'vue2-toast';
 
 Vue.use(Toast);
 Vue.use(VueClipboard);
-
+Vue.use(VEditor, {
+    name: 'v-editor-app',
+    config: {},
+});
 Vue.use(Vuikit);
 Vue.use(VuikitIcons);
-
-Vue.use(wysiwyg, {});
 
 Vue.use(Form);
 Vue.use(Link);

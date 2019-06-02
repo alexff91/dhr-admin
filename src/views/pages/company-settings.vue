@@ -4,7 +4,7 @@
             <input class="heading-input" v-model="company.name">
 
         </div>
-        <wysiwyg class="vacancy-description" v-model="company.description"></wysiwyg>
+        <yimo-vue-editor class="vacancy-description" v-model="company.description"></yimo-vue-editor>
         <h3>Лого:</h3>
         <div class="logo-preview" ref="logo-preview">
             <img v-if="company.logo && !newLogoSrc" :src="company.logo">
@@ -17,52 +17,56 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
-  import { Companies } from '../../api';
+    import {mapActions, mapGetters} from 'vuex';
+    import {Companies} from '../../api';
+    import YimoVueEditor from 'yimo-vue-editor'
 
-  export default {
-    name: 'company-settings',
-    data() {
-      return {
-        newLogoSrc: ''
-      };
-    },
-    computed: mapGetters({
-      company: 'company'
-    }),
-    created() {
-      if (!this.company) {
-        this.$store.dispatch('getUserAndCompany');
-      }
+    export default {
+        name: 'company-settings',
+        components: {
+            YimoVueEditor
+        },
+        data() {
+            return {
+                newLogoSrc: ''
+            };
+        },
+        computed: mapGetters({
+            company: 'company'
+        }),
+        created() {
+            if (!this.company) {
+                this.$store.dispatch('getUserAndCompany');
+            }
 
-      this.$title('Настройки компании');
-    },
-    methods: {
-      ...mapActions({
-        setCompany: 'setCompany'
-      }),
-      updateCompany() {
-        let updatedCompany = this.company;
+            this.$title('Настройки компании');
+        },
+        methods: {
+            ...mapActions({
+                setCompany: 'setCompany'
+            }),
+            updateCompany() {
+                let updatedCompany = this.company;
 
-        if (this.newLogoSrc) {
-          updatedCompany = {
-            ...this.company,
-            logo: this.newLogoSrc
-          };
+                if (this.newLogoSrc) {
+                    updatedCompany = {
+                        ...this.company,
+                        logo: this.newLogoSrc
+                    };
+                }
+
+                this.setCompany(updatedCompany);
+                Companies.put(this.company.id, updatedCompany);
+            },
+            onFileSelect(e) {
+                const reader = new FileReader();
+                reader.readAsDataURL(e.target.files[0]);
+                reader.onload = () => {
+                    this.newLogoSrc = reader.result;
+                };
+            }
         }
-
-        this.setCompany(updatedCompany);
-        Companies.put(this.company.id, updatedCompany);
-      },
-      onFileSelect(e) {
-        const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
-        reader.onload = () => {
-          this.newLogoSrc = reader.result;
-        };
-      }
-    }
-  };
+    };
 </script>
 
 <style lang="scss" scoped>

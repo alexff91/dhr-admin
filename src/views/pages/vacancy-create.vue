@@ -7,7 +7,7 @@
         <el-input placeholder="Название вакансии" v-model="position"></el-input>
         <br>
         <br>
-        <wysiwyg placeholder="Опишите вакансию" class="vacancy-description" v-model="description"></wysiwyg>
+        <yimo-vue-editor placeholder="Опишите вакансию" class="vacancy-description" v-model="description"></yimo-vue-editor>
 
         <h2>Вопросы</h2>
         <questions-editor v-model="questions"></questions-editor>
@@ -24,10 +24,10 @@
     import {Companies} from '../../api';
     import {mapGetters} from 'vuex';
     import QuestionsEditor from '../../components/questions-editor';
-
+    import YimoVueEditor from 'yimo-vue-editor'
     export default {
         name: 'vacancies',
-        components: {QuestionsEditor},
+        components: {QuestionsEditor, YimoVueEditor},
         data() {
             return {
                 position: '',

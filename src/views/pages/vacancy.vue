@@ -88,7 +88,6 @@
 
 <script>
     import {Vacancies} from '../../api';
-    import Vue from 'vue'
     import {distanceInWords} from 'date-fns';
     import ru from 'date-fns/locale/ru';
     import {RESPONSE_RU, RESPONSE_VIEWED_STATUS_RU, VACANCY_URL} from '../../utils/constants';

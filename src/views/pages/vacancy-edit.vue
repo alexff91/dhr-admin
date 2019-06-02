@@ -7,7 +7,7 @@
                 <div class="sub-title">Вакансия создана {{new Date(vacancy.creationDate).toLocaleString()}}</div>
             </div>
             <h2>Описание</h2>
-            <wysiwyg class="vacancy-description" v-model="vacancy.description"></wysiwyg>
+            <yimo-vue-editor class="vacancy-description" v-model="vacancy.description"></yimo-vue-editor>
 
             <h2>Вопросы</h2>
             <questions-editor v-model="vacancy.questions"></questions-editor>
@@ -25,10 +25,10 @@
 <script>
     import {Vacancies} from '../../api';
     import QuestionsEditor from '../../components/questions-editor';
-
+    import YimoVueEditor from 'yimo-vue-editor'
     export default {
         name: 'vacancy-edit',
-        components: {QuestionsEditor},
+        components: {QuestionsEditor, YimoVueEditor},
         data() {
             return {
                 vacancy: {}
