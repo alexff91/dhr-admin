@@ -184,6 +184,7 @@
 
             copyExpertLink() {
                 this.$copyText(`${location.href}/review`).then(() => {
+                    this.$toast.center('Ссылка скопирована');
                     // vacancy.tooltipIsVisible = true;
                     setTimeout(() => {
                         // vacancy.tooltipIsVisible = false;

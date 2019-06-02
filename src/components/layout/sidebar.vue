@@ -126,7 +126,7 @@
 
     .sidebar-button {
         width: 80%;
-        background-color: #c036ff;
+        background-color: #4c8dff;
         padding: .75rem 1.2rem;
         margin: 1rem auto;
         color: #fff;

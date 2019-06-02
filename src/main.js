@@ -33,13 +33,17 @@ import {
     Submenu,
     TabPane,
     Tabs,
-    Tooltip
+    Tooltip,
 } from 'element-ui';
 
 import 'element-ui/lib/theme-chalk/index.css';
 import 'vue-wysiwyg/dist/vueWysiwyg.css';
 import '../src/assets/styles/main.scss';
 
+import 'vue2-toast/lib/toast.css';
+import Toast from 'vue2-toast';
+
+Vue.use(Toast);
 Vue.use(VueClipboard);
 
 Vue.use(Vuikit);
